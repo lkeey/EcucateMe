@@ -9,15 +9,15 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun LoginScreen(
-//    viewModel: LoginViewModel = koinViewModel(),
+    viewModel: LoginViewModel = koinViewModel(),
     navController: NavController
 ) {
-//    val state by viewModel.state.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     LoginView(
-//        state = state,
-//        onAction = { action ->
-//            viewModel.onAction(action)
-//        }
+        state = state,
+        onAction = { action ->
+            viewModel.onAction(action)
+        }
     )
 }
