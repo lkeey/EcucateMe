@@ -133,7 +133,7 @@ fun LoginView(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color = Theme.colors.secondaryBackground)
+                .background(color = Theme.colors.secondaryScreen)
                 .padding(horizontal = 54.dp, vertical = 16.dp),
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally

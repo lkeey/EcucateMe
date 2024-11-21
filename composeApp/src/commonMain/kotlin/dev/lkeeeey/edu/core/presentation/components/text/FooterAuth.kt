@@ -47,7 +47,7 @@ fun FooterAuth (
             lineHeight = 21.sp,
             fontFamily = FontFamily(Font(Res.font.Thin)),
             fontWeight = FontWeight(400),
-            color = Theme.colors.primaryBackground,
+            color = Theme.colors.primaryBackground.copy(alpha = 1f),
         )
     )
 }
