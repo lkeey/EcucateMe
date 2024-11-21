@@ -4,7 +4,6 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
@@ -13,6 +12,7 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import dev.lkeeeey.edu.auth.presentation.login.LoginScreen
 import dev.lkeeeey.edu.auth.presentation.login.viewmodel.LoginViewModel
+import dev.lkeeeey.edu.auth.presentation.register.RegisterScreen
 import dev.lkeeeey.edu.auth.presentation.register.viewmodel.RegisterViewModel
 import dev.lkeeeey.edu.auth.presentation.splash.SplashScreen
 import dev.lkeeeey.edu.auth.presentation.splash.viewmodel.SplashViewModel
