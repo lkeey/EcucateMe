@@ -35,6 +35,8 @@ class LoginViewModel (
                     )
                 }
             }
+
+            LoginAction.OnSignUp -> {  }
         }
     }
 

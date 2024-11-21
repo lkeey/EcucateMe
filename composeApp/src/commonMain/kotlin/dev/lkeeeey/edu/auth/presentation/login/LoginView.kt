@@ -143,6 +143,7 @@ fun LoginView(
                 offer = "Зарегистрировать учетную запись"
             ) {
                 // TODO navigate to sign up
+                onAction(LoginAction.OnSignUp)
             }
         }
     }

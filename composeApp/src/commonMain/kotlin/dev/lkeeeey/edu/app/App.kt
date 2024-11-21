@@ -13,6 +13,7 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import dev.lkeeeey.edu.auth.presentation.login.LoginScreen
 import dev.lkeeeey.edu.auth.presentation.login.viewmodel.LoginViewModel
+import dev.lkeeeey.edu.auth.presentation.register.viewmodel.RegisterViewModel
 import dev.lkeeeey.edu.auth.presentation.splash.SplashScreen
 import dev.lkeeeey.edu.auth.presentation.splash.viewmodel.SplashViewModel
 import dev.lkeeeey.edu.core.presentation.EduMeTheme
@@ -72,6 +73,13 @@ fun App() {
                     } }
                 ) {
 //                    Register Screen
+
+                    val viewModel = koinViewModel<RegisterViewModel>()
+
+                    RegisterScreen(
+                        viewModel = viewModel,
+                        navController = navController
+                    )
                 }
             }
             navigation<Route.Main>(
