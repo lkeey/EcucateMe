@@ -1,9 +1,13 @@
 package dev.lkeeeey.edu.auth.presentation.login.viewmodel
 
+import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 
@@ -40,7 +44,21 @@ class LoginViewModel (
                 checkEnabled()
             }
 
-            LoginAction.OnSignUp -> {  }
+            is LoginAction.OnSignUp -> {
+                _state.update {
+                    it.copy(
+                        event = LoginEvent.OpenSignUp
+                    )
+                }
+            }
+
+            is LoginAction.ClearEvents -> {
+                _state.update {
+                    it.copy(
+                        event = LoginEvent.Nothing
+                    )
+                }
+            }
         }
     }
 
@@ -61,12 +79,19 @@ class LoginViewModel (
     }
 
     private fun login() {
-        // TODO some logic
 
         _state.update {
             it.copy(
                 isLoading = true,
                 isButtonEnabled = false
+            )
+        }
+
+        // TODO some logic
+
+        _state.update {
+            it.copy(
+                event = LoginEvent.OpenMain
             )
         }
 

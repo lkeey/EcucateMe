@@ -30,7 +30,13 @@ class RegisterViewModel (
 
                 checkEnabled()
             }
-            is RegisterAction.OnLogin -> { }
+            is RegisterAction.OnLogin -> {
+                _state.update {
+                    it.copy(
+                        event = RegisterEvent.OpenLogin
+                    )
+                }
+            }
             is RegisterAction.OnPasswordChanged -> {
                 _state.update {
                     it.copy(
@@ -49,6 +55,14 @@ class RegisterViewModel (
                 }
 
                 checkEnabled()
+            }
+
+            RegisterAction.ClearEvents -> {
+                _state.update {
+                    it.copy(
+                        event = RegisterEvent.Nothing
+                    )
+                }
             }
         }
     }
@@ -79,6 +93,10 @@ class RegisterViewModel (
             )
         }
 
-
+        _state.update {
+            it.copy(
+                event = RegisterEvent.OpenMain
+            )
+        }
     }
 }

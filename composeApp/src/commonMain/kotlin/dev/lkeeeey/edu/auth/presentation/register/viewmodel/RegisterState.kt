@@ -9,4 +9,6 @@ data class RegisterState(
 
     val isLoading: Boolean = false,
     val isButtonEnabled: Boolean = false,
+
+    val event: RegisterEvent = RegisterEvent.Nothing,
 )

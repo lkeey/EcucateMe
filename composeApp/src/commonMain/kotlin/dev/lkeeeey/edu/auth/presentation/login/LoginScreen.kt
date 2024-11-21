@@ -6,6 +6,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import dev.lkeeeey.edu.app.Route
 import dev.lkeeeey.edu.auth.presentation.login.viewmodel.LoginAction
+import dev.lkeeeey.edu.auth.presentation.login.viewmodel.LoginEvent
 import dev.lkeeeey.edu.auth.presentation.login.viewmodel.LoginViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -16,17 +17,24 @@ fun LoginScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
+    when (state.event) {
+        LoginEvent.OpenMain -> {
+            navController.navigate(Route.Calendar)
+
+            viewModel.onAction(LoginAction.ClearEvents)
+        }
+        LoginEvent.OpenSignUp -> {
+            navController.navigate(Route.Register)
+
+            viewModel.onAction(LoginAction.ClearEvents)
+        }
+        LoginEvent.Nothing -> {  }
+    }
+
     LoginView(
         state = state,
         onAction = { action ->
-            when (action) {
-                is LoginAction.OnSignUp -> {
-                    navController.navigate(Route.Register)
-                }
-                else -> {
-                    viewModel.onAction(action)
-                }
-            }
+            viewModel.onAction(action)
         }
     )
 }

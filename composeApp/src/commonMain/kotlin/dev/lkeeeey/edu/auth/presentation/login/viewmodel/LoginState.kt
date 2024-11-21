@@ -8,5 +8,7 @@ data class LoginState (
     val isButtonEnabled: Boolean = false,
     val isError: Boolean = false,
 
-    val errorMessage: String = ""
+    val errorMessage: String = "",
+
+    val event: LoginEvent = LoginEvent.Nothing,
 )
