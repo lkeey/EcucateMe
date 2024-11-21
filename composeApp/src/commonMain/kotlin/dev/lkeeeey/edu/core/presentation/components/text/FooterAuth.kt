@@ -13,6 +13,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
+import ecucateme.composeapp.generated.resources.Res
+import ecucateme.composeapp.generated.resources.Thin
 import org.jetbrains.compose.resources.Font
 
 @Composable
@@ -26,7 +28,7 @@ fun FooterAuth (
         style = TextStyle(
             fontSize = 12.sp,
             lineHeight = 21.sp,
-            fontFamily = FontFamily(Font(R.font.regular)),
+            fontFamily = FontFamily(Font(Res.font.Thin)),
             fontWeight = FontWeight(400),
             color = Theme.colors.blackProfile,
             textAlign = TextAlign.Center
@@ -43,7 +45,7 @@ fun FooterAuth (
         style = TextStyle(
             fontSize = 12.sp,
             lineHeight = 21.sp,
-            fontFamily = FontFamily(Font(R.font.regular)),
+            fontFamily = FontFamily(Font(Res.font.Thin)),
             fontWeight = FontWeight(400),
             color = Theme.colors.primaryBackground,
         )

@@ -26,6 +26,10 @@ import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
 import dev.lkeeeey.edu.core.presentation.components.text.ShowError
 import ecucateme.composeapp.generated.resources.Res
+import ecucateme.composeapp.generated.resources.Thin
+import ecucateme.composeapp.generated.resources.ic_authentication_closed_eye
+import ecucateme.composeapp.generated.resources.ic_authentication_opened_eye
+import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -68,7 +72,7 @@ fun PasswordField(
                     text = label,
                     style = TextStyle(
                         fontSize = 16.sp,
-                        fontFamily = FontFamily(Font(R.font.regular)),
+                        fontFamily = FontFamily(Font(Res.font.Thin)),
                         fontWeight = FontWeight(400),
                         color = if (isError) Theme.colors.errorColor else Theme.colors.editPlaceholder,
                         letterSpacing = 0.3.sp,
@@ -79,7 +83,7 @@ fun PasswordField(
                     text = "*",
                     style = TextStyle(
                         fontSize = 16.sp,
-                        fontFamily = FontFamily(Font(R.font.medium)),
+                        fontFamily = FontFamily(Font(Res.font.Thin)),
                         fontWeight = FontWeight(500),
                         color = Theme.colors.primaryBackground,
                         letterSpacing = 0.3.sp,
@@ -102,7 +106,7 @@ fun PasswordField(
                 }
             ) {
                 Icon(
-                    painter = painterResource(id = if (isVisible) Res.drawable.ic_authentication_opened_eye else Res.drawable.ic_authentication_closed_eye),
+                    painter = painterResource(resource = if (isVisible) Res.drawable.ic_authentication_opened_eye else Res.drawable.ic_authentication_closed_eye),
                     contentDescription = description,
                     tint = if (isError) Theme.colors.errorColor else Theme.colors.blackProfile,
                 )
