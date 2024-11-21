@@ -27,6 +27,8 @@ class RegisterViewModel (
                         confirmedPassword = event.password
                     )
                 }
+
+                checkEnabled()
             }
             is RegisterAction.OnLogin -> { }
             is RegisterAction.OnPasswordChanged -> {
@@ -35,6 +37,8 @@ class RegisterViewModel (
                         password = event.password
                     )
                 }
+
+                checkEnabled()
             }
             is RegisterAction.OnSignUp -> signup()
             is RegisterAction.OnUsernameChanged -> {
@@ -43,11 +47,38 @@ class RegisterViewModel (
                         username = event.username
                     )
                 }
+
+                checkEnabled()
+            }
+        }
+    }
+
+    private fun checkEnabled() {
+        if (state.value.password.isNotEmpty() && state.value.username.isNotEmpty() && state.value.confirmedPassword.isNotEmpty()) {
+            _state.update {
+                it.copy(
+                    isButtonEnabled = true
+                )
+            }
+        } else {
+            _state.update {
+                it.copy(
+                    isButtonEnabled = false
+                )
             }
         }
     }
 
     private fun signup() {
         // sign up
+
+        _state.update {
+            it.copy(
+                isLoading = true,
+                isButtonEnabled = false
+            )
+        }
+
+
     }
 }

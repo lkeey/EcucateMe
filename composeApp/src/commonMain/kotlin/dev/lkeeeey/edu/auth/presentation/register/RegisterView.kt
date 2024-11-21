@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -38,7 +39,8 @@ fun RegisterView (
     Column (
         modifier = Modifier
             .background(Theme.colors.secondaryBackground)
-            .fillMaxSize(),
+            .fillMaxSize()
+            .blur(if (state.isLoading) 4.dp else 0.dp),
         verticalArrangement = Arrangement.SpaceBetween
     ){
         Column(
@@ -84,7 +86,7 @@ fun RegisterView (
 
             FilledBtn(
                 padding = 0.dp,
-                isEnabled = state.isLoading,
+                isEnabled = state.isButtonEnabled,
                 text = "Зарегистрироваться",
             ) {
                 onAction(RegisterAction.OnSignUp)

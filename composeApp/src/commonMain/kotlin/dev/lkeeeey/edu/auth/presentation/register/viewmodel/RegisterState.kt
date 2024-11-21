@@ -8,4 +8,5 @@ data class RegisterState(
     val passwordError: String? = null,
 
     val isLoading: Boolean = false,
+    val isButtonEnabled: Boolean = false,
 )

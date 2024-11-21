@@ -1,6 +1,5 @@
 package dev.lkeeeey.edu.auth.presentation.login
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -33,9 +32,7 @@ import dev.lkeeeey.edu.core.presentation.components.text.FooterAuth
 import dev.lkeeeey.edu.core.presentation.components.text.Header
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
-import ecucateme.composeapp.generated.resources.logo
 import org.jetbrains.compose.resources.Font
-import org.jetbrains.compose.resources.painterResource
 
 
 @Composable

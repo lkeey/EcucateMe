@@ -58,20 +58,17 @@ class LoginViewModel (
                 )
             }
         }
-
-        println("enabled ${state.value.isButtonEnabled} ${state.value.username} ${state.value.password}")
-
     }
 
     private fun login() {
-        // DO some logic
+        // TODO some logic
 
         _state.update {
             it.copy(
-                isLoading = true
+                isLoading = true,
+                isButtonEnabled = false
             )
         }
 
-        println("send request with ${state.value.username} ${state.value.password}")
     }
 }
