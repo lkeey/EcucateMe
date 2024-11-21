@@ -34,7 +34,7 @@ fun FilledBtn (
             .padding(horizontal = padding),
         shape = RoundedCornerShape(size = 16.dp),
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = Theme.colors.primaryBackground,
+            backgroundColor = Theme.colors.primaryBackground.copy(alpha = 1f),
             disabledBackgroundColor = Theme.colors.primaryBackground.copy(alpha = 0.3f)
         ),
         onClick = onClick,

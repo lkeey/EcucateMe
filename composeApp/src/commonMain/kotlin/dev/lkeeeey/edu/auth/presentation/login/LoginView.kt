@@ -75,7 +75,7 @@ fun LoginView(
             PasswordField(
                 previousData = state.password,
                 label = "Пароль",
-                isError = state.isPasswordError,
+                isError = state.isError,
                 errorText = state.errorMessage
             ) {
                 onAction(LoginAction.OnPasswordChanged(it))
@@ -85,7 +85,7 @@ fun LoginView(
 
             FilledBtn(
                 padding = 0.dp,
-                isEnabled = state.isLoading,
+                isEnabled = state.isButtonEnabled,
                 text = "Войти",
             ) {
                 onAction(LoginAction.OnLogin)

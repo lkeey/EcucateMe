@@ -27,20 +27,51 @@ class LoginViewModel (
                         password = action.password
                     )
                 }
+
+                checkEnabled()
             }
             is LoginAction.OnUsernameChanged -> {
                 _state.update {
                     it.copy(
-                        password = action.username
+                        username = action.username
                     )
                 }
+
+                checkEnabled()
             }
 
             LoginAction.OnSignUp -> {  }
         }
     }
 
+    private fun checkEnabled() {
+        if (state.value.password.isNotEmpty() && state.value.username.isNotEmpty()) {
+            _state.update {
+                it.copy(
+                    isButtonEnabled = true
+                )
+            }
+        } else {
+            _state.update {
+                it.copy(
+                    isButtonEnabled = false
+                )
+            }
+        }
+
+        println("enabled ${state.value.isButtonEnabled} ${state.value.username} ${state.value.password}")
+
+    }
+
     private fun login() {
         // DO some logic
+
+        _state.update {
+            it.copy(
+                isLoading = true
+            )
+        }
+
+        println("send request with ${state.value.username} ${state.value.password}")
     }
 }
