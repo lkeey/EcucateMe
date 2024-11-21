@@ -16,12 +16,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
 import dev.lkeeeey.edu.core.presentation.components.text.ShowError
+import ecucateme.composeapp.generated.resources.Res
+import ecucateme.composeapp.generated.resources.Thin
+import org.jetbrains.compose.resources.Font
 
 @Composable
 fun OutlinedText (
@@ -48,7 +52,7 @@ fun OutlinedText (
                     text = label,
                     style = TextStyle(
                         fontSize = 16.sp,
-//                        fontFamily = FontFamily(Font(R.font.regular)),
+                        fontFamily = FontFamily(Font(Res.font.Thin)),
                         fontWeight = FontWeight(400),
                         color = Theme.colors.secondaryBorder,
                         letterSpacing = 0.3.sp,
@@ -59,16 +63,18 @@ fun OutlinedText (
                     text = "*",
                     style = TextStyle(
                         fontSize = 16.sp,
-                        color = if(isError) Theme.colors.errorColor else Theme.colors.primaryAction,
+                        fontFamily = FontFamily(Font(Res.font.Thin)),
+                        fontWeight = FontWeight(500),
+                        color = if(isError) Theme.colors.errorColor else Theme.colors.editPlaceholder,
                         letterSpacing = 0.3.sp
                     )
                 )
             }
         },
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = if(isSuccess) Theme.colors.primaryAction else Black,
-            focusedLabelColor = if(isSuccess) Theme.colors.primaryAction else Black,
-            cursorColor = if(isSuccess) Theme.colors.primaryAction else Black,
+            focusedBorderColor = Black,
+            focusedLabelColor = Black,
+            cursorColor = Black,
             backgroundColor = White,
             errorBorderColor = Theme.colors.errorColor,
         ),

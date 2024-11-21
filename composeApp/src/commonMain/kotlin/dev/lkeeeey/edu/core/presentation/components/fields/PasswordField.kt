@@ -15,6 +15,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -60,10 +62,10 @@ fun PasswordField(
             }
         },
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Theme.colors.primaryBackground,
-            focusedLabelColor = Theme.colors.primaryBackground,
-            cursorColor = Theme.colors.primaryBackground,
-            backgroundColor = Theme.colors.secondaryBackground,
+            focusedBorderColor = Black,
+            focusedLabelColor = Black,
+            cursorColor = Black,
+            backgroundColor = White,
             errorBorderColor = Theme.colors.errorColor
         ),
         label = {
@@ -85,7 +87,7 @@ fun PasswordField(
                         fontSize = 16.sp,
                         fontFamily = FontFamily(Font(Res.font.Thin)),
                         fontWeight = FontWeight(500),
-                        color = Theme.colors.primaryBackground,
+                        color = Theme.colors.editPlaceholder,
                         letterSpacing = 0.3.sp,
                     )
                 )

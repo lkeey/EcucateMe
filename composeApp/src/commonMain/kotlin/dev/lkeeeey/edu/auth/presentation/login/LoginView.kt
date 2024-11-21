@@ -58,6 +58,8 @@ fun LoginView(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
+            Spacer(modifier = Modifier.padding(top = 8.dp))
+
             Image (
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -65,14 +67,14 @@ fun LoginView(
                 contentDescription = "image auth my olimp"
             )
 
-            Spacer(modifier = Modifier.padding(top = 9.dp))
+            Spacer(modifier = Modifier.padding(top = 16.dp))
 
             Text(
                 text = "Войти в сервис",
                 style = TextStyle(
                     fontSize = 18.sp,
                     fontFamily = FontFamily(Font(Res.font.Thin)),
-                    fontWeight = FontWeight(400),
+                    fontWeight = FontWeight(700),
                     color = Theme.colors.defaultText,
                     textAlign = TextAlign.Center,
                 )

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 
 class LoginViewModel (
 
@@ -19,9 +20,25 @@ class LoginViewModel (
 
     fun onAction(action: LoginAction) {
         when (action) {
-            LoginAction.OnLogin -> TODO()
-            is LoginAction.OnPasswordChanged -> TODO()
-            is LoginAction.OnUsernameChanged -> TODO()
+            LoginAction.OnLogin -> login()
+            is LoginAction.OnPasswordChanged -> {
+                _state.update {
+                    it.copy(
+                        password = action.password
+                    )
+                }
+            }
+            is LoginAction.OnUsernameChanged -> {
+                _state.update {
+                    it.copy(
+                        password = action.username
+                    )
+                }
+            }
         }
+    }
+
+    private fun login() {
+        // DO some logic
     }
 }
