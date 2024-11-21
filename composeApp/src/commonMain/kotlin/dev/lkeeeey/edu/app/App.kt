@@ -13,12 +13,15 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import dev.lkeeeey.edu.auth.presentation.login.LoginScreen
 import dev.lkeeeey.edu.auth.presentation.splash.SplashScreen
+import dev.lkeeeey.edu.auth.presentation.splash.viewmodel.SplashViewModel
+import dev.lkeeeey.edu.core.presentation.EduMeTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
+    EduMeTheme {
         val navController = rememberNavController()
         NavHost(
             navController = navController,
@@ -32,7 +35,11 @@ fun App() {
                     popEnterTransition = { slideInHorizontally() }
                 ) {
 //                    Splash screen
+
+                    val viewModel = koinViewModel<SplashViewModel>()
+
                     SplashScreen(
+                        viewModel = viewModel,
                         navController = navController
                     )
                 }
