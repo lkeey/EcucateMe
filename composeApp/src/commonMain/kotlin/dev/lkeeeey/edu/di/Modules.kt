@@ -1,5 +1,8 @@
 package dev.lkeeeey.edu.di
 
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import dev.lkeeeey.edu.auth.data.database.DatabaseFactory
+import dev.lkeeeey.edu.auth.data.database.UserDatabase
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import dev.lkeeeey.edu.auth.presentation.splash.viewmodel.SplashViewModel
@@ -21,6 +24,13 @@ val sharedModule = module {
     single { HttpClientFactory.create(get()) }
     singleOf(::KtorRemoteBookDataSource).bind<RemoteAuthDataSource>()
     singleOf(::AuthRepositoryImpl).bind<AuthRepository>()
+
+    single {
+        get<DatabaseFactory>().create()
+            .setDriver(BundledSQLiteDriver())
+            .build()
+    }
+    single { get<UserDatabase>().userDao }
 
     viewModelOf(::SplashViewModel)
     viewModelOf(::LoginViewModel)
