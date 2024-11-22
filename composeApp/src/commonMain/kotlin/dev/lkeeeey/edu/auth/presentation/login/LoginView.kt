@@ -60,6 +60,19 @@ fun LoginView(
                 "Войти в сервис"
             )
 
+            if (state.isError) {
+                Text(
+                    text = state.errorMessage,
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(Res.font.Thin)),
+                        fontWeight = FontWeight(400),
+                        color = Theme.colors.errorColor,
+                        textAlign = TextAlign.Center
+                    )
+                )
+            }
+
             OutlinedText(
                 previousData = state.username,
                 label = "Телеграмм",

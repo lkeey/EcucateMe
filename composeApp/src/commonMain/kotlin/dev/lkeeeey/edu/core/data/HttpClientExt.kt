@@ -19,6 +19,7 @@ suspend inline fun <reified T> safeCall(
     } catch(e: UnresolvedAddressException) {
         return dev.lkeeeey.edu.core.domain.Result.Error(DataError.Remote.NO_INTERNET)
     } catch (e: Exception) {
+        println("erroooooor- " + e.message)
         coroutineContext.ensureActive()
         return dev.lkeeeey.edu.core.domain.Result.Error(DataError.Remote.UNKNOWN)
     }

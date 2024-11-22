@@ -1,18 +1,20 @@
 package dev.lkeeeey.edu.auth.presentation.login.viewmodel
 
-import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
+import dev.lkeeeey.edu.auth.domain.AuthRepository
+import dev.lkeeeey.edu.auth.domain.models.LoginRequest
+import dev.lkeeeey.edu.core.domain.onError
+import dev.lkeeeey.edu.core.domain.onSuccess
+import dev.lkeeeey.edu.core.presentation.toStr
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class LoginViewModel (
-
+    private val authRepository: AuthRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(LoginState())
@@ -66,7 +68,8 @@ class LoginViewModel (
         if (state.value.password.isNotEmpty() && state.value.username.isNotEmpty()) {
             _state.update {
                 it.copy(
-                    isButtonEnabled = true
+                    isButtonEnabled = true,
+                    isError = false
                 )
             }
         } else {
@@ -87,13 +90,36 @@ class LoginViewModel (
             )
         }
 
-        // TODO some logic
+        // login
+        viewModelScope.launch {
+            authRepository
+                .loginUser(
+                    query = LoginRequest(
+                        username = state.value.username,
+                        password = state.value.password,
+                    )
+                )
+                .onSuccess { token->
+                    println("access token is us - $token")
 
-        _state.update {
-            it.copy(
-                event = LoginEvent.OpenMain
-            )
+//                    TODO save to local Database
+
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            event = LoginEvent.OpenMain
+                        )
+                    }
+                }
+                .onError { error->
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            isError = true,
+                            errorMessage = error.toStr()
+                        )
+                    }
+                }
         }
-
     }
 }

@@ -13,7 +13,7 @@ import io.ktor.client.request.parameter
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 
-private const val BASE_URL = "https://me-educate.ru/api/"
+private const val BASE_URL = "https://me-educate.ru/api"
 
 class KtorRemoteBookDataSource(
     private val httpClient: HttpClient
