@@ -55,6 +55,19 @@ fun RegisterView (
                 actionText = "Для создания  учетной записи укажите свои данные:"
             )
 
+            if (state.isError) {
+                Text(
+                    text = state.errorMessage,
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(Res.font.Thin)),
+                        fontWeight = FontWeight(400),
+                        color = Theme.colors.errorColor,
+                        textAlign = TextAlign.Center
+                    )
+                )
+            }
+
             OutlinedText(
                 previousData = "",
                 label = "Телеграмм",
@@ -76,8 +89,8 @@ fun RegisterView (
             PasswordField(
                 previousData = "",
                 label = "Подвтерждение пароля",
-                isError = state.passwordError != null,
-                errorText = state.passwordError ?: ""
+                isError = state.isError,
+                errorText = state.errorMessage
             ) {
                 onAction(RegisterAction.OnConfirmedPasswordChanged(it))
             }

@@ -5,10 +5,11 @@ data class RegisterState(
     val password: String = "",
     val confirmedPassword: String = "",
 
-    val passwordError: String? = null,
-
     val isLoading: Boolean = false,
     val isButtonEnabled: Boolean = false,
+    val isError: Boolean = false,
+
+    val errorMessage: String = "",
 
     val event: RegisterEvent = RegisterEvent.Nothing,
 )

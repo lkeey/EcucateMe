@@ -1,7 +1,6 @@
 package dev.lkeeeey.edu.auth.data.network
 
 import dev.lkeeeey.edu.auth.data.dto.AuthLoginDto
-import dev.lkeeeey.edu.auth.domain.models.AuthResponse
 import dev.lkeeeey.edu.auth.domain.models.LoginRequest
 import dev.lkeeeey.edu.auth.domain.models.RegisterRequest
 import dev.lkeeeey.edu.core.data.responseToResult
@@ -10,8 +9,6 @@ import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import io.ktor.client.HttpClient
 import io.ktor.client.network.sockets.SocketTimeoutException
-import io.ktor.client.request.get
-import io.ktor.client.request.parameter
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.setCookie
@@ -60,7 +57,7 @@ class KtorRemoteBookDataSource(
             return Result.Error(DataError.Remote.UNKNOWN)
         }
 
-        // save into local database
+        // TODO save into local database
 
         println("find cookies - ${response.setCookie()}")
 
