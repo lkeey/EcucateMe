@@ -17,6 +17,7 @@ import dev.lkeeeey.edu.auth.presentation.register.viewmodel.RegisterViewModel
 import dev.lkeeeey.edu.auth.presentation.splash.SplashScreen
 import dev.lkeeeey.edu.auth.presentation.splash.viewmodel.SplashViewModel
 import dev.lkeeeey.edu.core.presentation.EduMeTheme
+import dev.lkeeeey.edu.main.presentation.calendar.CalendarScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -90,14 +91,9 @@ fun App() {
                     popEnterTransition = { slideInHorizontally() }
                 ) {
 //                    Calendar screen
-                    Column {
-                        Text("Calendar")
-                        Button(onClick = {
-                            navController.navigate(Route.Profile)
-                        }) {
-                            Text("To profile")
-                        }
-                    }
+
+                    CalendarScreen()
+
                 }
 
                 composable<Route.Profile>(
