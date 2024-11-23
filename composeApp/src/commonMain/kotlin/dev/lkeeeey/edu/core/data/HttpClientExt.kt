@@ -1,14 +1,11 @@
 package dev.lkeeeey.edu.core.data
 
-import dev.lkeeeey.edu.auth.domain.models.AuthResponse
-import dev.lkeeeey.edu.auth.domain.models.LoginRequest
 import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import io.ktor.client.call.NoTransformationFoundException
 import io.ktor.client.call.body
 import io.ktor.client.network.sockets.SocketTimeoutException
 import io.ktor.client.statement.HttpResponse
-import io.ktor.client.statement.bodyAsText
 import io.ktor.http.setCookie
 import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.coroutines.ensureActive
@@ -59,7 +56,7 @@ suspend inline fun <reified T> safeCallWithCookies(
     try {
         val cookies = response.setCookie()[0].value
 
-        print(response.setCookie() + " " + cookies)
+        saveToLocalDB(cookies)
     } catch (e : Exception) {
         println("wwww ${e.message}")
     }

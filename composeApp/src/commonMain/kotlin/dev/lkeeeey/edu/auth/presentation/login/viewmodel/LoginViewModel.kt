@@ -98,9 +98,22 @@ class LoginViewModel (
                 .loginUser(
                     saveCookies = { cookie->
                         viewModelScope.launch {
-                            authRepository.updateRefreshToken(
-                                refresh = cookie
-                            )
+                            authRepository
+                                .updateRefreshToken(
+                                    refresh = cookie
+                                )
+                                .onSuccess {
+                                    println("refresh in login - $cookie")
+                                }
+                                .onError { error->
+                                    _state.update {
+                                        it.copy(
+                                            isLoading = false,
+                                            isError = true,
+                                            errorMessage = error.toStr()
+                                        )
+                                    }
+                                }
                         }
                     },
                     query = LoginRequest(
@@ -109,24 +122,34 @@ class LoginViewModel (
                     )
                 )
                 .onSuccess { response->
-                    println("access token is us - ${response.access}")
-
-                    authRepository.updateAccessToken(
-                        access = response.access
-                    )
-
-                    val user : List<UserEntity>? = authRepository
-                        .getUserEntity()
-                        .firstOrNull()
-
-                    println("all user - ${user?.get(0)}")
-
-                    _state.update {
-                        it.copy(
-                            isLoading = false,
-                            event = LoginEvent.OpenMain
+                    authRepository
+                        .updateAccessToken(
+                            access = response.access
                         )
-                    }
+                        .onSuccess {
+                            println("access token is us - ${response.access}")
+
+                            val user : List<UserEntity>? = authRepository
+                                .getUserEntity()
+                                .firstOrNull()
+
+                            println("all user - ${user?.get(0)}")
+
+                            _state.update {
+                                it.copy(
+                                    isLoading = false,
+                                    event = LoginEvent.OpenMain
+                                )
+                            }
+                        }.onError { error->
+                            _state.update {
+                                it.copy(
+                                    isLoading = false,
+                                    isError = true,
+                                    errorMessage = error.toStr()
+                                )
+                            }
+                        }
                 }
                 .onError { error->
                     _state.update {
