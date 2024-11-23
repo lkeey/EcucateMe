@@ -5,6 +5,7 @@ import dev.lkeeeey.edu.auth.domain.models.LoginRequest
 import dev.lkeeeey.edu.auth.domain.models.RegisterRequest
 import dev.lkeeeey.edu.core.data.responseToResult
 import dev.lkeeeey.edu.core.data.safeCall
+import dev.lkeeeey.edu.core.data.safeCallWithCookies
 import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import io.ktor.client.HttpClient
@@ -25,9 +26,12 @@ class KtorRemoteBookDataSource(
 ): RemoteAuthDataSource {
 
     override suspend fun loginUser(
-        query: LoginRequest
+        query: LoginRequest,
+        saveCookies: (String) -> Unit
     ): Result<AuthLoginDto, DataError.Remote> {
-        return safeCall<AuthLoginDto> {
+        return safeCallWithCookies<AuthLoginDto> (
+            saveToLocalDB = saveCookies
+        ) {
             httpClient.post(
                 urlString = "$BASE_URL/auth/login"
             ) {
@@ -37,6 +41,20 @@ class KtorRemoteBookDataSource(
             }
         }
     }
+
+//    override suspend fun loginUser(
+//        query: LoginRequest
+//    ): Result<AuthLoginDto, DataError.Remote> {
+//        return safeCall<AuthLoginDto> {
+//            httpClient.post(
+//                urlString = "$BASE_URL/auth/login"
+//            ) {
+//                setBody(
+//                    query
+//                )
+//            }
+//        }
+//    }
 
 //    override suspend fun loginUser(
 //        query: LoginRequest

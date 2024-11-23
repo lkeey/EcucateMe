@@ -2,6 +2,7 @@ package dev.lkeeeey.edu.auth.presentation.login.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dev.lkeeeey.edu.auth.data.database.UserEntity
 import dev.lkeeeey.edu.auth.domain.AuthRepository
 import dev.lkeeeey.edu.auth.domain.models.LoginRequest
 import dev.lkeeeey.edu.core.domain.onError
@@ -9,6 +10,7 @@ import dev.lkeeeey.edu.core.domain.onSuccess
 import dev.lkeeeey.edu.core.presentation.toStr
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -94,15 +96,30 @@ class LoginViewModel (
         viewModelScope.launch {
             authRepository
                 .loginUser(
+                    saveCookies = { cookie->
+                        viewModelScope.launch {
+                            authRepository.updateRefreshToken(
+                                refresh = cookie
+                            )
+                        }
+                    },
                     query = LoginRequest(
                         username = state.value.username,
                         password = state.value.password,
                     )
                 )
-                .onSuccess { token->
-                    println("access token is us - $token")
+                .onSuccess { response->
+                    println("access token is us - ${response.access}")
 
-//                    TODO save to local Database
+                    authRepository.updateAccessToken(
+                        access = response.access
+                    )
+
+                    val user : List<UserEntity>? = authRepository
+                        .getUserEntity()
+                        .firstOrNull()
+
+                    println("all user - ${user?.get(0)}")
 
                     _state.update {
                         it.copy(

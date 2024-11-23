@@ -6,6 +6,7 @@ import androidx.room.Update
 import androidx.room.Upsert
 import kotlinx.coroutines.flow.Flow
 
+
 @Dao
 interface UserDao {
 
@@ -17,5 +18,8 @@ interface UserDao {
 
     @Query("SELECT * FROM UserEntity")
     fun getUser() : Flow<List<UserEntity>>
+
+    @Query("DELETE FROM UserEntity")
+    fun deleteAllUsers()
 
 }

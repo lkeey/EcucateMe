@@ -22,8 +22,6 @@ fun CalendarView (
 
     Column {
         Text("localDateTime - $localDateTime")
-
-
     }
 
 

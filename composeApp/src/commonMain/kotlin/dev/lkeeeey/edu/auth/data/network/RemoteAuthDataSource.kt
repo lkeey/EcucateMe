@@ -8,7 +8,8 @@ import dev.lkeeeey.edu.core.domain.Result
 
 interface RemoteAuthDataSource {
     suspend fun loginUser(
-        query: LoginRequest
+        query: LoginRequest,
+        saveCookies: (String) -> Unit
     ): Result<AuthLoginDto, DataError.Remote>
 
     suspend fun registerUser(

@@ -16,7 +16,33 @@ import kotlin.coroutines.coroutineContext
 
 suspend inline fun <reified T> safeCall(
     execute: () -> HttpResponse,
-//    saveToLocalDB: (String) -> Unit,
+): Result<T, DataError.Remote> {
+    val response = try {
+        execute()
+    } catch(e: SocketTimeoutException) {
+        return Result.Error(DataError.Remote.REQUEST_TIMEOUT)
+    } catch(e: UnresolvedAddressException) {
+        return Result.Error(DataError.Remote.NO_INTERNET)
+    } catch (e: Exception) {
+        println("erroooooor- ${e.message}")
+        coroutineContext.ensureActive()
+        return Result.Error(DataError.Remote.UNKNOWN)
+    }
+
+    try {
+        val cookies = response.setCookie()[0].value
+
+        print(response.setCookie() + " " + cookies)
+    } catch (e : Exception) {
+        println("wwww ${e.message}")
+    }
+
+    return responseToResult(response)
+}
+
+suspend inline fun <reified T> safeCallWithCookies(
+    saveToLocalDB: (String) -> Unit,
+    execute: () -> HttpResponse,
 ): Result<T, DataError.Remote> {
     val response = try {
         execute()

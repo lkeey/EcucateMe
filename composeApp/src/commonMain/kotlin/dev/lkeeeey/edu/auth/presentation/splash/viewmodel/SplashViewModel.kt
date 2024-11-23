@@ -4,6 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.lkeeeey.edu.auth.data.database.UserEntity
 import dev.lkeeeey.edu.auth.domain.AuthRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
@@ -37,7 +40,10 @@ class SplashViewModel (
     }
 
     private fun checkIfUserAuthenticated() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            authRepository.deleteAllUsers()
+
             val users : List<UserEntity>? = authRepository
                 .getUserEntity()
                 .firstOrNull()

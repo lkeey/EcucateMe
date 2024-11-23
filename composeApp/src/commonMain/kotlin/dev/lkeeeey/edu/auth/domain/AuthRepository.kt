@@ -10,11 +10,12 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
 
-    suspend fun loginUser(query: LoginRequest): Result<AuthResponse, DataError.Remote>
+    suspend fun loginUser(saveCookies: (String) -> Unit, query: LoginRequest): Result<AuthResponse, DataError.Remote>
     suspend fun registerUser(query: RegisterRequest): Result<Unit, DataError.Remote>
 
     suspend fun addUser(user: UserEntity): Result<Unit, DataError.Local>
     suspend fun updateUser(user: UserEntity): Result<Unit, DataError.Local>
+    suspend fun deleteAllUsers(): Result<Unit, DataError.Local>
     fun getUserEntity(): Flow<List<UserEntity>>
 
 

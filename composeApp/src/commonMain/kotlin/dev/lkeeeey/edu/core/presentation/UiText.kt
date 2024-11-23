@@ -2,7 +2,6 @@ package dev.lkeeeey.edu.core.presentation
 
 import androidx.compose.runtime.Composable
 import dev.lkeeeey.edu.core.domain.DataError
-import ecucateme.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -33,6 +32,7 @@ fun DataError.toStr(): String {
         DataError.Remote.SERVER -> "error_unknown"
         DataError.Remote.SERIALIZATION -> "error_serialization"
         DataError.Remote.UNKNOWN -> "error_unknown"
+        DataError.Local.NO_USER -> "error_couldnt_fetch_user"
     }
 
     return stringRes

@@ -21,11 +21,14 @@ class AuthRepositoryImpl (
 ) : AuthRepository {
 
     override suspend fun loginUser(
-        query: LoginRequest,
-
+        saveCookies: (String) -> Unit,
+        query: LoginRequest
     ): Result<AuthResponse, DataError.Remote> {
         return remoteAuthDataSource
-            .loginUser(query)
+            .loginUser(
+                saveCookies = saveCookies,
+                query = query
+            )
             .map {
                 it.toAuthResponse()
             }
@@ -58,6 +61,16 @@ class AuthRepositoryImpl (
         return userDao
             .getUser()
 
+    }
+
+    override suspend fun deleteAllUsers(): Result<Unit, DataError.Local> {
+        return try {
+            userDao
+                .deleteAllUsers()
+            Result.Success(Unit)
+        } catch (e: SQLiteException) {
+            Result.Error(DataError.Local.DISK_FULL)
+        }
     }
 
     override suspend fun updateRefreshToken(refresh: String): Result<Unit, DataError.Local> {
