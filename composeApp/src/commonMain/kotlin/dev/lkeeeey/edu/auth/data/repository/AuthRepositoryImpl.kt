@@ -13,14 +13,17 @@ import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.core.domain.map
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.firstOrNull
 
 class AuthRepositoryImpl (
     private val remoteAuthDataSource: RemoteAuthDataSource,
     private val userDao: UserDao,
 ) : AuthRepository {
 
-    override suspend fun loginUser(query: LoginRequest): Result<AuthResponse, DataError.Remote> {
+    override suspend fun loginUser(
+        query: LoginRequest,
+
+    ): Result<AuthResponse, DataError.Remote> {
         return remoteAuthDataSource
             .loginUser(query)
             .map {
@@ -55,6 +58,48 @@ class AuthRepositoryImpl (
         return userDao
             .getUser()
 
+    }
+
+    override suspend fun updateRefreshToken(refresh: String): Result<Unit, DataError.Local> {
+        return try {
+            val user = userDao
+                .getUser()
+                .firstOrNull()
+
+            if (user != null) {
+                userDao.updateUser(
+                    user = user[0].copy(
+                        refreshToken = refresh
+                    )
+                )
+                Result.Success(Unit)
+            } else {
+                Result.Error(DataError.Local.NO_USER)
+            }
+        } catch (e: SQLiteException) {
+            Result.Error(DataError.Local.DISK_FULL)
+        }
+    }
+
+    override suspend fun updateAccessToken(access: String): Result<Unit, DataError.Local> {
+        return try {
+            val user = userDao
+                .getUser()
+                .firstOrNull()
+
+            if (user != null) {
+                userDao.updateUser(
+                    user = user[0].copy(
+                        accessToken = access
+                    )
+                )
+                Result.Success(Unit)
+            } else {
+                Result.Error(DataError.Local.NO_USER)
+            }
+        } catch (e: SQLiteException) {
+            Result.Error(DataError.Local.DISK_FULL)
+        }
     }
 
 }

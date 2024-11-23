@@ -17,4 +17,7 @@ interface AuthRepository {
     suspend fun updateUser(user: UserEntity): Result<Unit, DataError.Local>
     fun getUserEntity(): Flow<List<UserEntity>>
 
+
+    suspend fun updateRefreshToken(refresh: String): Result<Unit, DataError.Local>
+    suspend fun updateAccessToken(access: String): Result<Unit, DataError.Local>
 }
