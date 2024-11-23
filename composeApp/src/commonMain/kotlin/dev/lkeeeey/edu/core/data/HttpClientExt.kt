@@ -1,18 +1,22 @@
 package dev.lkeeeey.edu.core.data
 
+import dev.lkeeeey.edu.auth.domain.models.AuthResponse
+import dev.lkeeeey.edu.auth.domain.models.LoginRequest
 import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import io.ktor.client.call.NoTransformationFoundException
 import io.ktor.client.call.body
 import io.ktor.client.network.sockets.SocketTimeoutException
 import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.setCookie
 import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.coroutines.ensureActive
 import kotlin.coroutines.coroutineContext
 
 suspend inline fun <reified T> safeCall(
-    execute: () -> HttpResponse
+    execute: () -> HttpResponse,
+//    saveToLocalDB: (String) -> Unit,
 ): Result<T, DataError.Remote> {
     val response = try {
         execute()
@@ -21,9 +25,17 @@ suspend inline fun <reified T> safeCall(
     } catch(e: UnresolvedAddressException) {
         return Result.Error(DataError.Remote.NO_INTERNET)
     } catch (e: Exception) {
-        println("erroooooor- " + e.message)
+        println("erroooooor- ${e.message}")
         coroutineContext.ensureActive()
         return Result.Error(DataError.Remote.UNKNOWN)
+    }
+
+    try {
+        val cookies = response.setCookie()[0].value
+
+        print(response.setCookie() + " " + cookies)
+    } catch (e : Exception) {
+        println("wwww ${e.message}")
     }
 
     return responseToResult(response)
