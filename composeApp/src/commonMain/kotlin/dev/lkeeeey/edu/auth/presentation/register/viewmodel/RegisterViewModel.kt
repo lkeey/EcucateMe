@@ -120,33 +120,18 @@ class RegisterViewModel (
             )
             .onSuccess {
 
-                // login user
                 authRepository
                     .loginUser(
-                        saveCookies = { cookie->
-                            viewModelScope.launch {
-                                authRepository.updateRefreshToken(
-                                    refresh = cookie
-                                )
-                            }
-                        },
                         query = LoginRequest(
                             username = state.value.username,
                             password = state.value.password,
                         )
                     )
                     .onSuccess { response->
-                        println("access token is us in register - $response.access")
 
                         authRepository.updateAccessToken(
                             access = response.access
                         )
-
-                        val user : List<UserEntity>? = authRepository
-                            .getUserEntity()
-                            .firstOrNull()
-
-                        println("all user - ${user?.get(0)}")
 
                         _state.update {
                             it.copy(

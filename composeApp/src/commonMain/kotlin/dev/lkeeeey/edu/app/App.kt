@@ -16,6 +16,7 @@ import dev.lkeeeey.edu.auth.presentation.splash.SplashScreen
 import dev.lkeeeey.edu.auth.presentation.splash.viewmodel.SplashViewModel
 import dev.lkeeeey.edu.core.presentation.EduMeTheme
 import dev.lkeeeey.edu.main.presentation.calendar.CalendarScreen
+import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -90,7 +91,12 @@ fun App() {
                 ) {
 //                    Calendar screen
 
-                    CalendarScreen()
+                    val viewModel = koinViewModel<CalendarViewModel>()
+
+                    CalendarScreen(
+                        viewModel = viewModel,
+                        navController = navController
+                    )
 
                 }
 

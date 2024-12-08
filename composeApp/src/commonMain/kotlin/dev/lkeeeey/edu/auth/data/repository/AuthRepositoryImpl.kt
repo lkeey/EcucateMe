@@ -1,8 +1,10 @@
 package dev.lkeeeey.edu.auth.data.repository
 
 import androidx.sqlite.SQLiteException
+import com.russhwolf.settings.Settings
 import dev.lkeeeey.edu.auth.data.database.UserDao
 import dev.lkeeeey.edu.auth.data.database.UserEntity
+import dev.lkeeeey.edu.auth.data.keys.Keys
 import dev.lkeeeey.edu.auth.data.mappers.toAuthResponse
 import dev.lkeeeey.edu.auth.data.network.RemoteAuthDataSource
 import dev.lkeeeey.edu.auth.domain.AuthRepository
@@ -13,20 +15,24 @@ import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.core.domain.map
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.firstOrNull
 
 class AuthRepositoryImpl (
     private val remoteAuthDataSource: RemoteAuthDataSource,
     private val userDao: UserDao,
 ) : AuthRepository {
 
+    private val settings = Settings()
+
     override suspend fun loginUser(
-        saveCookies: (String) -> Unit,
         query: LoginRequest
     ): Result<AuthResponse, DataError.Remote> {
         return remoteAuthDataSource
             .loginUser(
-                saveCookies = saveCookies,
+                saveCookies = { refresh->
+                    updateRefreshToken(
+                        refresh = refresh
+                    )
+                },
                 query = query
             )
             .map {
@@ -73,44 +79,64 @@ class AuthRepositoryImpl (
         }
     }
 
-    override suspend fun updateRefreshToken(refresh: String): Result<Unit, DataError.Local> {
-        return try {
-            val user = userDao
-                .getUser()
-                .firstOrNull()
+    override fun updateRefreshToken(refresh: String): Result<Unit, DataError.Local> {
+//        return try {
+//            val user = userDao
+//                .getUser()
+//                .firstOrNull()
+//
+//            if (user != null) {
+//                userDao.updateUser(
+//                    user = user[0].copy(
+//                        refreshToken = refresh
+//                    )
+//                )
+//                Result.Success(Unit)
+//            } else {
+//                Result.Error(DataError.Local.NO_USER)
+//            }
+//        } catch (e: SQLiteException) {
+//            Result.Error(DataError.Local.DISK_FULL)
+//        }
 
-            if (user != null) {
-                userDao.updateUser(
-                    user = user[0].copy(
-                        refreshToken = refresh
-                    )
-                )
-                Result.Success(Unit)
-            } else {
-                Result.Error(DataError.Local.NO_USER)
-            }
-        } catch (e: SQLiteException) {
+        return try {
+            settings.putString(
+                key = Keys.REFRESH_TOKEN,
+                value = refresh
+            )
+            Result.Success(Unit)
+        } catch (e: Exception) {
             Result.Error(DataError.Local.DISK_FULL)
         }
     }
 
-    override suspend fun updateAccessToken(access: String): Result<Unit, DataError.Local> {
-        return try {
-            val user = userDao
-                .getUser()
-                .firstOrNull()
+    override fun updateAccessToken(access: String): Result<Unit, DataError.Local> {
+//        return try {
+//            val user = userDao
+//                .getUser()
+//                .firstOrNull()
+//
+//            if (user != null) {
+//                userDao.updateUser(
+//                    user = user[0].copy(
+//                        accessToken = access
+//                    )
+//                )
+//                Result.Success(Unit)
+//            } else {
+//                Result.Error(DataError.Local.NO_USER)
+//            }
+//        } catch (e: SQLiteException) {
+//            Result.Error(DataError.Local.DISK_FULL)
+//        }
 
-            if (user != null) {
-                userDao.updateUser(
-                    user = user[0].copy(
-                        accessToken = access
-                    )
-                )
-                Result.Success(Unit)
-            } else {
-                Result.Error(DataError.Local.NO_USER)
-            }
-        } catch (e: SQLiteException) {
+        return try {
+            settings.putString(
+                key = Keys.ACCESS_TOKEN,
+                value = access
+            )
+            Result.Success(Unit)
+        } catch (e: Exception) {
             Result.Error(DataError.Local.DISK_FULL)
         }
     }

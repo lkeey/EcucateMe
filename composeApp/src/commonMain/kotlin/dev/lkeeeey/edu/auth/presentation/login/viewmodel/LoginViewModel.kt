@@ -2,7 +2,6 @@ package dev.lkeeeey.edu.auth.presentation.login.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.lkeeeey.edu.auth.data.database.UserEntity
 import dev.lkeeeey.edu.auth.domain.AuthRepository
 import dev.lkeeeey.edu.auth.domain.models.LoginRequest
 import dev.lkeeeey.edu.core.domain.onError
@@ -10,7 +9,6 @@ import dev.lkeeeey.edu.core.domain.onSuccess
 import dev.lkeeeey.edu.core.presentation.toStr
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -93,35 +91,9 @@ class LoginViewModel (
         }
 
         // login
-
-
         viewModelScope.launch {
             authRepository
                 .loginUser(
-                    saveCookies = { cookie->
-                        viewModelScope.launch {
-                            authRepository
-                                .updateRefreshToken(
-                                    refresh = cookie
-                                )
-                                .onSuccess {
-                                    val user : List<UserEntity>? = authRepository
-                                        .getUserEntity()
-                                        .firstOrNull()
-
-                                    println("user step 1 - ${user}")
-                                }
-                                .onError { error->
-                                    _state.update {
-                                        it.copy(
-                                            isLoading = false,
-                                            isError = true,
-                                            errorMessage = error.toStr()
-                                        )
-                                    }
-                                }
-                        }
-                    },
                     query = LoginRequest(
                         username = state.value.username,
                         password = state.value.password,
@@ -133,13 +105,6 @@ class LoginViewModel (
                             access = response.access
                         )
                         .onSuccess {
-
-                            val user : List<UserEntity>? = authRepository
-                                .getUserEntity()
-                                .firstOrNull()
-
-                            println("user step 2 - ${user}")
-
                             _state.update {
                                 it.copy(
                                     isLoading = false,
@@ -166,5 +131,77 @@ class LoginViewModel (
                     }
                 }
         }
+//
+//        viewModelScope.launch {
+//            authRepository
+//                .loginUser(
+//                    saveCookies = { cookie->
+//                        viewModelScope.launch {
+//                            authRepository
+//                                .updateRefreshToken(
+//                                    refresh = cookie
+//                                )
+//                                .onSuccess {
+//                                    val user : List<UserEntity>? = authRepository
+//                                        .getUserEntity()
+//                                        .firstOrNull()
+//
+//                                    println("user step 1 - ${user}")
+//                                }
+//                                .onError { error->
+//                                    _state.update {
+//                                        it.copy(
+//                                            isLoading = false,
+//                                            isError = true,
+//                                            errorMessage = error.toStr()
+//                                        )
+//                                    }
+//                                }
+//                        }
+//                    },
+//                    query = LoginRequest(
+//                        username = state.value.username,
+//                        password = state.value.password,
+//                    )
+//                )
+//                .onSuccess { response->
+//                    authRepository
+//                        .updateAccessToken(
+//                            access = response.access
+//                        )
+//                        .onSuccess {
+//
+//                            val user : List<UserEntity>? = authRepository
+//                                .getUserEntity()
+//                                .firstOrNull()
+//
+//                            println("user step 2 - ${user}")
+//
+//                            _state.update {
+//                                it.copy(
+//                                    isLoading = false,
+//                                    event = LoginEvent.OpenMain
+//                                )
+//                            }
+//                        }.onError { error->
+//                            _state.update {
+//                                it.copy(
+//                                    isLoading = false,
+//                                    isError = true,
+//                                    errorMessage = error.toStr()
+//                                )
+//                            }
+//                        }
+//                }
+//                .onError { error->
+//                    _state.update {
+//                        it.copy(
+//                            isLoading = false,
+//                            isError = true,
+//                            errorMessage = error.toStr()
+//                        )
+//                    }
+//                }
+//        }
     }
 }

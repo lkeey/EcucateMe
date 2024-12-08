@@ -1,5 +1,5 @@
 package dev.lkeeeey.edu.main.presentation.calendar.viewmodel
 
-sealed class CalendarEvent {
-
+sealed interface CalendarEvent {
+    data object OnBtnClick : CalendarEvent
 }

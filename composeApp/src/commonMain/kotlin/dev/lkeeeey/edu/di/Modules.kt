@@ -1,6 +1,5 @@
 package dev.lkeeeey.edu.di
 
-import androidx.datastore.core.DataStore
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import dev.lkeeeey.edu.auth.data.database.DatabaseFactory
 import dev.lkeeeey.edu.auth.data.database.UserDatabase
@@ -11,6 +10,7 @@ import dev.lkeeeey.edu.auth.domain.AuthRepository
 import dev.lkeeeey.edu.auth.presentation.login.viewmodel.LoginViewModel
 import dev.lkeeeey.edu.auth.presentation.register.viewmodel.RegisterViewModel
 import dev.lkeeeey.edu.auth.presentation.splash.viewmodel.SplashViewModel
+import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarViewModel
 import dev.lkeeeey.edu.core.data.HttpClientFactory
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
@@ -38,5 +38,6 @@ val sharedModule = module {
     viewModelOf(::SplashViewModel)
     viewModelOf(::LoginViewModel)
     viewModelOf(::RegisterViewModel)
+    viewModelOf(::CalendarViewModel)
 
 }
