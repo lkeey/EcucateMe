@@ -93,6 +93,8 @@ class LoginViewModel (
         }
 
         // login
+
+
         viewModelScope.launch {
             authRepository
                 .loginUser(
@@ -103,7 +105,11 @@ class LoginViewModel (
                                     refresh = cookie
                                 )
                                 .onSuccess {
-                                    println("refresh in login - $cookie")
+                                    val user : List<UserEntity>? = authRepository
+                                        .getUserEntity()
+                                        .firstOrNull()
+
+                                    println("user step 1 - ${user}")
                                 }
                                 .onError { error->
                                     _state.update {
@@ -127,13 +133,12 @@ class LoginViewModel (
                             access = response.access
                         )
                         .onSuccess {
-                            println("access token is us - ${response.access}")
 
                             val user : List<UserEntity>? = authRepository
                                 .getUserEntity()
                                 .firstOrNull()
 
-                            println("all user - ${user?.get(0)}")
+                            println("user step 2 - ${user}")
 
                             _state.update {
                                 it.copy(

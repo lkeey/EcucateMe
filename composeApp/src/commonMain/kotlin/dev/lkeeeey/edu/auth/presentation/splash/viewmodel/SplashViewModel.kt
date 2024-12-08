@@ -2,6 +2,7 @@ package dev.lkeeeey.edu.auth.presentation.splash.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.russhwolf.settings.Settings
 import dev.lkeeeey.edu.auth.data.database.UserEntity
 import dev.lkeeeey.edu.auth.domain.AuthRepository
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +19,8 @@ class SplashViewModel (
 
     private val _state = MutableStateFlow(SplashState())
     val state = _state.asStateFlow()
+
+    private val settings = Settings()
 
     init {
         // fetch token
@@ -43,20 +46,24 @@ class SplashViewModel (
 
             authRepository.deleteAllUsers()
 
+            // settings
+            settings.putString("access", "hello from splash")
+            // end settings
+
             val users : List<UserEntity>? = authRepository
                 .getUserEntity()
                 .firstOrNull()
 
             println("users1 - $users")
 
-            if (users.isNullOrEmpty()) {
+            if (users.isNullOrEmpty() || users[0].accessToken.isEmpty() || users[0].refreshToken.isEmpty()) {
                 // if user created
                 authRepository.addUser(
                     UserEntity(
                         id = "1",
                         username = "none username",
-                        refreshToken = "none refresh",
-                        accessToken = "none access"
+                        refreshToken = "",
+                        accessToken = ""
                     )
                 )
                 val newUsers : List<UserEntity>? = authRepository

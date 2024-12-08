@@ -2,6 +2,8 @@ package dev.lkeeeey.edu.auth.presentation.register.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.russhwolf.settings.Settings
+import com.russhwolf.settings.get
 import dev.lkeeeey.edu.auth.data.database.UserEntity
 import dev.lkeeeey.edu.auth.domain.AuthRepository
 import dev.lkeeeey.edu.auth.domain.models.LoginRequest
@@ -27,6 +29,8 @@ class RegisterViewModel (
         _state.value
     )
 
+    private val settings = Settings()
+
 
     fun onAction(event: RegisterAction) {
         when (event) {
@@ -40,6 +44,9 @@ class RegisterViewModel (
                 checkEnabled()
             }
             is RegisterAction.OnLogin -> {
+
+                println("cheeeeeck - ${settings.get<String>(key="access")}")
+
                 _state.update {
                     it.copy(
                         event = RegisterEvent.OpenLogin

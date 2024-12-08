@@ -74,6 +74,12 @@ kotlin {
 
             implementation(libs.kotlinx.datetime)
 
+            api(libs.datastore.preferences)
+            api(libs.datastore)
+
+            implementation(libs.multiplatform.settings)
+            implementation(libs.multiplatform.settings.no.arg)
+
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
