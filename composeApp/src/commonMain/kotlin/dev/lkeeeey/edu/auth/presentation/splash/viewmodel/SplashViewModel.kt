@@ -3,19 +3,15 @@ package dev.lkeeeey.edu.auth.presentation.splash.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.russhwolf.settings.Settings
-import dev.lkeeeey.edu.auth.data.database.UserEntity
-import dev.lkeeeey.edu.auth.domain.AuthRepository
+import dev.lkeeeey.edu.auth.data.keys.Keys
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class SplashViewModel (
-    private val authRepository: AuthRepository
-) : ViewModel() {
+class SplashViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(SplashState())
     val state = _state.asStateFlow()
@@ -44,48 +40,13 @@ class SplashViewModel (
     private fun checkIfUserAuthenticated() {
         viewModelScope.launch(Dispatchers.IO) {
 
-            authRepository.deleteAllUsers()
-
             // settings
-            settings.putString("access", "hello from splash")
-            // end settings
-
-            val users : List<UserEntity>? = authRepository
-                .getUserEntity()
-                .firstOrNull()
-
-            println("users1 - $users")
-
-            if (users.isNullOrEmpty() || users[0].accessToken.isEmpty() || users[0].refreshToken.isEmpty()) {
-                // if user created
-                authRepository.addUser(
-                    UserEntity(
-                        id = "1",
-                        username = "none username",
-                        refreshToken = "",
-                        accessToken = ""
-                    )
-                )
-                val newUsers : List<UserEntity>? = authRepository
-                    .getUserEntity()
-                    .firstOrNull()
-
-                println("create - " + newUsers?.get(0)?.refreshToken)
+            val refresh = settings.getStringOrNull(Keys.REFRESH_TOKEN)
+            val access = settings.getStringOrNull(Keys.ACCESS_TOKEN)
+            val isAuthenticated = settings.getBoolean(Keys.IS_LOGIN, defaultValue = false)
 
 
-                // if update
-                newUsers?.get(0)?.copy()?.let {
-                    authRepository
-                        .updateUser(it.copy(
-                            refreshToken = "refresh 2"
-                        ))
-                }
-                val newUsers2 : List<UserEntity>? = authRepository
-                    .getUserEntity()
-                    .firstOrNull()
-
-                println("update - " + newUsers2?.get(0)?.refreshToken)
-
+            if (!isAuthenticated || refresh.isNullOrEmpty() || access.isNullOrEmpty()) {
                 // navigate to login
                 _state.update {
                     it.copy(

@@ -105,12 +105,25 @@ class LoginViewModel (
                             access = response.access
                         )
                         .onSuccess {
-                            _state.update {
-                                it.copy(
-                                    isLoading = false,
-                                    event = LoginEvent.OpenMain
-                                )
-                            }
+                            authRepository
+                                .updateAuthenticated(true)
+                                .onSuccess {
+                                    _state.update {
+                                        it.copy(
+                                            isLoading = false,
+                                            event = LoginEvent.OpenMain
+                                        )
+                                    }
+                                }
+                                .onError { error->
+                                    _state.update {
+                                        it.copy(
+                                            isLoading = false,
+                                            isError = true,
+                                            errorMessage = error.toStr()
+                                        )
+                                    }
+                                }
                         }.onError { error->
                             _state.update {
                                 it.copy(
@@ -131,77 +144,5 @@ class LoginViewModel (
                     }
                 }
         }
-//
-//        viewModelScope.launch {
-//            authRepository
-//                .loginUser(
-//                    saveCookies = { cookie->
-//                        viewModelScope.launch {
-//                            authRepository
-//                                .updateRefreshToken(
-//                                    refresh = cookie
-//                                )
-//                                .onSuccess {
-//                                    val user : List<UserEntity>? = authRepository
-//                                        .getUserEntity()
-//                                        .firstOrNull()
-//
-//                                    println("user step 1 - ${user}")
-//                                }
-//                                .onError { error->
-//                                    _state.update {
-//                                        it.copy(
-//                                            isLoading = false,
-//                                            isError = true,
-//                                            errorMessage = error.toStr()
-//                                        )
-//                                    }
-//                                }
-//                        }
-//                    },
-//                    query = LoginRequest(
-//                        username = state.value.username,
-//                        password = state.value.password,
-//                    )
-//                )
-//                .onSuccess { response->
-//                    authRepository
-//                        .updateAccessToken(
-//                            access = response.access
-//                        )
-//                        .onSuccess {
-//
-//                            val user : List<UserEntity>? = authRepository
-//                                .getUserEntity()
-//                                .firstOrNull()
-//
-//                            println("user step 2 - ${user}")
-//
-//                            _state.update {
-//                                it.copy(
-//                                    isLoading = false,
-//                                    event = LoginEvent.OpenMain
-//                                )
-//                            }
-//                        }.onError { error->
-//                            _state.update {
-//                                it.copy(
-//                                    isLoading = false,
-//                                    isError = true,
-//                                    errorMessage = error.toStr()
-//                                )
-//                            }
-//                        }
-//                }
-//                .onError { error->
-//                    _state.update {
-//                        it.copy(
-//                            isLoading = false,
-//                            isError = true,
-//                            errorMessage = error.toStr()
-//                        )
-//                    }
-//                }
-//        }
     }
 }

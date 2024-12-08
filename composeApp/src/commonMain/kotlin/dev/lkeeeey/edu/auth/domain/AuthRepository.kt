@@ -20,4 +20,5 @@ interface AuthRepository {
 
     fun updateRefreshToken(refresh: String): Result<Unit, DataError.Local>
     fun updateAccessToken(access: String): Result<Unit, DataError.Local>
+    fun updateAuthenticated(isAuthenticated: Boolean): Result<Unit, DataError.Local>
 }

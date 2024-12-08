@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.get
-import dev.lkeeeey.edu.auth.data.database.UserEntity
 import dev.lkeeeey.edu.auth.domain.AuthRepository
 import dev.lkeeeey.edu.auth.domain.models.LoginRequest
 import dev.lkeeeey.edu.auth.domain.models.RegisterRequest
@@ -13,7 +12,6 @@ import dev.lkeeeey.edu.core.domain.onSuccess
 import dev.lkeeeey.edu.core.presentation.toStr
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -129,16 +127,40 @@ class RegisterViewModel (
                     )
                     .onSuccess { response->
 
-                        authRepository.updateAccessToken(
-                            access = response.access
-                        )
-
-                        _state.update {
-                            it.copy(
-                                isLoading = false,
-                                event = RegisterEvent.OpenMain
+                        authRepository
+                            .updateAccessToken(
+                                access = response.access
                             )
-                        }
+                            .onSuccess {
+                                authRepository
+                                    .updateAuthenticated(true)
+                                    .onSuccess {
+                                        _state.update {
+                                            it.copy(
+                                                isLoading = false,
+                                                event = RegisterEvent.OpenMain
+                                            )
+                                        }
+                                    }
+                                    .onError { error->
+                                        _state.update {
+                                            it.copy(
+                                                isLoading = false,
+                                                isError = true,
+                                                errorMessage = error.toStr()
+                                            )
+                                        }
+                                    }
+                            }
+                            .onError { error->
+                                _state.update {
+                                    it.copy(
+                                        isLoading = false,
+                                        isError = true,
+                                        errorMessage = error.toStr()
+                                    )
+                                }
+                            }
                     }
                     .onError { error->
                         _state.update {

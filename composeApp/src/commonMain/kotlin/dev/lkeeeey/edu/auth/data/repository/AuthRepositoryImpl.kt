@@ -80,25 +80,6 @@ class AuthRepositoryImpl (
     }
 
     override fun updateRefreshToken(refresh: String): Result<Unit, DataError.Local> {
-//        return try {
-//            val user = userDao
-//                .getUser()
-//                .firstOrNull()
-//
-//            if (user != null) {
-//                userDao.updateUser(
-//                    user = user[0].copy(
-//                        refreshToken = refresh
-//                    )
-//                )
-//                Result.Success(Unit)
-//            } else {
-//                Result.Error(DataError.Local.NO_USER)
-//            }
-//        } catch (e: SQLiteException) {
-//            Result.Error(DataError.Local.DISK_FULL)
-//        }
-
         return try {
             settings.putString(
                 key = Keys.REFRESH_TOKEN,
@@ -111,29 +92,22 @@ class AuthRepositoryImpl (
     }
 
     override fun updateAccessToken(access: String): Result<Unit, DataError.Local> {
-//        return try {
-//            val user = userDao
-//                .getUser()
-//                .firstOrNull()
-//
-//            if (user != null) {
-//                userDao.updateUser(
-//                    user = user[0].copy(
-//                        accessToken = access
-//                    )
-//                )
-//                Result.Success(Unit)
-//            } else {
-//                Result.Error(DataError.Local.NO_USER)
-//            }
-//        } catch (e: SQLiteException) {
-//            Result.Error(DataError.Local.DISK_FULL)
-//        }
-
         return try {
             settings.putString(
                 key = Keys.ACCESS_TOKEN,
                 value = access
+            )
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(DataError.Local.DISK_FULL)
+        }
+    }
+
+    override fun updateAuthenticated(isAuthenticated: Boolean): Result<Unit, DataError.Local> {
+        return try {
+            settings.putBoolean(
+                key = Keys.IS_LOGIN,
+                value = isAuthenticated
             )
             Result.Success(Unit)
         } catch (e: Exception) {
