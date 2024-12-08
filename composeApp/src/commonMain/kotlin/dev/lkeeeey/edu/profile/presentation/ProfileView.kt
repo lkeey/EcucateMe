@@ -26,10 +26,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
+import dev.lkeeeey.edu.profile.presentation.components.Reference
 import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileEvent
 import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileState
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
+import ecucateme.composeapp.generated.resources.ic_profile_education
+import ecucateme.composeapp.generated.resources.ic_profile_statistics
+import ecucateme.composeapp.generated.resources.ic_profile_teachers
+import ecucateme.composeapp.generated.resources.ic_profile_timetable
+import ecucateme.composeapp.generated.resources.ic_profile_win
 import ecucateme.composeapp.generated.resources.profile
 import org.jetbrains.compose.resources.painterResource
 
@@ -42,6 +48,10 @@ fun ProfileView(
         modifier = Modifier
             .fillMaxSize()
     ) {
+
+        Spacer(
+            Modifier.height(12.dp)
+        )
 
         Column(
             modifier = Modifier
@@ -67,7 +77,7 @@ fun ProfileView(
                 contentScale = ContentScale.Crop
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             Text(
                 text = state.name, style = TextStyle(
@@ -78,6 +88,60 @@ fun ProfileView(
                     letterSpacing = 0.4.sp,
                 )
             )
+
+            Spacer(
+                Modifier.height(12.dp)
+            )
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(all = 16.dp)
+                .background(
+                    color = White,
+                    shape = RoundedCornerShape(size = 25.dp)
+                )
+                .padding(top = 16.dp),
+            verticalArrangement = Arrangement.Center
+        ) {
+            Reference(
+                icon = Res.drawable.ic_profile_win,
+                title = "Преподаватели",
+                content = "Те, от кого зависит мой успех",
+                isVisible = true
+            ) {
+//                navController.navigate(
+//                    ProfileDataScreenDestination()
+//                )
+            }
+
+            Reference(
+                icon = Res.drawable.ic_profile_education,
+                title = "Предметы",
+                content = "Вот это мне нравится!",
+                isVisible = true
+            ) {
+//                Toast.makeText(context, "It's developing", Toast.LENGTH_SHORT).show()
+            }
+
+            Reference(
+                icon = Res.drawable.ic_profile_timetable,
+                title = "Расписание",
+                content = "Школьные предметы",
+                isVisible = true
+            ) {
+//                Toast.makeText(context, "It's developing", Toast.LENGTH_SHORT).show()
+            }
+
+            Reference(
+                icon = Res.drawable.ic_profile_education,
+                title = "Успеваемость",
+                content = "Здесь мой прогресс",
+                isVisible = true
+            ) {
+//                Toast.makeText(context, "It's developing", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

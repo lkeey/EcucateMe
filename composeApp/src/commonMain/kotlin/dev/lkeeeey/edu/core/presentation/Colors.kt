@@ -13,6 +13,7 @@ data class EduMeColors(
     val editPlaceholder: Color = Color.Black,
     val blackProfile: Color = Color.Black,
     val secondaryScreen: Color = Color.Black,
+    val greyDescription: Color = Color.Black,
 
     val primaryTextColor: Color = Color.Black,
     val hintTextColor: Color = Color.Black,
@@ -32,6 +33,7 @@ val lightPalette = EduMeColors(
     defaultText = Color(0xFF222222),
     editPlaceholder = Color(0xFF6D7885),
     secondaryScreen = Color(0xFFF2F2F2),
+    greyDescription = Color(0xFFABABAB),
 )
 
 val darkPalette = EduMeColors(
