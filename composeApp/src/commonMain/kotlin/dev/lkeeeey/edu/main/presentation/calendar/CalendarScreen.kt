@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import dev.lkeeeey.edu.app.Route
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarEvent
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarViewModel
 import kotlinx.datetime.Clock
@@ -29,6 +30,9 @@ fun CalendarScreen (
         state = state,
         onEvent = { event->
             viewModel.onEvent(event)
+        },
+        onOpenProfile = {
+            navController.navigate(Route.Profile)
         }
     )
 }

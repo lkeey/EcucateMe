@@ -17,6 +17,8 @@ import dev.lkeeeey.edu.auth.presentation.splash.viewmodel.SplashViewModel
 import dev.lkeeeey.edu.core.presentation.EduMeTheme
 import dev.lkeeeey.edu.main.presentation.calendar.CalendarScreen
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarViewModel
+import dev.lkeeeey.edu.profile.presentation.ProfileScreen
+import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -105,7 +107,12 @@ fun App() {
                     popEnterTransition = { slideInHorizontally() }
                 ) {
 //                    Profile screen
-                    Text("Profile")
+                    val viewModel = koinViewModel<ProfileViewModel>()
+
+                    ProfileScreen(
+                        viewModel = viewModel,
+                        navController = navController
+                    )
                 }
             }
         }

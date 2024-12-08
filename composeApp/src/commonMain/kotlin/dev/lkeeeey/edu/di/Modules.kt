@@ -10,8 +10,9 @@ import dev.lkeeeey.edu.auth.domain.AuthRepository
 import dev.lkeeeey.edu.auth.presentation.login.viewmodel.LoginViewModel
 import dev.lkeeeey.edu.auth.presentation.register.viewmodel.RegisterViewModel
 import dev.lkeeeey.edu.auth.presentation.splash.viewmodel.SplashViewModel
-import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarViewModel
 import dev.lkeeeey.edu.core.data.HttpClientFactory
+import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarViewModel
+import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
@@ -39,5 +40,6 @@ val sharedModule = module {
     viewModelOf(::LoginViewModel)
     viewModelOf(::RegisterViewModel)
     viewModelOf(::CalendarViewModel)
+    viewModelOf(::ProfileViewModel)
 
 }
