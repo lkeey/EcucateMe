@@ -16,7 +16,7 @@ junit = "4.13.2"
 kotlin = "2.0.21"
 kotlinx-coroutines = "1.9.0"
 
-kotlinxDatetime = "0.6.0"
+kotlinxDatetime = "0.6.1"
 multiplatformSettings = "1.2.0"
 navigationCompose = "2.8.0-alpha10"
 kotlinSerialization = "1.7.3"
@@ -74,10 +74,6 @@ multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", vers
 multiplatform-settings-no-arg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
 sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 places = { group = "com.google.android.libraries.places", name = "places", version.ref = "places" }
-
-datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
-
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

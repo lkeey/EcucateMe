@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.russhwolf.settings.Settings
 import dev.lkeeeey.edu.auth.data.keys.Keys
+import dev.lkeeeey.edu.auth.domain.AuthRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +12,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class SplashViewModel : ViewModel() {
+class SplashViewModel (
+    private val authRepository: AuthRepository
+) : ViewModel() {
 
     private val _state = MutableStateFlow(SplashState())
     val state = _state.asStateFlow()
@@ -40,10 +43,11 @@ class SplashViewModel : ViewModel() {
     private fun checkIfUserAuthenticated() {
         viewModelScope.launch(Dispatchers.IO) {
 
-            // settings
             val refresh = settings.getStringOrNull(Keys.REFRESH_TOKEN)
             val access = settings.getStringOrNull(Keys.ACCESS_TOKEN)
             val isAuthenticated = settings.getBoolean(Keys.IS_LOGIN, defaultValue = false)
+
+            //TODO TRY TO REFRESH TOKEN
 
 
             if (!isAuthenticated || refresh.isNullOrEmpty() || access.isNullOrEmpty()) {

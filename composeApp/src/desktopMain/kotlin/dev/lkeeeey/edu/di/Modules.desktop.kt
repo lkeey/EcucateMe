@@ -12,6 +12,5 @@ actual val platformModule: Module
     get() = module {
         single<HttpClientEngine> { OkHttp.create() }
         single { DatabaseFactory() }
-        single { createDataStore { dataStoreFileName } }
 
     }

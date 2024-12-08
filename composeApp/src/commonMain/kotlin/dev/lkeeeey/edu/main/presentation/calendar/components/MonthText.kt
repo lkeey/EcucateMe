@@ -1,6 +1,5 @@
 package dev.lkeeeey.edu.main.presentation.calendar.components
 
-import androidx.annotation.RequiresApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -10,25 +9,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
+import kotlinx.datetime.Month
 import org.jetbrains.compose.resources.Font
 
 /*
-* show current month with year
+* show current month
 * */
 
 @Composable
 fun MonthText(
-//    selectedMonth: YearMonth
+    selectedMonth: Month
 ) {
-
-//    val monthWithYear = selectedMonth.month.getDisplayName(
-//        TextStyle.FULL_STANDALONE,
-//        context.resources.configuration.locales[0]
-//    ) + " " + selectedMonth.year
-
-
     Text(
-        text = "monthWithYear",
+        text = selectedMonth.name,
         style = TextStyle(
             fontSize = 20.sp,
             fontFamily = FontFamily(Font(Res.font.Thin)),

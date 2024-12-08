@@ -74,9 +74,6 @@ kotlin {
 
             implementation(libs.kotlinx.datetime)
 
-            api(libs.datastore.preferences)
-            api(libs.datastore)
-
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.no.arg)
 
