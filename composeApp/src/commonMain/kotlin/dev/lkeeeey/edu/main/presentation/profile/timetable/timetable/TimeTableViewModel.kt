@@ -2,13 +2,16 @@ package dev.lkeeeey.edu.main.presentation.profile.timetable.timetable
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.russhwolf.settings.Settings
+import dev.lkeeeey.edu.main.domain.ProfileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
-class TimeTableViewModel : ViewModel() {
+class TimeTableViewModel (
+    private val profileRepository: ProfileRepository
+) : ViewModel() {
     private val _state = MutableStateFlow(TimeTableState())
     val state = _state.stateIn(
         viewModelScope,
@@ -16,7 +19,13 @@ class TimeTableViewModel : ViewModel() {
         _state.value
     )
 
-    private val settings = Settings()
+    init {
+        viewModelScope.launch {
+            val result = profileRepository.getTimeTable()
+
+            println("woooooooow - $result")
+        }
+    }
 
     fun onEvent(event : TimeTableEvent) {
         when (event) {

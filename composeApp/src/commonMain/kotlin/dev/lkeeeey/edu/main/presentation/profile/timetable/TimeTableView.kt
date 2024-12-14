@@ -1,6 +1,5 @@
 package dev.lkeeeey.edu.main.presentation.profile.timetable
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -39,9 +38,7 @@ import dev.lkeeeey.edu.main.presentation.profile.timetable.timetable.TimeTableSt
 import ecucateme.composeapp.generated.resources.Bold
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
-import ecucateme.composeapp.generated.resources.ic_profile_win
 import org.jetbrains.compose.resources.Font
-import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun TimeTableView  (

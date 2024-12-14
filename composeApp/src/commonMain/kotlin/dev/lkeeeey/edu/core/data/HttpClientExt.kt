@@ -21,17 +21,8 @@ suspend inline fun <reified T> safeCall(
     } catch(e: UnresolvedAddressException) {
         return Result.Error(DataError.Remote.NO_INTERNET)
     } catch (e: Exception) {
-        println("erroooooor- ${e.message}")
         coroutineContext.ensureActive()
         return Result.Error(DataError.Remote.UNKNOWN)
-    }
-
-    try {
-        val cookies = response.setCookie()[0].value
-
-        print(response.setCookie() + " " + cookies)
-    } catch (e : Exception) {
-        println("wwww ${e.message}")
     }
 
     return responseToResult(response)
