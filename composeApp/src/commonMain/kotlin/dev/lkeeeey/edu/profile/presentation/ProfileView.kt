@@ -27,13 +27,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
 import dev.lkeeeey.edu.profile.presentation.components.Reference
+import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileAction
 import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileEvent
 import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileState
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
 import ecucateme.composeapp.generated.resources.ic_profile_education
-import ecucateme.composeapp.generated.resources.ic_profile_statistics
-import ecucateme.composeapp.generated.resources.ic_profile_teachers
 import ecucateme.composeapp.generated.resources.ic_profile_timetable
 import ecucateme.composeapp.generated.resources.ic_profile_win
 import ecucateme.composeapp.generated.resources.profile
@@ -42,7 +41,8 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun ProfileView(
     state: ProfileState,
-    onEvent: (ProfileEvent) -> Unit
+    onEvent: (ProfileEvent) -> Unit,
+    onOpenScreen: (ProfileAction) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -128,9 +128,10 @@ fun ProfileView(
             Reference(
                 icon = Res.drawable.ic_profile_timetable,
                 title = "Расписание",
-                content = "Школьные предметы",
+                content = "Эх, школа",
                 isVisible = true
             ) {
+                onOpenScreen(ProfileAction.OnOpenTimeTable)
 //                Toast.makeText(context, "It's developing", Toast.LENGTH_SHORT).show()
             }
 

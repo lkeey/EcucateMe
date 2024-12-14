@@ -13,6 +13,7 @@ import dev.lkeeeey.edu.auth.presentation.splash.viewmodel.SplashViewModel
 import dev.lkeeeey.edu.core.data.HttpClientFactory
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarViewModel
 import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileViewModel
+import dev.lkeeeey.edu.main.presentation.profile.timetable.timetable.TimeTableViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
@@ -41,5 +42,6 @@ val sharedModule = module {
     viewModelOf(::RegisterViewModel)
     viewModelOf(::CalendarViewModel)
     viewModelOf(::ProfileViewModel)
+    viewModelOf(::TimeTableViewModel)
 
 }

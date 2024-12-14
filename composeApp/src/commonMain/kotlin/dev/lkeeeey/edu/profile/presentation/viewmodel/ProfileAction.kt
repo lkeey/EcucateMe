@@ -1,4 +1,5 @@
 package dev.lkeeeey.edu.profile.presentation.viewmodel
 
-class ProfileAction {
+sealed interface ProfileAction {
+    data object OnOpenTimeTable: ProfileAction
 }
