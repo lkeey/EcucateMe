@@ -44,16 +44,6 @@ suspend inline fun <reified T> safeCallWithCookies(
         return Result.Error(DataError.Remote.UNKNOWN)
     }
 
-    try {
-        val cookies = response.setCookie()[0].value
-
-        println("cookie in ext ${response.setCookie()}")
-
-        saveToLocalDB(cookies)
-    } catch (e : Exception) {
-        println("wwww ${e.message}")
-    }
-
     return responseToResult(response)
 }
 

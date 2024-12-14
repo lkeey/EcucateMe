@@ -2,6 +2,9 @@ package dev.lkeeeey.edu.main.presentation.profile.timetable.timetable
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dev.lkeeeey.edu.auth.domain.AuthRepository
+import dev.lkeeeey.edu.core.domain.onError
+import dev.lkeeeey.edu.core.domain.onSuccess
 import dev.lkeeeey.edu.main.domain.ProfileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -10,7 +13,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class TimeTableViewModel (
-    private val profileRepository: ProfileRepository
+    private val profileRepository: ProfileRepository,
+    private val authRepository: AuthRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow(TimeTableState())
     val state = _state.stateIn(
@@ -21,9 +25,20 @@ class TimeTableViewModel (
 
     init {
         viewModelScope.launch {
-            val result = profileRepository.getTimeTable()
 
-            println("woooooooow - $result")
+            profileRepository.refreshToken()
+                .onSuccess {
+                    println("woooooooow - ${it.accessToken}")
+
+                    authRepository.updateAccessToken(it.accessToken)
+                    val result = profileRepository.getTimeTable()
+
+                    println("woooooooow - $result")
+                }
+                .onError {
+                    println("error - $it")
+
+                }
         }
     }
 
