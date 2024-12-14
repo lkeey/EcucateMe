@@ -13,7 +13,7 @@ import kotlinx.datetime.LocalDate
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun MonthViewCalendar(
+internal fun  MonthViewCalendar(
     loadedDates: List<LocalDate>,
     selectedDate: LocalDate,
     onDayClick: (LocalDate) -> Unit,

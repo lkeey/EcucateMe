@@ -45,22 +45,7 @@ fun EditSubject (
        modifier = Modifier
            .fillMaxWidth()
            .padding(vertical = 8.dp, horizontal = 24.dp)
-           .background(color = Theme.colors.primaryBackground.copy(1f))
     ) {
-        Text(
-            modifier = Modifier
-                .size(16.dp)
-                .clip(CircleShape)
-                .background(White),
-            text = index.toString(),
-            style = TextStyle(
-                fontSize = 20.sp,
-                fontFamily = FontFamily(Font(Res.font.Thin)),
-                fontWeight = FontWeight(500),
-                color = Color.Black,
-                letterSpacing = 0.32.sp,
-            )
-        )
 
         OutlinedTextField(
             modifier = Modifier
@@ -68,7 +53,7 @@ fun EditSubject (
             label = {
                 Row {
                     Text(
-                        text = "Предмет - $index",
+                        text = "${index + 1}-й предмет",
                         style = TextStyle(
                             fontSize = 16.sp,
                             fontFamily = FontFamily(Font(Res.font.Thin)),
@@ -80,9 +65,9 @@ fun EditSubject (
                 }
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Black,
-                focusedLabelColor = Black,
-                cursorColor = Black,
+                focusedBorderColor = Theme.colors.primaryBackground.copy(1f),
+                focusedLabelColor = Theme.colors.primaryBackground.copy(1f),
+                cursorColor = Theme.colors.primaryBackground.copy(1f),
                 backgroundColor = White,
                 errorBorderColor = Theme.colors.errorColor,
             ),
