@@ -14,8 +14,12 @@ interface ProfileRepository {
 
     suspend fun getSubjects(): Result<List<SubjectPresModel>, DataError.Remote>
 
-    suspend fun updateSubject(
+    suspend fun createSubject(
         subject: SubjectPresModel
     ): Result<SubjectPresModel, DataError.Remote>
+
+    suspend fun updateSubject(
+        subject: SubjectPresModel
+    ): Result<Unit, DataError.Remote>
 
 }

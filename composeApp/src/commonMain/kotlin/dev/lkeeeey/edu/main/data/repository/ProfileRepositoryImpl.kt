@@ -51,7 +51,14 @@ class ProfileRepositoryImpl (
         )
     }
 
-    override suspend fun updateSubject(subject: SubjectPresModel): Result<SubjectPresModel, DataError.Remote> {
+    override suspend fun createSubject(subject: SubjectPresModel): Result<SubjectPresModel, DataError.Remote> {
+        return remoteProfileDataSource.createSubject(
+            access = getAccess(),
+            subject = subject
+        )
+    }
+
+    override suspend fun updateSubject(subject: SubjectPresModel): Result<Unit, DataError.Remote> {
         return remoteProfileDataSource.updateSubject(
             access = getAccess(),
             subject = subject

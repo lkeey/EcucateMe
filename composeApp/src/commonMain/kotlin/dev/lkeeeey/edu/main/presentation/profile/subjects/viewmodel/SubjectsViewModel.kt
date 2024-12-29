@@ -32,7 +32,7 @@ class SubjectsViewModel (
                         .onSuccess {
                             authRepository.updateAccessToken(it.accessToken)
 
-                            profileRepository.updateSubject(
+                            profileRepository.createSubject(
                                 subject = SubjectPresModel(
                                     id = 0,
                                     name = state.value.subjectName,
@@ -41,11 +41,6 @@ class SubjectsViewModel (
                             ).onSuccess {
                                 getSubjects()
 
-                                _state.update {
-                                    it.copy(
-                                        subjectName = ""
-                                    )
-                                }
                             }
                         }
                 }

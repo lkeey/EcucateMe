@@ -11,6 +11,7 @@ import dev.lkeeeey.edu.main.domain.models.TimeTableModel
 import io.ktor.client.HttpClient
 import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.get
+import io.ktor.client.request.patch
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 
@@ -56,7 +57,7 @@ class RemoteProfileDataSourceImpl(
         }
     }
 
-    override suspend fun updateSubject(
+    override suspend fun createSubject(
         access: String,
         subject: SubjectPresModel
     ): Result<SubjectPresModel, DataError.Remote> {
@@ -79,6 +80,24 @@ class RemoteProfileDataSourceImpl(
             httpClient.get(
                 urlString = "$BASE_URL/schedule/subject"
             ) {
+                bearerAuth(
+                    access
+                )
+            }
+        }
+    }
+
+    override suspend fun updateSubject(
+        access: String,
+        subject: SubjectPresModel
+    ): Result<Unit, DataError.Remote> {
+        return safeCall<Unit> {
+            httpClient.patch(
+                urlString = "$BASE_URL/schedule/subject/${subject.id}"
+            ) {
+                setBody(
+                    subject
+                )
                 bearerAuth(
                     access
                 )

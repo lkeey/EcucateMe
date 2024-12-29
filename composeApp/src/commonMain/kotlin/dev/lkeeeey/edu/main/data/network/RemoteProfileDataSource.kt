@@ -22,7 +22,7 @@ interface RemoteProfileDataSource {
         saveCookies: (String) -> Unit
     ): Result<AuthLoginDto, DataError.Remote>
 
-    suspend fun updateSubject(
+    suspend fun createSubject(
         access: String,
         subject: SubjectPresModel
     ): Result<SubjectPresModel, DataError.Remote>
@@ -30,5 +30,10 @@ interface RemoteProfileDataSource {
     suspend fun getSubjects(
         access: String
     ): Result<List<SubjectPresModel>, DataError.Remote>
+
+    suspend fun updateSubject(
+        access: String,
+        subject: SubjectPresModel
+    ): Result<Unit, DataError.Remote>
 
 }
