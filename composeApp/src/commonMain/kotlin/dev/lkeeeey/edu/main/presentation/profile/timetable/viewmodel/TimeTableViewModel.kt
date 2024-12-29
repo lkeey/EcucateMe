@@ -25,6 +25,45 @@ class TimeTableViewModel (
         _state.value
     )
 
+    fun onEvent(event : TimeTableEvent) {
+        when (event) {
+            TimeTableEvent.OnAddLesson -> {
+                val m1 = state.value.savedSubjects.toMutableList()
+                val m2 = m1[state.value.dayIndex].toMutableList()
+                m2.add("New")
+                m1[state.value.dayIndex] = m2
+
+                _state.update {
+                    it.copy(
+                        savedSubjects = m1
+                    )
+                }
+            }
+            TimeTableEvent.OnSaveDay -> {
+                updateSchedule()
+            }
+            is TimeTableEvent.OnSubjectUpdate -> {
+                val m1 = state.value.savedSubjects.toMutableList()
+                val m2 = m1[state.value.dayIndex].toMutableList()
+                m2[event.index] = event.subject
+                m1[state.value.dayIndex] = m2
+
+                _state.update {
+                    it.copy(
+                        savedSubjects = m1
+                    )
+                }
+            }
+            is TimeTableEvent.OnChangeDay -> {
+                _state.update {
+                    it.copy(
+                        dayIndex = event.index
+                    )
+                }
+            }
+        }
+    }
+
     fun getSavedSubjects() {
         viewModelScope.launch {
             profileRepository.refreshToken()
@@ -65,44 +104,6 @@ class TimeTableViewModel (
         }
     }
 
-    fun onEvent(event : TimeTableEvent) {
-        when (event) {
-            TimeTableEvent.OnAddLesson -> {
-                val m1 = state.value.savedSubjects.toMutableList()
-                val m2 = m1[state.value.dayIndex].toMutableList()
-                m2.add("New")
-                m1[state.value.dayIndex] = m2
-
-                _state.update {
-                    it.copy(
-                        savedSubjects = m1
-                    )
-                }
-            }
-            TimeTableEvent.OnSaveDay -> {
-
-            }
-            is TimeTableEvent.OnSubjectUpdate -> {
-                val m1 = state.value.savedSubjects.toMutableList()
-                val m2 = m1[state.value.dayIndex].toMutableList()
-                m2[event.index] = event.subject
-                m1[state.value.dayIndex] = m2
-
-                _state.update {
-                    it.copy(
-                        savedSubjects = m1
-                    )
-                }
-            }
-            is TimeTableEvent.OnChangeDay -> {
-                _state.update {
-                    it.copy(
-                        dayIndex = event.index
-                    )
-                }
-            }
-        }
-    }
 
     fun updateSchedule() {
         val scheduleList = mutableListOf<TimeTableModel>()

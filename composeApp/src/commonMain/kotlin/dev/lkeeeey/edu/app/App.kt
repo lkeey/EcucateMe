@@ -16,6 +16,8 @@ import dev.lkeeeey.edu.auth.presentation.splash.viewmodel.SplashViewModel
 import dev.lkeeeey.edu.core.presentation.EduMeTheme
 import dev.lkeeeey.edu.main.presentation.calendar.CalendarScreen
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarViewModel
+import dev.lkeeeey.edu.main.presentation.profile.subjects.SubjectsScreen
+import dev.lkeeeey.edu.main.presentation.profile.subjects.viewmodel.SubjectsViewModel
 import dev.lkeeeey.edu.main.presentation.profile.timetable.TimeTableScreen
 import dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel.TimeTableViewModel
 import dev.lkeeeey.edu.profile.presentation.ProfileScreen
@@ -148,10 +150,10 @@ fun App() {
                         exitTransition = { slideOutHorizontally() },
                         popEnterTransition = { slideInHorizontally() }
                     ) {
-//                    ProfileTimeTable screen
-                        val viewModel = koinViewModel<TimeTableViewModel>()
+//                    Subjects screen
+                        val viewModel = koinViewModel<SubjectsViewModel>()
 
-                        TimeTableScreen(
+                        SubjectsScreen(
                             viewModel = viewModel,
                             navController = navController
                         )
