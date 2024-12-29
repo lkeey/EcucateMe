@@ -122,7 +122,7 @@ fun ProfileView(
                 content = "Вот это мне нравится!",
                 isVisible = true
             ) {
-//                Toast.makeText(context, "It's developing", Toast.LENGTH_SHORT).show()
+                onOpenScreen(ProfileAction.OnOpenSubjects)
             }
 
             Reference(
@@ -132,7 +132,6 @@ fun ProfileView(
                 isVisible = true
             ) {
                 onOpenScreen(ProfileAction.OnOpenTimeTable)
-//                Toast.makeText(context, "It's developing", Toast.LENGTH_SHORT).show()
             }
 
             Reference(

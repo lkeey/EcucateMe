@@ -6,6 +6,7 @@ import dev.lkeeeey.edu.core.data.safeCall
 import dev.lkeeeey.edu.core.data.safeCallWithCookies
 import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
+import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
 import dev.lkeeeey.edu.main.domain.models.TimeTableModel
 import io.ktor.client.HttpClient
 import io.ktor.client.request.bearerAuth
@@ -49,6 +50,36 @@ class RemoteProfileDataSourceImpl(
                 urlString = "$BASE_URL/auth/login"
             ) {
                 setBody(
+                    access
+                )
+            }
+        }
+    }
+
+    override suspend fun updateSubject(
+        access: String,
+        subject: SubjectPresModel
+    ): Result<SubjectPresModel, DataError.Remote> {
+        return safeCall<SubjectPresModel> {
+            httpClient.post(
+                urlString = "$BASE_URL/schedule/subject"
+            ) {
+                setBody(
+                    subject
+                )
+                bearerAuth(
+                    access
+                )
+            }
+        }
+    }
+
+    override suspend fun getSubjects(access: String): Result<List<SubjectPresModel>, DataError.Remote> {
+        return safeCall<List<SubjectPresModel>> {
+            httpClient.get(
+                urlString = "$BASE_URL/schedule/subject"
+            ) {
+                bearerAuth(
                     access
                 )
             }

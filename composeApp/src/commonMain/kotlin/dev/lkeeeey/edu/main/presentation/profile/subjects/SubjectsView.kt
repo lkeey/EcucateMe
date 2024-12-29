@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
 import dev.lkeeeey.edu.core.presentation.components.btn.FilledBtn
 import dev.lkeeeey.edu.core.presentation.components.fields.OutlinedText
+import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
 import dev.lkeeeey.edu.main.presentation.profile.subjects.components.SubjectComponent
 import dev.lkeeeey.edu.main.presentation.profile.subjects.viewmodel.SubjectsEvent
 import dev.lkeeeey.edu.main.presentation.profile.subjects.viewmodel.SubjectsState
@@ -78,7 +79,14 @@ fun SubjectsView (
                         subject = it.name,
                         previouslySelected = it.priority,
                         onClick = { subject->
-                            onEvent(SubjectsEvent.OnUpdatePriority(!it.priority, it.id))
+                            onEvent(SubjectsEvent.OnUpdatePriority(
+                                subject = SubjectPresModel(
+                                    id = it.id,
+                                    name = it.name,
+                                    priority = !it.priority
+                                )
+                            ))
+
                         }
                     )
                 }

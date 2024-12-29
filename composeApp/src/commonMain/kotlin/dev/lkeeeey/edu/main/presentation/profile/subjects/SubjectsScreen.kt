@@ -1,11 +1,11 @@
 package dev.lkeeeey.edu.main.presentation.profile.subjects
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import dev.lkeeeey.edu.main.presentation.profile.subjects.viewmodel.SubjectsViewModel
-import dev.lkeeeey.edu.main.presentation.profile.timetable.TimeTableView
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -21,4 +21,8 @@ fun SubjectsScreen (
             viewModel.onEvent(event)
         }
     )
+
+    LaunchedEffect(true) {
+        viewModel.getSubjects()
+    }
 }

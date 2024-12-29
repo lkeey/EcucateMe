@@ -26,6 +26,10 @@ fun ProfileScreen (
                 ProfileAction.OnOpenTimeTable -> {
                     navController.navigate(Route.ProfileTimeTable)
                 }
+
+                ProfileAction.OnOpenSubjects -> {
+                    navController.navigate(Route.ProfileSubjects)
+                }
             }
         }
     )

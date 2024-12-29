@@ -9,6 +9,7 @@ import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.main.data.network.RemoteProfileDataSource
 import dev.lkeeeey.edu.main.domain.ProfileRepository
+import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
 import dev.lkeeeey.edu.main.domain.models.TimeTableModel
 
 class ProfileRepositoryImpl (
@@ -41,6 +42,19 @@ class ProfileRepositoryImpl (
             saveCookies = {
                 authRepository.updateRefreshToken(it)
             }
+        )
+    }
+
+    override suspend fun getSubjects(): Result<List<SubjectPresModel>, DataError.Remote> {
+        return remoteProfileDataSource.getSubjects(
+            access = getAccess()
+        )
+    }
+
+    override suspend fun updateSubject(subject: SubjectPresModel): Result<SubjectPresModel, DataError.Remote> {
+        return remoteProfileDataSource.updateSubject(
+            access = getAccess(),
+            subject = subject
         )
     }
 
