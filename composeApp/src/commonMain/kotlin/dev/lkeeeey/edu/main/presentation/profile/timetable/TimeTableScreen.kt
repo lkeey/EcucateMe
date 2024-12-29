@@ -1,6 +1,7 @@
 package dev.lkeeeey.edu.main.presentation.profile.timetable
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -21,4 +22,8 @@ fun TimeTableScreen (
             viewModel.onEvent(event)
         }
     )
+
+    LaunchedEffect(true) {
+        viewModel.getSavedSubjects()
+    }
 }

@@ -24,7 +24,7 @@ class TimeTableViewModel (
         _state.value
     )
 
-    init {
+    fun getSavedSubjects() {
         viewModelScope.launch {
             profileRepository.refreshToken()
                 .onSuccess {
@@ -35,12 +35,14 @@ class TimeTableViewModel (
                         .onSuccess {
                             for (model in it) {
 
-                                val modified = state.value.savedSubjects.toMutableList()
-                                modified[model.weekDay].add(model.name.name)
+                                val m1 = state.value.savedSubjects.toMutableList()
+                                val m2 = m1[model.weekDay].toMutableList()
+                                m2.add(model.name.name)
+                                m1[model.weekDay] = m2
 
                                 _state.update {
                                     it.copy(
-                                        savedSubjects = modified
+                                        savedSubjects = m1
                                     )
                                 }
 
@@ -60,12 +62,14 @@ class TimeTableViewModel (
     fun onEvent(event : TimeTableEvent) {
         when (event) {
             TimeTableEvent.OnAddLesson -> {
-                val modified = state.value.savedSubjects.toMutableList()
-                modified[state.value.dayIndex].add("New")
+                val m1 = state.value.savedSubjects.toMutableList()
+                val m2 = m1[state.value.dayIndex].toMutableList()
+                m2.add("New")
+                m1[state.value.dayIndex] = m2
 
                 _state.update {
                     it.copy(
-                        savedSubjects = modified
+                        savedSubjects = m1
                     )
                 }
             }
@@ -73,12 +77,14 @@ class TimeTableViewModel (
 
             }
             is TimeTableEvent.OnSubjectUpdate -> {
-                val modified = state.value.savedSubjects.toMutableList()
-                modified[state.value.dayIndex][event.index] = event.subject
+                val m1 = state.value.savedSubjects.toMutableList()
+                val m2 = m1[state.value.dayIndex].toMutableList()
+                m2[event.index] = event.subject
+                m1[state.value.dayIndex] = m2
 
                 _state.update {
                     it.copy(
-                        savedSubjects = modified
+                        savedSubjects = m1
                     )
                 }
             }

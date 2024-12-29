@@ -126,8 +126,8 @@ fun TimeTableView  (
                     )
                 )
         ) {
-            println("lessons - ${state.savedSubjects[state.dayIndex]}")
-            if(state.savedSubjects[state.dayIndex].isNotEmpty()) {
+            println("lessons - ${state.savedSubjects}")
+            if(state.savedSubjects.isNotEmpty() && state.savedSubjects[state.dayIndex].isNotEmpty()) {
                 state.savedSubjects[state.dayIndex].forEachIndexed { index, subject->
                     EditSubject(
                         index = index,
