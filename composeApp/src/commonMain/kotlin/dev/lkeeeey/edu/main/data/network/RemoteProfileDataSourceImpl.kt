@@ -30,6 +30,13 @@ class RemoteProfileDataSourceImpl(
         }
     }
 
+    override suspend fun updateTimeTable(
+        access: String,
+        schedule: List<TimeTableModel>
+    ): Result<List<TimeTableModel>, DataError.Remote> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun refreshToken(
         access: LoginRequest,
         saveCookies: (String) -> Unit

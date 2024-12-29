@@ -12,9 +12,9 @@ interface RemoteProfileDataSource {
     ): Result<List<TimeTableModel>, DataError.Remote>
 
     suspend fun updateTimeTable(
-        access: String
+        access: String,
+        schedule: List<TimeTableModel>
     ): Result<List<TimeTableModel>, DataError.Remote>
-
 
     suspend fun refreshToken(
         access: LoginRequest,

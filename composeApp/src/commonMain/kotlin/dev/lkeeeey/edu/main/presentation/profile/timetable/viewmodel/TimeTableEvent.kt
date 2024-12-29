@@ -1,4 +1,4 @@
-package dev.lkeeeey.edu.main.presentation.profile.timetable.timetable
+package dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel
 
 sealed interface TimeTableEvent {
     data class OnSubjectUpdate(val subject: String, val index: Int) : TimeTableEvent

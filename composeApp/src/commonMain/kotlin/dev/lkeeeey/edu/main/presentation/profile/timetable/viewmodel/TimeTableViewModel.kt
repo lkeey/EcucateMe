@@ -1,4 +1,4 @@
-package dev.lkeeeey.edu.main.presentation.profile.timetable.timetable
+package dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,6 +6,7 @@ import dev.lkeeeey.edu.auth.domain.AuthRepository
 import dev.lkeeeey.edu.core.domain.onError
 import dev.lkeeeey.edu.core.domain.onSuccess
 import dev.lkeeeey.edu.main.domain.ProfileRepository
+import dev.lkeeeey.edu.main.domain.models.TimeTableModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -39,6 +40,11 @@ class TimeTableViewModel (
                                 val m2 = m1[model.weekDay].toMutableList()
                                 m2.add(model.name.name)
                                 m1[model.weekDay] = m2
+
+                                // TODO SAVE SUBJECT IDS to add when save
+//                                if (state.value.subjectIds.contains(mapOf(Pair(model.name, model.id)))) {
+//
+//                                }
 
                                 _state.update {
                                     it.copy(
@@ -95,6 +101,18 @@ class TimeTableViewModel (
                     )
                 }
             }
+        }
+    }
+
+    fun updateSchedule() {
+        val scheduleList = mutableListOf<TimeTableModel>()
+        for (model in state.value.savedSubjects) {
+//            TODO save schedule
+//            scheduleList.add(
+//                TimeTableModel(
+//                    id =
+//                )
+//            )
         }
     }
 }

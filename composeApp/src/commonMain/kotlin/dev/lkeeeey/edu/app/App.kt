@@ -2,7 +2,6 @@ package dev.lkeeeey.edu.app
 
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,7 +17,7 @@ import dev.lkeeeey.edu.core.presentation.EduMeTheme
 import dev.lkeeeey.edu.main.presentation.calendar.CalendarScreen
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarViewModel
 import dev.lkeeeey.edu.main.presentation.profile.timetable.TimeTableScreen
-import dev.lkeeeey.edu.main.presentation.profile.timetable.timetable.TimeTableViewModel
+import dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel.TimeTableViewModel
 import dev.lkeeeey.edu.profile.presentation.ProfileScreen
 import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -133,6 +132,19 @@ fun App() {
                     }
 
                     composable<Route.ProfileTimeTable>(
+                        exitTransition = { slideOutHorizontally() },
+                        popEnterTransition = { slideInHorizontally() }
+                    ) {
+//                    ProfileTimeTable screen
+                        val viewModel = koinViewModel<TimeTableViewModel>()
+
+                        TimeTableScreen(
+                            viewModel = viewModel,
+                            navController = navController
+                        )
+                    }
+
+                    composable<Route.ProfileSubjects>(
                         exitTransition = { slideOutHorizontally() },
                         popEnterTransition = { slideInHorizontally() }
                     ) {

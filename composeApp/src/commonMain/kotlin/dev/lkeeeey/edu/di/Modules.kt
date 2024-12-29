@@ -16,7 +16,7 @@ import dev.lkeeeey.edu.main.data.network.RemoteProfileDataSourceImpl
 import dev.lkeeeey.edu.main.data.repository.ProfileRepositoryImpl
 import dev.lkeeeey.edu.main.domain.ProfileRepository
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarViewModel
-import dev.lkeeeey.edu.main.presentation.profile.timetable.timetable.TimeTableViewModel
+import dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel.TimeTableViewModel
 import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf

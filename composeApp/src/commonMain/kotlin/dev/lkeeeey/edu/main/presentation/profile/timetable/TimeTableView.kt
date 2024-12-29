@@ -33,8 +33,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
 import dev.lkeeeey.edu.main.presentation.profile.timetable.components.EditSubject
-import dev.lkeeeey.edu.main.presentation.profile.timetable.timetable.TimeTableEvent
-import dev.lkeeeey.edu.main.presentation.profile.timetable.timetable.TimeTableState
+import dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel.TimeTableEvent
+import dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel.TimeTableState
 import ecucateme.composeapp.generated.resources.Bold
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
