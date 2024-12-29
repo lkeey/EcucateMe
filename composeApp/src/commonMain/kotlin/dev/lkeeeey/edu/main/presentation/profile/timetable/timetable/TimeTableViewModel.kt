@@ -2,6 +2,8 @@ package dev.lkeeeey.edu.main.presentation.profile.timetable.timetable
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.russhwolf.settings.Settings
+import dev.lkeeeey.edu.auth.data.keys.Keys
 import dev.lkeeeey.edu.auth.domain.AuthRepository
 import dev.lkeeeey.edu.core.domain.onError
 import dev.lkeeeey.edu.core.domain.onSuccess
@@ -23,13 +25,23 @@ class TimeTableViewModel (
         _state.value
     )
 
+    private val settings = Settings()
+
     init {
         viewModelScope.launch {
 
+            val access = settings.getString(
+                key = Keys.ACCESS_TOKEN,
+                defaultValue = ""
+            )
+
+            val refresh = settings.getString(
+                key = Keys.REFRESH_TOKEN,
+                defaultValue = ""
+            )
+
             profileRepository.refreshToken()
                 .onSuccess {
-                    println("woooooooow - ${it.accessToken}")
-
                     authRepository.updateAccessToken(it.accessToken)
                     val result = profileRepository.getTimeTable()
 
@@ -37,7 +49,6 @@ class TimeTableViewModel (
                 }
                 .onError {
                     println("error - $it")
-
                 }
         }
     }

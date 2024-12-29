@@ -5,6 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.russhwolf.settings.Settings
 import dev.lkeeeey.edu.auth.data.keys.Keys
 import dev.lkeeeey.edu.auth.domain.AuthRepository
+import dev.lkeeeey.edu.core.domain.onError
+import dev.lkeeeey.edu.core.domain.onSuccess
+import dev.lkeeeey.edu.main.data.network.RemoteProfileDataSource
+import dev.lkeeeey.edu.main.domain.ProfileRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +17,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SplashViewModel (
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val profileRepository: ProfileRepository,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(SplashState())
@@ -47,9 +52,6 @@ class SplashViewModel (
             val access = settings.getStringOrNull(Keys.ACCESS_TOKEN)
             val isAuthenticated = settings.getBoolean(Keys.IS_LOGIN, defaultValue = false)
 
-            //TODO TRY TO REFRESH TOKEN
-
-
             if (!isAuthenticated || refresh.isNullOrEmpty() || access.isNullOrEmpty()) {
                 // navigate to login
                 _state.update {
@@ -58,14 +60,27 @@ class SplashViewModel (
                     )
                 }
             } else {
-                _state.update {
-                    it.copy(
-                        action = SplashAction.OpenMain
-                    )
-                }
+                //REFRESH TOKEN
+                profileRepository
+                    .refreshToken()
+                    .onSuccess {
+                        _state.update {
+                            it.copy(
+                                action = SplashAction.OpenMain
+                            )
+                        }
+                    }
+                    .onError {
+                        _state.update {
+                            it.copy(
+                                action = SplashAction.OpenLogin
+                            )
+                        }
+                    }
             }
         }
     }
+
 
 
 }

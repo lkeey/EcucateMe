@@ -33,6 +33,7 @@ fun DataError.toStr(): String {
         DataError.Remote.SERIALIZATION -> "error_serialization"
         DataError.Remote.UNKNOWN -> "error_unknown"
         DataError.Local.NO_USER -> "error_couldnt_fetch_user"
+        DataError.Remote.UNATHORIZED -> "unathorized user"
     }
 
     return stringRes

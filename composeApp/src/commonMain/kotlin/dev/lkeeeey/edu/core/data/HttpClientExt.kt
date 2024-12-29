@@ -39,9 +39,17 @@ suspend inline fun <reified T> safeCallWithCookies(
     } catch(e: UnresolvedAddressException) {
         return Result.Error(DataError.Remote.NO_INTERNET)
     } catch (e: Exception) {
-        println("erroooooor- ${e.message}")
         coroutineContext.ensureActive()
         return Result.Error(DataError.Remote.UNKNOWN)
+    }
+
+    try {
+        println("cookie in ext ${response.setCookie()}")
+
+        val cookies = response.setCookie()[0].value
+        saveToLocalDB(cookies)
+    } catch (e: Exception) {
+        println("wwww ${e.message}")
     }
 
     return responseToResult(response)
@@ -58,6 +66,7 @@ suspend inline fun <reified T> responseToResult(
                 Result.Error(DataError.Remote.SERIALIZATION)
             }
         }
+        401 -> Result.Error(DataError.Remote.UNATHORIZED)
         408 -> Result.Error(DataError.Remote.REQUEST_TIMEOUT)
         429 -> Result.Error(DataError.Remote.TOO_MANY_REQUESTS)
         in 500..599 -> Result.Error(DataError.Remote.SERVER)

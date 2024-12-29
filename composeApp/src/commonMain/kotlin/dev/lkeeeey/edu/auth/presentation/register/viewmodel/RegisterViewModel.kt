@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.get
+import dev.lkeeeey.edu.auth.data.keys.Keys
 import dev.lkeeeey.edu.auth.domain.AuthRepository
 import dev.lkeeeey.edu.auth.domain.models.LoginRequest
 import dev.lkeeeey.edu.auth.domain.models.RegisterRequest
@@ -28,7 +29,6 @@ class RegisterViewModel (
     )
 
     private val settings = Settings()
-
 
     fun onAction(event: RegisterAction) {
         when (event) {
@@ -135,6 +135,17 @@ class RegisterViewModel (
                                 authRepository
                                     .updateAuthenticated(true)
                                     .onSuccess {
+
+                                        settings.putString(
+                                            key = Keys.LOGIN,
+                                            value = state.value.username
+                                        )
+
+                                        settings.putString(
+                                            key = Keys.PASSWORD,
+                                            value = state.value.password
+                                        )
+
                                         _state.update {
                                             it.copy(
                                                 isLoading = false,

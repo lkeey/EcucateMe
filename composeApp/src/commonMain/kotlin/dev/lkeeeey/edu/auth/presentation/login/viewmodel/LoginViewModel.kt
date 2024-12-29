@@ -2,6 +2,8 @@ package dev.lkeeeey.edu.auth.presentation.login.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.russhwolf.settings.Settings
+import dev.lkeeeey.edu.auth.data.keys.Keys
 import dev.lkeeeey.edu.auth.domain.AuthRepository
 import dev.lkeeeey.edu.auth.domain.models.LoginRequest
 import dev.lkeeeey.edu.core.domain.onError
@@ -16,6 +18,7 @@ import kotlinx.coroutines.launch
 class LoginViewModel (
     private val authRepository: AuthRepository
 ) : ViewModel() {
+    private val settings = Settings()
 
     private val _state = MutableStateFlow(LoginState())
     val state = _state.stateIn(
@@ -108,6 +111,17 @@ class LoginViewModel (
                             authRepository
                                 .updateAuthenticated(true)
                                 .onSuccess {
+
+                                    settings.putString(
+                                        key = Keys.LOGIN,
+                                        value = state.value.username
+                                    )
+
+                                    settings.putString(
+                                        key = Keys.PASSWORD,
+                                        value = state.value.password
+                                    )
+
                                     _state.update {
                                         it.copy(
                                             isLoading = false,

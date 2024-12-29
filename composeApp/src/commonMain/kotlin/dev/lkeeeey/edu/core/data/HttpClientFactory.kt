@@ -21,7 +21,8 @@ object HttpClientFactory {
                 json(
                     json = Json {
                         ignoreUnknownKeys = true
-                    }
+                    },
+                    contentType = ContentType.Any
                 )
             }
             install(HttpTimeout) {

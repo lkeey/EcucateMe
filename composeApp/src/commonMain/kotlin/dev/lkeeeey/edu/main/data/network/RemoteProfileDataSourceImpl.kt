@@ -1,6 +1,7 @@
 package dev.lkeeeey.edu.main.data.network
 
 import dev.lkeeeey.edu.auth.data.dto.AuthLoginDto
+import dev.lkeeeey.edu.auth.domain.models.LoginRequest
 import dev.lkeeeey.edu.core.data.safeCall
 import dev.lkeeeey.edu.core.data.safeCallWithCookies
 import dev.lkeeeey.edu.core.domain.DataError
@@ -30,7 +31,7 @@ class RemoteProfileDataSourceImpl(
     }
 
     override suspend fun refreshToken(
-        access: String,
+        access: LoginRequest,
         saveCookies: (String) -> Unit
     ): Result<AuthLoginDto, DataError.Remote> {
 
@@ -38,9 +39,11 @@ class RemoteProfileDataSourceImpl(
             saveToLocalDB = saveCookies
         ) {
             httpClient.post(
-                urlString = "$BASE_URL/auth/refresh"
+                urlString = "$BASE_URL/auth/login"
             ) {
-                bearerAuth(access)
+                setBody(
+                    access
+                )
             }
         }
     }
