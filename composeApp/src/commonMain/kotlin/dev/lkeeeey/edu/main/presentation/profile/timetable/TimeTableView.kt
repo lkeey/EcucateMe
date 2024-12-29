@@ -126,8 +126,9 @@ fun TimeTableView  (
                     )
                 )
         ) {
-            if(state.subjects.isNotEmpty()) {
-                state.subjects.forEachIndexed { index, subject->
+            println("lessons - ${state.savedSubjects[state.dayIndex]}")
+            if(state.savedSubjects[state.dayIndex].isNotEmpty()) {
+                state.savedSubjects[state.dayIndex].forEachIndexed { index, subject->
                     EditSubject(
                         index = index,
                         subject = subject,
@@ -138,6 +139,8 @@ fun TimeTableView  (
             } else {
                 Text(
                     text = "Уроков нет!",
+                    modifier = Modifier
+                        .fillMaxSize(),
                     style = TextStyle(
                         fontSize = 16.sp,
                         fontFamily = FontFamily(Font(Res.font.Thin)),
@@ -145,7 +148,8 @@ fun TimeTableView  (
                         color = Theme.colors.secondaryBorder,
                         letterSpacing = 0.3.sp,
                     ),
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+
                 )
             }
 

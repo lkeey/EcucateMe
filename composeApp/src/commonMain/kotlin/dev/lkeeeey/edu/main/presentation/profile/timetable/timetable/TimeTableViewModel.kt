@@ -2,8 +2,6 @@ package dev.lkeeeey.edu.main.presentation.profile.timetable.timetable
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.russhwolf.settings.Settings
-import dev.lkeeeey.edu.auth.data.keys.Keys
 import dev.lkeeeey.edu.auth.domain.AuthRepository
 import dev.lkeeeey.edu.core.domain.onError
 import dev.lkeeeey.edu.core.domain.onSuccess
@@ -18,6 +16,7 @@ class TimeTableViewModel (
     private val profileRepository: ProfileRepository,
     private val authRepository: AuthRepository
 ) : ViewModel() {
+
     private val _state = MutableStateFlow(TimeTableState())
     val state = _state.stateIn(
         viewModelScope,
@@ -25,27 +24,32 @@ class TimeTableViewModel (
         _state.value
     )
 
-    private val settings = Settings()
-
     init {
         viewModelScope.launch {
-
-            val access = settings.getString(
-                key = Keys.ACCESS_TOKEN,
-                defaultValue = ""
-            )
-
-            val refresh = settings.getString(
-                key = Keys.REFRESH_TOKEN,
-                defaultValue = ""
-            )
-
             profileRepository.refreshToken()
                 .onSuccess {
                     authRepository.updateAccessToken(it.accessToken)
-                    val result = profileRepository.getTimeTable()
 
-                    println("woooooooow - $result")
+                    profileRepository
+                        .getTimeTable()
+                        .onSuccess {
+                            for (model in it) {
+
+                                val modified = state.value.savedSubjects.toMutableList()
+                                modified[model.weekDay].add(model.name.name)
+
+                                _state.update {
+                                    it.copy(
+                                        savedSubjects = modified
+                                    )
+                                }
+
+                                println("subjects - ${state.value.savedSubjects}")
+                            }
+                        }
+                        .onError {
+                            println("error - $it")
+                        }
                 }
                 .onError {
                     println("error - $it")
@@ -56,10 +60,12 @@ class TimeTableViewModel (
     fun onEvent(event : TimeTableEvent) {
         when (event) {
             TimeTableEvent.OnAddLesson -> {
-                val modified = state.value.subjects + "New"
+                val modified = state.value.savedSubjects.toMutableList()
+                modified[state.value.dayIndex].add("New")
+
                 _state.update {
                     it.copy(
-                        subjects = modified
+                        savedSubjects = modified
                     )
                 }
             }
@@ -67,12 +73,12 @@ class TimeTableViewModel (
 
             }
             is TimeTableEvent.OnSubjectUpdate -> {
-                val modified = state.value.subjects.toMutableList()
-                modified[event.index] = event.subject
+                val modified = state.value.savedSubjects.toMutableList()
+                modified[state.value.dayIndex][event.index] = event.subject
 
                 _state.update {
                     it.copy(
-                        subjects = modified
+                        savedSubjects = modified
                     )
                 }
             }
