@@ -11,5 +11,5 @@ fun TeacherDetailView (
     onEvent: (AllTeachersEvent) -> Unit,
 ) {
 
-    Text(text = "teacher - ${state.selectedUsername}")
+    Text(text = "teacher - ${state.selectedUsername} - ${state.selectedTeacherModel.bio}")
 }

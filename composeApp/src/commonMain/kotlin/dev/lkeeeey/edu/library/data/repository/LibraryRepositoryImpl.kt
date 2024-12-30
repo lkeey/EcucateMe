@@ -8,6 +8,7 @@ import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.library.data.network.RemoteLibraryRepository
 import dev.lkeeeey.edu.library.domain.LibraryRepository
+import dev.lkeeeey.edu.library.domain.models.DescriptionTeacherModel
 import dev.lkeeeey.edu.library.domain.models.TeacherModel
 
 class LibraryRepositoryImpl (
@@ -27,7 +28,14 @@ class LibraryRepositoryImpl (
         )
     }
 
-    fun getAccess() : String {
+    override suspend fun getTeacherDescription(username: String): Result<DescriptionTeacherModel, DataError.Remote> {
+        return remoteLibraryRepository.getTeacherDescription(
+            access = getAccess(),
+            username = username
+        )
+    }
+
+    private fun getAccess() : String {
         return settings.getString(
             key = Keys.ACCESS_TOKEN,
             defaultValue = ""

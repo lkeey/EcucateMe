@@ -63,6 +63,26 @@ class AllTeachersViewModel (
                         selectedUsername = settings.getString(Keys.SELECTED_TEACHER, "")
                     )
                 }
+
+                viewModelScope.launch {
+
+                    profileRepository.refreshToken()
+                        .onSuccess {
+                            authRepository.updateAccessToken(it.accessToken)
+
+                            libraryRepository.getTeacherDescription(
+                                username = state.value.selectedUsername
+                            )
+                            .onSuccess { teacher ->
+                                _state.update {
+                                    it.copy(
+                                        selectedTeacherModel = teacher
+                                    )
+                                }
+                            }
+                        }
+                }
+
             }
         }
     }
