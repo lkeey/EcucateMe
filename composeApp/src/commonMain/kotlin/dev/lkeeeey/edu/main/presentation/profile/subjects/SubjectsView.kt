@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -38,7 +39,22 @@ fun SubjectsView (
     Column (
         modifier = Modifier
             .fillMaxSize()
+            .padding(16.dp)
     ) {
+        Text(
+            text = "Школьные предметы и не только",
+            modifier = Modifier.fillMaxWidth(),
+            style = TextStyle(
+                fontSize = 16.sp,
+                fontFamily = FontFamily(Font(Res.font.Thin)),
+                fontWeight = FontWeight(600),
+                color = Theme.colors.blackProfile,
+                textAlign = TextAlign.Center
+            )
+        )
+
+        Spacer(Modifier.height(16.dp))
+
         OutlinedText(
             previousData = state.subjectName,
             label = "Введите новый предмет",
@@ -46,7 +62,7 @@ fun SubjectsView (
             onEvent(SubjectsEvent.OnUpdateSubjectName(it))
         }
 
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(16.dp))
 
         FilledBtn(
             text = "Добавить"
@@ -54,7 +70,7 @@ fun SubjectsView (
             onEvent(SubjectsEvent.OnCreateSubject)
         }
 
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(24.dp))
 
         Text(
             text = "Нажмите на приоритетные предметы",

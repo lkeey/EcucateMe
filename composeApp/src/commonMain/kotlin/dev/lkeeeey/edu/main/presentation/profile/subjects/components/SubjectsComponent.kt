@@ -56,7 +56,7 @@ fun SubjectComponent (
             width = 1.dp,
             color = when {
                 isSelected -> Theme.colors.primaryBackground.copy(1f)
-                else -> Color.Black
+                else -> Theme.colors.greyDescription
             }
         ),
         colors = ChipDefaults.filterChipColors(
