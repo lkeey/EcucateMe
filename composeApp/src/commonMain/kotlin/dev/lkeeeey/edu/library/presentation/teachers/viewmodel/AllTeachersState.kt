@@ -1,4 +1,9 @@
 package dev.lkeeeey.edu.library.presentation.teachers.viewmodel
 
-class AllTeachersState {
-}
+import dev.lkeeeey.edu.library.domain.models.TeacherModel
+
+data class AllTeachersState (
+    val teachers : List<TeacherModel> = emptyList(),
+    val query : String = "",
+    val subject : String = "",
+)

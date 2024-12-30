@@ -3,7 +3,6 @@ package dev.lkeeeey.edu.library.data.network
 import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.library.domain.models.TeacherModel
-import dev.lkeeeey.edu.main.domain.models.TimeTableModel
 
 interface RemoteLibraryRepository {
 
