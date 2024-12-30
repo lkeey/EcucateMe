@@ -1,9 +1,11 @@
 package dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel
 
+import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
+
 sealed interface TimeTableEvent {
     data class OnSubjectUpdate(
-        val deletedSubjectId : Int,
-        val subjectID: Int,
+        val deletedSubject : Int,
+        val subjectNew: SubjectPresModel,
         val subjectNum: Int
     ) : TimeTableEvent
     data class OnChangeDay(val index : Int): TimeTableEvent

@@ -32,7 +32,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
-import dev.lkeeeey.edu.main.presentation.profile.timetable.components.EditSubject
 import dev.lkeeeey.edu.main.presentation.profile.timetable.components.ReadOnlyDropDown
 import dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel.TimeTableEvent
 import dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel.TimeTableState
@@ -129,7 +128,7 @@ fun TimeTableView  (
         ) {
 
             if(state.savedSubjects.isNotEmpty()) {
-                state.savedSubjects.forEachIndexed { index, subject->
+                state.savedSubjects.forEachIndexed { index, subjectSchedule->
 //                    EditSubject(
 //                        index = index,
 //                        subject = subject,
@@ -139,16 +138,16 @@ fun TimeTableView  (
 
                     ReadOnlyDropDown(
                         options = state.subjectIds,
-                        previousData = subject.name.name,
+                        previousData = subjectSchedule.name.name,
                         label = "${index+1}-й предмет"
-                    ) { subjId ->
+                    ) { subj ->
 
 //                        id previous - to delete
 //                        start and end time, weekday, subjectID - to create
 
                         onEvent(TimeTableEvent.OnSubjectUpdate(
-                            deletedSubjectId = subject.id,
-                            subjectID = subjId.id,
+                            deletedSubject = subjectSchedule.id,
+                            subjectNew = subj,
                             subjectNum = index
                         ))
                     }
@@ -203,31 +202,31 @@ fun TimeTableView  (
 
         Spacer(modifier = Modifier.weight(.1f))
 
-        Button(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 32.dp, vertical = 8.dp),
-            shape = RoundedCornerShape(size = 16.dp),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Theme.colors.primaryBackground.copy(alpha = 1f),
-            ),
-            onClick = {
-                onEvent(TimeTableEvent.OnSaveDay)
-            }
-        ) {
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp),
-                text = "Сохранить",
-                style = TextStyle(
-                    fontSize = 20.sp,
-                    fontFamily = FontFamily(Font(Res.font.Thin)),
-                    fontWeight = FontWeight(600),
-                    color = White,
-                    textAlign = TextAlign.Center
-                )
-            )
-        }
+//        Button(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(horizontal = 32.dp, vertical = 8.dp),
+//            shape = RoundedCornerShape(size = 16.dp),
+//            colors = ButtonDefaults.buttonColors(
+//                backgroundColor = Theme.colors.primaryBackground.copy(alpha = 1f),
+//            ),
+//            onClick = {
+//                onEvent(TimeTableEvent.OnSaveDay)
+//            }
+//        ) {
+//            Text(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(vertical = 4.dp),
+//                text = "Сохранить",
+//                style = TextStyle(
+//                    fontSize = 20.sp,
+//                    fontFamily = FontFamily(Font(Res.font.Thin)),
+//                    fontWeight = FontWeight(600),
+//                    color = White,
+//                    textAlign = TextAlign.Center
+//                )
+//            )
+//        }
     }
 }

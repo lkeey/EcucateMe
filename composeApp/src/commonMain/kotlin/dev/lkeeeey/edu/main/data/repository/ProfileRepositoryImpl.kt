@@ -67,11 +67,17 @@ class ProfileRepositoryImpl (
     }
 
     override suspend fun deleteSubjectFromSchedule(deletedId: Int): Result<Unit, DataError.Remote> {
-        TODO("Not yet implemented")
+        return remoteProfileDataSource.deleteSubjectFromSchedule(
+            access = getAccess(),
+            deletedId = deletedId
+        )
     }
 
     override suspend fun addSubjectToSchedule(subject: SubjectSchedule): Result<SubjectSchedule, DataError.Remote> {
-        TODO("Not yet implemented")
+        return remoteProfileDataSource.addSubjectToSchedule(
+            access = getAccess(),
+            subject = subject
+        )
     }
 
     fun getAccess() : String {
