@@ -6,7 +6,7 @@ sealed interface Route {
 
     @Serializable
     data object Auth: Route
-
+//    auth routes
     @Serializable
     data object Splash: Route
 
@@ -15,16 +15,20 @@ sealed interface Route {
 
     @Serializable
     data object Register: Route
+//    end auth routes
+
 
     @Serializable
     data object Main: Route
 
+
     @Serializable
     data object Calendar: Route
 
+
     @Serializable
     data object ProfileRoutes: Route
-
+// profile routes
     @Serializable
     data object Profile: Route
 
@@ -33,4 +37,23 @@ sealed interface Route {
 
     @Serializable
     data object ProfileTimeTable: Route
+
+    @Serializable
+    data object MyTeachers: Route
+// end profile routes
+
+
+    @Serializable
+    data object Library: Route
+// library routes
+    @Serializable
+    data object LibraryPosts: Route
+
+    @Serializable
+    data object AllTeachers: Route
+
+    @Serializable
+    data object TeacherDescription: Route
+// end library routes
+
 }
