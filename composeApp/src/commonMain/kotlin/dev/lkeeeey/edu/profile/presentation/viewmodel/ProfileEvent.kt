@@ -1,4 +1,5 @@
 package dev.lkeeeey.edu.profile.presentation.viewmodel
 
-class ProfileEvent {
+sealed interface ProfileEvent {
+    data object OnLogOut : ProfileEvent
 }

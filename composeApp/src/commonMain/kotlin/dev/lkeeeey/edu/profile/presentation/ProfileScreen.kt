@@ -31,6 +31,10 @@ fun ProfileScreen (
 //                    navController.navigate(Route.ProfileSubjects)
                     navController.navigate(Route.AllTeachers)
                 }
+
+                ProfileAction.OnOpenLogin -> {
+                    navController.navigate(Route.Auth)
+                }
             }
         }
     )

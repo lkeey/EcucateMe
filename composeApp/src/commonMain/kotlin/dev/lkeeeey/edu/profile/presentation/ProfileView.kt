@@ -33,6 +33,7 @@ import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileState
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
 import ecucateme.composeapp.generated.resources.ic_profile_education
+import ecucateme.composeapp.generated.resources.ic_profile_logout
 import ecucateme.composeapp.generated.resources.ic_profile_timetable
 import ecucateme.composeapp.generated.resources.ic_profile_win
 import ecucateme.composeapp.generated.resources.profile
@@ -141,6 +142,17 @@ fun ProfileView(
                 isVisible = true
             ) {
 //                Toast.makeText(context, "It's developing", Toast.LENGTH_SHORT).show()
+            }
+
+            Reference(
+                icon = Res.drawable.ic_profile_logout,
+                title = "Выйти из аккаунта",
+                content = "Уверены?",
+                isLogout = true,
+            ) {
+                onEvent(ProfileEvent.OnLogOut)
+
+                onOpenScreen(ProfileAction.OnOpenLogin)
             }
         }
     }
