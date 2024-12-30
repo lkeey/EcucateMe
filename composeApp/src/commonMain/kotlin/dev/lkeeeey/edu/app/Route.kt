@@ -44,7 +44,7 @@ sealed interface Route {
 
 
     @Serializable
-    data object Library: Route
+    data object LibraryRoutes: Route
 // library routes
     @Serializable
     data object LibraryPosts: Route

@@ -2,6 +2,7 @@ package dev.lkeeeey.edu.app
 
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -14,6 +15,8 @@ import dev.lkeeeey.edu.auth.presentation.register.viewmodel.RegisterViewModel
 import dev.lkeeeey.edu.auth.presentation.splash.SplashScreen
 import dev.lkeeeey.edu.auth.presentation.splash.viewmodel.SplashViewModel
 import dev.lkeeeey.edu.core.presentation.EduMeTheme
+import dev.lkeeeey.edu.library.presentation.teachers.AllTeachersScreen
+import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersViewModel
 import dev.lkeeeey.edu.main.presentation.calendar.CalendarScreen
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarViewModel
 import dev.lkeeeey.edu.main.presentation.profile.subjects.SubjectsScreen
@@ -121,18 +124,6 @@ fun App() {
                         )
                     }
 
-                    composable<Route.ProfileSubjects>(
-                        exitTransition = { slideOutHorizontally() },
-                        popEnterTransition = { slideInHorizontally() }
-                    ) {
-//                    ProfileSubjects screen
-
-//                        ProfileScreen(
-//                            viewModel = viewModel,
-//                            navController = navController
-//                        )
-                    }
-
                     composable<Route.ProfileTimeTable>(
                         exitTransition = { slideOutHorizontally() },
                         popEnterTransition = { slideInHorizontally() }
@@ -154,6 +145,32 @@ fun App() {
                         val viewModel = koinViewModel<SubjectsViewModel>()
 
                         SubjectsScreen(
+                            viewModel = viewModel,
+                            navController = navController
+                        )
+                    }
+                }
+
+                navigation<Route.LibraryRoutes>(
+                    startDestination = Route.LibraryPosts
+                ) {
+                    composable<Route.LibraryPosts>(
+                        exitTransition = { slideOutHorizontally() },
+                        popEnterTransition = { slideInHorizontally() }
+                    ) {
+//                    Library Posts screen
+//                        TODO
+                        Text("library posts")
+                    }
+
+                    composable<Route.AllTeachers>(
+                        exitTransition = { slideOutHorizontally() },
+                        popEnterTransition = { slideInHorizontally() }
+                    ) {
+//                    All teachers screen
+                        val viewModel = koinViewModel<AllTeachersViewModel>()
+
+                        AllTeachersScreen(
                             viewModel = viewModel,
                             navController = navController
                         )
