@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,6 +44,7 @@ fun CalendarView (
     val loadedDates = state.loadedDates
     val selectedDate = state.selectedDate
     val currentMonth = state.currentDate.month
+    val scroll = rememberScrollState()
 
     Column(
         horizontalAlignment = Alignment.Start,
@@ -97,7 +100,12 @@ fun CalendarView (
                     onEvent(CalendarEvent.OnDayClick(it))
                 }
             )
+        }
 
+        Column (
+            modifier = Modifier
+                .verticalScroll(scroll)
+        ) {
             Spacer(Modifier.height(32.dp))
 
             if (state.subjects.isEmpty()) {
@@ -112,7 +120,6 @@ fun CalendarView (
             }
 
             Spacer(Modifier.height(32.dp))
-
         }
     }
 }

@@ -34,6 +34,8 @@ class CalendarViewModel (
                         selectedDate = event.date
                     )
                 }
+
+                loadSubjectsPerDay()
             }
         }
     }
