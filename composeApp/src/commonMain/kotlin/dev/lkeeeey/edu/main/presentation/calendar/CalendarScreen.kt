@@ -1,6 +1,7 @@
 package dev.lkeeeey.edu.main.presentation.calendar
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -25,4 +26,8 @@ fun CalendarScreen (
             navController.navigate(Route.Profile)
         }
     )
+
+    LaunchedEffect(true) {
+        viewModel.loadSubjectsPerDay()
+    }
 }

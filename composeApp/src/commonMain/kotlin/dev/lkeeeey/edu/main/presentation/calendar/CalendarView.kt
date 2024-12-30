@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import dev.lkeeeey.edu.main.presentation.calendar.components.ImageWithText
 import dev.lkeeeey.edu.main.presentation.calendar.components.MonthText
 import dev.lkeeeey.edu.main.presentation.calendar.components.MonthViewCalendar
+import dev.lkeeeey.edu.main.presentation.calendar.components.ScheduleSubject
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarEvent
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarState
 import ecucateme.composeapp.generated.resources.Res
@@ -99,10 +100,16 @@ fun CalendarView (
 
             Spacer(Modifier.height(32.dp))
 
-            ImageWithText (
-                drawable = Res.drawable.ic_calendar_no_plans,
-                text = "Здесь пусто. Можно и отдохнуть"
-            )
+            if (state.subjects.isEmpty()) {
+                ImageWithText (
+                    drawable = Res.drawable.ic_calendar_no_plans,
+                    text = "Здесь пусто. Можно и отдохнуть"
+                )
+            } else {
+                state.subjects.forEach {
+                    ScheduleSubject(subject = it)
+                }
+            }
 
             Spacer(Modifier.height(32.dp))
 

@@ -1,5 +1,6 @@
 package dev.lkeeeey.edu.main.presentation.calendar.viewmodel
 
+import dev.lkeeeey.edu.main.domain.models.TimeTableModel
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
@@ -10,7 +11,7 @@ import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
 
 data class CalendarState (
-    val subjects: List<String> = emptyList(),
+    val subjects: List<TimeTableModel> = emptyList(),
 
     val loadedDates: List<LocalDate> =
         Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date.getWeek(),
