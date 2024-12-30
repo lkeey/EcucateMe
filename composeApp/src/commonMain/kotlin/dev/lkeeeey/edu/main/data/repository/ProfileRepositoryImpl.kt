@@ -10,6 +10,7 @@ import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.main.data.network.RemoteProfileDataSource
 import dev.lkeeeey.edu.main.domain.ProfileRepository
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
+import dev.lkeeeey.edu.main.domain.models.SubjectSchedule
 import dev.lkeeeey.edu.main.domain.models.TimeTableModel
 
 class ProfileRepositoryImpl (
@@ -63,6 +64,14 @@ class ProfileRepositoryImpl (
             access = getAccess(),
             subject = subject
         )
+    }
+
+    override suspend fun deleteSubjectFromSchedule(deletedId: Int): Result<Unit, DataError.Remote> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addSubjectToSchedule(subject: SubjectSchedule): Result<SubjectSchedule, DataError.Remote> {
+        TODO("Not yet implemented")
     }
 
     fun getAccess() : String {

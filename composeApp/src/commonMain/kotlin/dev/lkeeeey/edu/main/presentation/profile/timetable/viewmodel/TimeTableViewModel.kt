@@ -60,6 +60,8 @@ class TimeTableViewModel (
                         dayIndex = event.index
                     )
                 }
+
+                getSavedSubjects()
             }
         }
     }
@@ -72,27 +74,41 @@ class TimeTableViewModel (
 
                     profileRepository
                         .getTimeTable()
-                        .onSuccess {
-                            for (model in it) {
-
-                                val m1 = state.value.savedSubjects.toMutableList()
-                                val m2 = m1[model.weekDay].toMutableList()
-                                m2.add(model.name.name)
-                                m1[model.weekDay] = m2
-
-                                // TODO SAVE SUBJECT IDS to add when save
-//                                if (state.value.subjectIds.contains(mapOf(Pair(model.name, model.id)))) {
+                        .onSuccess { sub->
+//                            for (model in it) {
 //
+//                                val m1 = state.value.savedSubjects.toMutableList()
+//                                val m2 = m1[model.weekDay].toMutableList()
+//                                m2.add(model.name.name)
+//                                m1[model.weekDay] = m2
+//
+//                                _state.update {
+//                                    it.copy(
+//                                        savedSubjects = m1
+//                                    )
 //                                }
+//
+//                                println("subjects - ${state.value.savedSubjects}")
+//                            }
 
-                                _state.update {
-                                    it.copy(
-                                        savedSubjects = m1
-                                    )
-                                }
-
-                                println("subjects - ${state.value.savedSubjects}")
+                            // get schedule on current day
+                            _state.update {
+                                it.copy(
+                                    savedSubjects = sub.filter { s-> s.weekDay == state.value.dayIndex }.sortedBy { it.start }
+                                )
                             }
+
+
+                            // get saved subjects
+                            profileRepository
+                                .getSubjects()
+                                .onSuccess { s ->
+                                    _state.update {
+                                        it.copy(
+                                            subjectIds = s
+                                        )
+                                    }
+                                }
                         }
                         .onError {
                             println("error - $it")

@@ -7,9 +7,11 @@ import dev.lkeeeey.edu.core.data.safeCallWithCookies
 import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
+import dev.lkeeeey.edu.main.domain.models.SubjectSchedule
 import dev.lkeeeey.edu.main.domain.models.TimeTableModel
 import io.ktor.client.HttpClient
 import io.ktor.client.request.bearerAuth
+import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.patch
 import io.ktor.client.request.post
@@ -100,6 +102,39 @@ class RemoteProfileDataSourceImpl(
                 )
                 bearerAuth(
                     access
+                )
+            }
+        }
+    }
+
+    override suspend fun deleteSubjectFromSchedule(
+        access: String,
+        deletedId: Int
+    ): Result<Unit, DataError.Remote> {
+        return safeCall<Unit> {
+            httpClient.delete(
+                urlString = "$BASE_URL/schedule/$deletedId"
+            ) {
+                bearerAuth(
+                    access
+                )
+            }
+        }
+    }
+
+    override suspend fun addSubjectToSchedule(
+        access: String,
+        subject: SubjectSchedule
+    ): Result<SubjectSchedule, DataError.Remote> {
+        return safeCall<SubjectSchedule> {
+            httpClient.post(
+                urlString = "$BASE_URL/schedule"
+            ) {
+                bearerAuth(
+                    access
+                )
+                setBody(
+                    subject
                 )
             }
         }

@@ -4,6 +4,7 @@ import dev.lkeeeey.edu.auth.data.dto.AuthLoginDto
 import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
+import dev.lkeeeey.edu.main.domain.models.SubjectSchedule
 import dev.lkeeeey.edu.main.domain.models.TimeTableModel
 
 interface ProfileRepository {
@@ -21,5 +22,13 @@ interface ProfileRepository {
     suspend fun updateSubject(
         subject: SubjectPresModel
     ): Result<Unit, DataError.Remote>
+
+    suspend fun deleteSubjectFromSchedule(
+        deletedId: Int
+    ): Result<Unit, DataError.Remote>
+
+    suspend fun addSubjectToSchedule(
+        subject: SubjectSchedule
+    ): Result<SubjectSchedule, DataError.Remote>
 
 }

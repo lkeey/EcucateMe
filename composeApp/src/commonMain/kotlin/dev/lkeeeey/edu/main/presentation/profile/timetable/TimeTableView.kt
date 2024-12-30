@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
 import dev.lkeeeey.edu.main.presentation.profile.timetable.components.EditSubject
+import dev.lkeeeey.edu.main.presentation.profile.timetable.components.ReadOnlyDropDown
 import dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel.TimeTableEvent
 import dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel.TimeTableState
 import ecucateme.composeapp.generated.resources.Bold
@@ -126,14 +127,30 @@ fun TimeTableView  (
                     )
                 )
         ) {
-            println("lessons - ${state.savedSubjects}")
-            if(state.savedSubjects.isNotEmpty() && state.savedSubjects[state.dayIndex].isNotEmpty()) {
-                state.savedSubjects[state.dayIndex].forEachIndexed { index, subject->
-                    EditSubject(
-                        index = index,
-                        subject = subject,
-                    ) { index, subject->
-                        onEvent(TimeTableEvent.OnSubjectUpdate(index = index, subject = subject))
+
+            if(state.savedSubjects.isNotEmpty()) {
+                state.savedSubjects.forEachIndexed { index, subject->
+//                    EditSubject(
+//                        index = index,
+//                        subject = subject,
+//                    ) { index, subject->
+//                        onEvent(TimeTableEvent.OnSubjectUpdate(index = index, subject = subject))
+//                    }
+
+                    ReadOnlyDropDown(
+                        options = state.subjectIds,
+                        previousData = subject.name.name,
+                        label = "${index+1}-й предмет"
+                    ) { subjId ->
+
+//                        id previous - to delete
+//                        start and end time, weekday, subjectID - to create
+
+                        onEvent(TimeTableEvent.OnSubjectUpdate(
+                            deletedSubjectId = subject.id,
+                            subjectID = subjId.id,
+                            subjectNum = index
+                        ))
                     }
                 }
             } else {

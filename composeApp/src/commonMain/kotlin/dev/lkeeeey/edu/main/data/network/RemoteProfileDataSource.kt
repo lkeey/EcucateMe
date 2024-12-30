@@ -5,6 +5,7 @@ import dev.lkeeeey.edu.auth.domain.models.LoginRequest
 import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
+import dev.lkeeeey.edu.main.domain.models.SubjectSchedule
 import dev.lkeeeey.edu.main.domain.models.TimeTableModel
 
 interface RemoteProfileDataSource {
@@ -35,5 +36,15 @@ interface RemoteProfileDataSource {
         access: String,
         subject: SubjectPresModel
     ): Result<Unit, DataError.Remote>
+
+    suspend fun deleteSubjectFromSchedule(
+        access: String,
+        deletedId: Int
+    ): Result<Unit, DataError.Remote>
+
+    suspend fun addSubjectToSchedule(
+        access: String,
+        subject: SubjectSchedule
+    ): Result<SubjectSchedule, DataError.Remote>
 
 }
