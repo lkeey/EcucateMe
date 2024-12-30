@@ -1,0 +1,16 @@
+package dev.lkeeeey.edu.library.data.network
+
+import dev.lkeeeey.edu.core.domain.DataError
+import dev.lkeeeey.edu.core.domain.Result
+import dev.lkeeeey.edu.library.domain.models.TeacherModel
+import dev.lkeeeey.edu.main.domain.models.TimeTableModel
+
+interface RemoteLibraryRepository {
+
+    suspend fun getAllTeachers(
+        access: String,
+        query: String,
+        subject: String
+    ): Result<List<TeacherModel>, DataError.Remote>
+
+}
