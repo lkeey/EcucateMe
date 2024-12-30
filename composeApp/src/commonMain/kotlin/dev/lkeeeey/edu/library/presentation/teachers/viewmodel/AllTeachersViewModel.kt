@@ -2,6 +2,8 @@ package dev.lkeeeey.edu.library.presentation.teachers.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.russhwolf.settings.Settings
+import dev.lkeeeey.edu.auth.data.keys.Keys
 import dev.lkeeeey.edu.auth.domain.AuthRepository
 import dev.lkeeeey.edu.core.domain.onSuccess
 import dev.lkeeeey.edu.library.domain.LibraryRepository
@@ -25,6 +27,8 @@ class AllTeachersViewModel (
         _state.value
     )
 
+    private val settings = Settings()
+
     fun onEvent(
         event: AllTeachersEvent
     ) {
@@ -41,6 +45,24 @@ class AllTeachersViewModel (
 
             AllTeachersEvent.OnSearchTeachers -> {
                 searchTeachers()
+            }
+
+            is AllTeachersEvent.OnOpenTeacherDescription -> {
+                settings.putString(
+                    key = Keys.SELECTED_TEACHER,
+                    value = event.username
+                )
+            }
+            AllTeachersEvent.OnSelectTeacher -> {
+                // toDO
+            }
+
+            AllTeachersEvent.OnLoadTeacherDescription -> {
+                _state.update {
+                    it.copy(
+                        selectedUsername = settings.getString(Keys.SELECTED_TEACHER, "")
+                    )
+                }
             }
         }
     }

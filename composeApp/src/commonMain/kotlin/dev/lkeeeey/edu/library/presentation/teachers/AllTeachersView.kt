@@ -20,7 +20,7 @@ import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersState
 fun AllTeachersView (
     state: AllTeachersState,
     onEvent: (AllTeachersEvent) -> Unit,
-    onOpenTeacherDescription: (String) -> Unit
+    onOpenTeacherDescription: () -> Unit
 ) {
 
     Column (
@@ -49,7 +49,8 @@ fun AllTeachersView (
                 TeacherCard(
                     teacher = teacher
                 ) {
-                    onOpenTeacherDescription(it.username)
+                    onEvent(AllTeachersEvent.OnOpenTeacherDescription(username = teacher.username))
+                    onOpenTeacherDescription()
                 }
             }
         }

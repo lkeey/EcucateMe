@@ -8,4 +8,6 @@ object Keys {
     const val PASSWORD = "PASSWORD"
 
     const val IS_LOGIN = "IS_LOGIN"
+
+    const val SELECTED_TEACHER = "SELECTED_TEACHER"
 }

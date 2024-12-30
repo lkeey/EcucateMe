@@ -15,6 +15,7 @@ import dev.lkeeeey.edu.auth.presentation.register.viewmodel.RegisterViewModel
 import dev.lkeeeey.edu.auth.presentation.splash.SplashScreen
 import dev.lkeeeey.edu.auth.presentation.splash.viewmodel.SplashViewModel
 import dev.lkeeeey.edu.core.presentation.EduMeTheme
+import dev.lkeeeey.edu.library.presentation.teacher_detail.TeacherDetailScreen
 import dev.lkeeeey.edu.library.presentation.teachers.AllTeachersScreen
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersViewModel
 import dev.lkeeeey.edu.main.presentation.calendar.CalendarScreen
@@ -171,6 +172,19 @@ fun App() {
                         val viewModel = koinViewModel<AllTeachersViewModel>()
 
                         AllTeachersScreen(
+                            viewModel = viewModel,
+                            navController = navController
+                        )
+                    }
+
+                    composable<Route.TeacherDescription>(
+                        exitTransition = { slideOutHorizontally() },
+                        popEnterTransition = { slideInHorizontally() }
+                    ) {
+//                    All teachers screen
+                        val viewModel = koinViewModel<AllTeachersViewModel>()
+
+                        TeacherDetailScreen(
                             viewModel = viewModel,
                             navController = navController
                         )
