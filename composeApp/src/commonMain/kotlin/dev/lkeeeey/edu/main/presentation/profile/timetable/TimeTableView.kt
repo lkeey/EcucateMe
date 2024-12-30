@@ -129,12 +129,6 @@ fun TimeTableView  (
 
             if(state.savedSubjects.isNotEmpty()) {
                 state.savedSubjects.forEachIndexed { index, subjectSchedule->
-//                    EditSubject(
-//                        index = index,
-//                        subject = subject,
-//                    ) { index, subject->
-//                        onEvent(TimeTableEvent.OnSubjectUpdate(index = index, subject = subject))
-//                    }
 
                     ReadOnlyDropDown(
                         options = state.subjectIds,

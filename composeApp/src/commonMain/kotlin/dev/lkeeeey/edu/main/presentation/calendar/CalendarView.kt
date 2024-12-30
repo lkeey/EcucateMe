@@ -21,11 +21,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import dev.lkeeeey.edu.main.presentation.calendar.components.ImageWithText
 import dev.lkeeeey.edu.main.presentation.calendar.components.MonthText
 import dev.lkeeeey.edu.main.presentation.calendar.components.MonthViewCalendar
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarEvent
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarState
 import ecucateme.composeapp.generated.resources.Res
+import ecucateme.composeapp.generated.resources.ic_calendar_no_plans
 import ecucateme.composeapp.generated.resources.profile
 import org.jetbrains.compose.resources.painterResource
 
@@ -94,6 +96,15 @@ fun CalendarView (
                     onEvent(CalendarEvent.OnDayClick(it))
                 }
             )
+
+            Spacer(Modifier.height(32.dp))
+
+            ImageWithText (
+                drawable = Res.drawable.ic_calendar_no_plans,
+                text = "Здесь пусто. Можно и отдохнуть"
+            )
+
+            Spacer(Modifier.height(32.dp))
 
         }
     }

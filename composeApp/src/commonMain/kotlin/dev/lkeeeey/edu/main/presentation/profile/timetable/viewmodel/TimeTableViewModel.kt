@@ -52,7 +52,8 @@ class TimeTableViewModel (
                 }
             }
             TimeTableEvent.OnSaveDay -> {
-                updateSchedule()
+//                ALL UPDATED AFTER CHOOSING
+//                updateSchedule()
             }
             is TimeTableEvent.OnSubjectUpdate -> {
                 viewModelScope.launch {
@@ -146,7 +147,7 @@ class TimeTableViewModel (
         }
     }
 
-    fun addSubject(
+    private fun addSubject(
         subjectNum: Int,
         subjectId: Int,
     ) {
@@ -192,15 +193,5 @@ class TimeTableViewModel (
     }
 
 
-    fun updateSchedule() {
-        val scheduleList = mutableListOf<TimeTableModel>()
-        for (model in state.value.savedSubjects) {
-//            TODO save schedule
-//            scheduleList.add(
-//                TimeTableModel(
-//                    id =
-//                )
-//            )
-        }
-    }
+
 }

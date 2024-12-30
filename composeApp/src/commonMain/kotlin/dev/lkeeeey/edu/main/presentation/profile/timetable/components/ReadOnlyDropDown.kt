@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.lkeeeey.edu.core.presentation.Theme
 import dev.lkeeeey.edu.core.presentation.components.text.ShowError
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
 import ecucateme.composeapp.generated.resources.Res
@@ -77,8 +78,8 @@ fun ReadOnlyDropDown (
                 }
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color(0xFF3579F8),
-                focusedLabelColor = Color(0xFF3579F8),
+                focusedBorderColor = Theme.colors.primaryBackground.copy(1f),
+                focusedLabelColor = Theme.colors.primaryBackground.copy(1f),
                 cursorColor = Color(0xFF3579F8),
                 backgroundColor = White,
             ),
