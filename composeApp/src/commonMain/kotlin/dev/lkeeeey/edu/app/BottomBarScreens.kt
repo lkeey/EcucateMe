@@ -3,7 +3,7 @@ package dev.lkeeeey.edu.app
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.ic_bottom_calendar
 import ecucateme.composeapp.generated.resources.ic_bottom_frame
-import ecucateme.composeapp.generated.resources.ic_bottom_home
+import ecucateme.composeapp.generated.resources.ic_bottom_profile
 import org.jetbrains.compose.resources.DrawableResource
 
 sealed class BottomBarScreens(
@@ -20,12 +20,12 @@ sealed class BottomBarScreens(
     data object Library : BottomBarScreens(
         route = Route.LibraryRoutes,
         title = "Library",
-        icon = Res.drawable.ic_bottom_calendar,
+        icon = Res.drawable.ic_bottom_frame,
     )
 
     data object Profile : BottomBarScreens(
         route = Route.ProfileRoutes,
         title = "Profile",
-        icon = Res.drawable.ic_bottom_frame,
+        icon = Res.drawable.ic_bottom_profile,
     )
 }

@@ -2,6 +2,7 @@ package dev.lkeeeey.edu.app
 
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
@@ -269,6 +270,8 @@ fun NavHostMain() {
                                 },
                                 icon = {
                                     Icon(
+                                        modifier = Modifier
+                                            .size(24.dp),
                                         painter = painterResource(it.icon),
                                         tint = if (isOpened) Theme.colors.primaryBackground.copy(1f) else Black,
                                         contentDescription = it.title,
@@ -415,7 +418,7 @@ fun NavHostMain() {
                     }
 
                     navigation<Route.LibraryRoutes>(
-                        startDestination = Route.LibraryPosts
+                        startDestination = Route.AllTeachers
                     ) {
                         composable<Route.LibraryPosts>(
                             exitTransition = { slideOutHorizontally() },

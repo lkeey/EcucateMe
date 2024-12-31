@@ -28,8 +28,7 @@ fun ProfileScreen (
                 }
 
                 ProfileAction.OnOpenSubjects -> {
-//                    navController.navigate(Route.ProfileSubjects)
-                    navController.navigate(Route.AllTeachers)
+                    navController.navigate(Route.ProfileSubjects)
                 }
 
                 ProfileAction.OnOpenLogin -> {
