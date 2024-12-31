@@ -82,7 +82,7 @@ class RegisterViewModel (
     }
 
     private fun checkEnabled() {
-        if (state.value.password.isNotEmpty() && state.value.username.isNotEmpty() && state.value.confirmedPassword.isNotEmpty()) {
+        if (state.value.password.isNotEmpty() && state.value.username.isNotEmpty() && state.value.confirmedPassword == state.value.password) {
             _state.update {
                 it.copy(
                     isButtonEnabled = true,

@@ -57,7 +57,7 @@ fun RegisterView (
 
             if (state.isError) {
                 Text(
-                    text = state.errorMessage,
+                    text = "Пользователь с таким именем уже зарегистрирован",
                     style = TextStyle(
                         fontSize = 16.sp,
                         fontFamily = FontFamily(Font(Res.font.Thin)),
