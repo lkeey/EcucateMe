@@ -1,12 +1,12 @@
-package dev.lkeeeey.edu.profile.presentation
+package dev.lkeeeey.edu.main.presentation.profile.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import dev.lkeeeey.edu.app.Route
-import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileAction
-import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileViewModel
+import dev.lkeeeey.edu.main.presentation.profile.main.viewmodel.ProfileAction
+import dev.lkeeeey.edu.main.presentation.profile.main.viewmodel.ProfileViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -33,6 +33,10 @@ fun ProfileScreen (
 
                 ProfileAction.OnOpenLogin -> {
                     navController.navigate(Route.Auth)
+                }
+
+                ProfileAction.OnOpenTeachers -> {
+                    navController.navigate(Route.MyTeachers)
                 }
             }
         }

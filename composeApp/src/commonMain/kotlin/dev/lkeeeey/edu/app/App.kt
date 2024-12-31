@@ -40,186 +40,200 @@ import dev.lkeeeey.edu.library.presentation.teachers.AllTeachersScreen
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersViewModel
 import dev.lkeeeey.edu.main.presentation.calendar.CalendarScreen
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarViewModel
+import dev.lkeeeey.edu.main.presentation.profile.main.ProfileScreen
+import dev.lkeeeey.edu.main.presentation.profile.main.viewmodel.ProfileViewModel
 import dev.lkeeeey.edu.main.presentation.profile.subjects.SubjectsScreen
 import dev.lkeeeey.edu.main.presentation.profile.subjects.viewmodel.SubjectsViewModel
+import dev.lkeeeey.edu.main.presentation.profile.teachers.MyTeachersScreen
+import dev.lkeeeey.edu.main.presentation.profile.teachers.viewmodel.MyTeachersViewModel
 import dev.lkeeeey.edu.main.presentation.profile.timetable.TimeTableScreen
 import dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel.TimeTableViewModel
-import dev.lkeeeey.edu.profile.presentation.ProfileScreen
-import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileViewModel
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
+//@Composable
+//@Preview
+//fun App() {
+//    EduMeTheme {
+//        val navController = rememberNavController()
+//        NavHost(
+//            navController = navController,
+//            startDestination = Route.Auth
+//        ) {
+//            navigation<Route.Auth>(
+//                startDestination = Route.Splash
+//            ) {
+//                composable<Route.Splash>(
+//                    exitTransition = { slideOutHorizontally() },
+//                    popEnterTransition = { slideInHorizontally() }
+//                ) {
+////                    Splash screen
+//
+//                    val viewModel = koinViewModel<SplashViewModel>()
+//
+//                    SplashScreen(
+//                        viewModel = viewModel,
+//                        navController = navController
+//                    )
+//                }
+//
+//                composable<Route.Login>(
+//                    enterTransition = { slideInHorizontally { initialOffset ->
+//                        initialOffset
+//                    } },
+//                    exitTransition = { slideOutHorizontally { initialOffset ->
+//                        initialOffset
+//                    } }
+//                ) {
+////                    Login Screen
+//
+//                    val viewModel = koinViewModel<LoginViewModel>()
+//
+//                    LoginScreen(
+//                        viewModel = viewModel,
+//                        navController = navController
+//                    )
+//                }
+//
+//                composable<Route.Register>(
+//                    enterTransition = { slideInHorizontally { initialOffset ->
+//                        initialOffset
+//                    } },
+//                    exitTransition = { slideOutHorizontally { initialOffset ->
+//                        initialOffset
+//                    } }
+//                ) {
+////                    Register Screen
+//
+//                    val viewModel = koinViewModel<RegisterViewModel>()
+//
+//                    RegisterScreen(
+//                        viewModel = viewModel,
+//                        navController = navController
+//                    )
+//                }
+//            }
+//            navigation<Route.Main>(
+//                startDestination = Route.Calendar
+//            ) {
+//                composable<Route.Calendar>(
+//                    exitTransition = { slideOutHorizontally() },
+//                    popEnterTransition = { slideInHorizontally() }
+//                ) {
+////                    Calendar screen
+//
+//                    val viewModel = koinViewModel<CalendarViewModel>()
+//
+//                    CalendarScreen(
+//                        viewModel = viewModel,
+//                        navController = navController
+//                    )
+//
+//                }
+//
+//                navigation<Route.ProfileRoutes>(
+//                    startDestination = Route.Profile
+//                ) {
+//                    composable<Route.Profile>(
+//                        exitTransition = { slideOutHorizontally() },
+//                        popEnterTransition = { slideInHorizontally() }
+//                    ) {
+////                    Profile screen
+//                        val viewModel = koinViewModel<ProfileViewModel>()
+//
+//                        ProfileScreen(
+//                            viewModel = viewModel,
+//                            navController = navController
+//                        )
+//                    }
+//
+//                    composable<Route.MyTeachers>(
+//                        exitTransition = { slideOutHorizontally() },
+//                        popEnterTransition = { slideInHorizontally() }
+//                    ) {
+////                    ProfileTimeTable screen
+//                        val viewModel = koinViewModel<MyTeachersViewModel>()
+//
+//                        MyTeachersScreen(
+//                            viewModel = viewModel,
+//                            navController = navController
+//                        )
+//                    }
+//
+//                    composable<Route.ProfileTimeTable>(
+//                        exitTransition = { slideOutHorizontally() },
+//                        popEnterTransition = { slideInHorizontally() }
+//                    ) {
+////                    ProfileTimeTable screen
+//                        val viewModel = koinViewModel<TimeTableViewModel>()
+//
+//                        TimeTableScreen(
+//                            viewModel = viewModel,
+//                            navController = navController
+//                        )
+//                    }
+//
+//                    composable<Route.ProfileSubjects>(
+//                        exitTransition = { slideOutHorizontally() },
+//                        popEnterTransition = { slideInHorizontally() }
+//                    ) {
+////                    Subjects screen
+//                        val viewModel = koinViewModel<SubjectsViewModel>()
+//
+//                        SubjectsScreen(
+//                            viewModel = viewModel,
+//                            navController = navController
+//                        )
+//                    }
+//                }
+//
+//                navigation<Route.LibraryRoutes>(
+//                    startDestination = Route.LibraryPosts
+//                ) {
+//                    composable<Route.LibraryPosts>(
+//                        exitTransition = { slideOutHorizontally() },
+//                        popEnterTransition = { slideInHorizontally() }
+//                    ) {
+////                    Library Posts screen
+////                        TODO
+//                        Text("library posts")
+//                    }
+//
+//                    composable<Route.AllTeachers>(
+//                        exitTransition = { slideOutHorizontally() },
+//                        popEnterTransition = { slideInHorizontally() }
+//                    ) {
+////                    All teachers screen
+//                        val viewModel = koinViewModel<AllTeachersViewModel>()
+//
+//                        AllTeachersScreen(
+//                            viewModel = viewModel,
+//                            navController = navController
+//                        )
+//                    }
+//
+//                    composable<Route.TeacherDescription>(
+//                        exitTransition = { slideOutHorizontally() },
+//                        popEnterTransition = { slideInHorizontally() }
+//                    ) {
+////                    All teachers screen
+//                        val viewModel = koinViewModel<AllTeachersViewModel>()
+//
+//                        TeacherDetailScreen(
+//                            viewModel = viewModel,
+//                            navController = navController
+//                        )
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+
 @Composable
-@Preview
 fun App() {
-    EduMeTheme {
-        val navController = rememberNavController()
-        NavHost(
-            navController = navController,
-            startDestination = Route.Auth
-        ) {
-            navigation<Route.Auth>(
-                startDestination = Route.Splash
-            ) {
-                composable<Route.Splash>(
-                    exitTransition = { slideOutHorizontally() },
-                    popEnterTransition = { slideInHorizontally() }
-                ) {
-//                    Splash screen
-
-                    val viewModel = koinViewModel<SplashViewModel>()
-
-                    SplashScreen(
-                        viewModel = viewModel,
-                        navController = navController
-                    )
-                }
-
-                composable<Route.Login>(
-                    enterTransition = { slideInHorizontally { initialOffset ->
-                        initialOffset
-                    } },
-                    exitTransition = { slideOutHorizontally { initialOffset ->
-                        initialOffset
-                    } }
-                ) {
-//                    Login Screen
-
-                    val viewModel = koinViewModel<LoginViewModel>()
-
-                    LoginScreen(
-                        viewModel = viewModel,
-                        navController = navController
-                    )
-                }
-
-                composable<Route.Register>(
-                    enterTransition = { slideInHorizontally { initialOffset ->
-                        initialOffset
-                    } },
-                    exitTransition = { slideOutHorizontally { initialOffset ->
-                        initialOffset
-                    } }
-                ) {
-//                    Register Screen
-
-                    val viewModel = koinViewModel<RegisterViewModel>()
-
-                    RegisterScreen(
-                        viewModel = viewModel,
-                        navController = navController
-                    )
-                }
-            }
-            navigation<Route.Main>(
-                startDestination = Route.Calendar
-            ) {
-                composable<Route.Calendar>(
-                    exitTransition = { slideOutHorizontally() },
-                    popEnterTransition = { slideInHorizontally() }
-                ) {
-//                    Calendar screen
-
-                    val viewModel = koinViewModel<CalendarViewModel>()
-
-                    CalendarScreen(
-                        viewModel = viewModel,
-                        navController = navController
-                    )
-
-                }
-
-                navigation<Route.ProfileRoutes>(
-                    startDestination = Route.Profile
-                ) {
-                    composable<Route.Profile>(
-                        exitTransition = { slideOutHorizontally() },
-                        popEnterTransition = { slideInHorizontally() }
-                    ) {
-//                    Profile screen
-                        val viewModel = koinViewModel<ProfileViewModel>()
-
-                        ProfileScreen(
-                            viewModel = viewModel,
-                            navController = navController
-                        )
-                    }
-
-                    composable<Route.ProfileTimeTable>(
-                        exitTransition = { slideOutHorizontally() },
-                        popEnterTransition = { slideInHorizontally() }
-                    ) {
-//                    ProfileTimeTable screen
-                        val viewModel = koinViewModel<TimeTableViewModel>()
-
-                        TimeTableScreen(
-                            viewModel = viewModel,
-                            navController = navController
-                        )
-                    }
-
-                    composable<Route.ProfileSubjects>(
-                        exitTransition = { slideOutHorizontally() },
-                        popEnterTransition = { slideInHorizontally() }
-                    ) {
-//                    Subjects screen
-                        val viewModel = koinViewModel<SubjectsViewModel>()
-
-                        SubjectsScreen(
-                            viewModel = viewModel,
-                            navController = navController
-                        )
-                    }
-                }
-
-                navigation<Route.LibraryRoutes>(
-                    startDestination = Route.LibraryPosts
-                ) {
-                    composable<Route.LibraryPosts>(
-                        exitTransition = { slideOutHorizontally() },
-                        popEnterTransition = { slideInHorizontally() }
-                    ) {
-//                    Library Posts screen
-//                        TODO
-                        Text("library posts")
-                    }
-
-                    composable<Route.AllTeachers>(
-                        exitTransition = { slideOutHorizontally() },
-                        popEnterTransition = { slideInHorizontally() }
-                    ) {
-//                    All teachers screen
-                        val viewModel = koinViewModel<AllTeachersViewModel>()
-
-                        AllTeachersScreen(
-                            viewModel = viewModel,
-                            navController = navController
-                        )
-                    }
-
-                    composable<Route.TeacherDescription>(
-                        exitTransition = { slideOutHorizontally() },
-                        popEnterTransition = { slideInHorizontally() }
-                    ) {
-//                    All teachers screen
-                        val viewModel = koinViewModel<AllTeachersViewModel>()
-
-                        TeacherDetailScreen(
-                            viewModel = viewModel,
-                            navController = navController
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun NavHostMain() {
     EduMeTheme {
         val navController = rememberNavController()
 
@@ -390,6 +404,19 @@ fun NavHostMain() {
                             )
                         }
 
+                        composable<Route.MyTeachers>(
+                            exitTransition = { slideOutHorizontally() },
+                            popEnterTransition = { slideInHorizontally() }
+                        ) {
+//                    My Teachers screen
+                            val viewModel = koinViewModel<MyTeachersViewModel>()
+
+                            MyTeachersScreen(
+                                viewModel = viewModel,
+                                navController = navController
+                            )
+                        }
+
                         composable<Route.ProfileTimeTable>(
                             exitTransition = { slideOutHorizontally() },
                             popEnterTransition = { slideInHorizontally() }
@@ -446,7 +473,7 @@ fun NavHostMain() {
                             exitTransition = { slideOutHorizontally() },
                             popEnterTransition = { slideInHorizontally() }
                         ) {
-//                    All teachers screen
+//                    Teacher description screen
                             val viewModel = koinViewModel<AllTeachersViewModel>()
 
                             TeacherDetailScreen(

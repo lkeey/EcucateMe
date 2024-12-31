@@ -15,15 +15,16 @@ import dev.lkeeeey.edu.library.data.network.RemoteLibraryRepository
 import dev.lkeeeey.edu.library.data.network.RemoteLibraryRepositoryImpl
 import dev.lkeeeey.edu.library.data.repository.LibraryRepositoryImpl
 import dev.lkeeeey.edu.library.domain.LibraryRepository
+import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersViewModel
 import dev.lkeeeey.edu.main.data.network.RemoteProfileDataSource
 import dev.lkeeeey.edu.main.data.network.RemoteProfileDataSourceImpl
 import dev.lkeeeey.edu.main.data.repository.ProfileRepositoryImpl
 import dev.lkeeeey.edu.main.domain.ProfileRepository
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarViewModel
+import dev.lkeeeey.edu.main.presentation.profile.main.viewmodel.ProfileViewModel
 import dev.lkeeeey.edu.main.presentation.profile.subjects.viewmodel.SubjectsViewModel
+import dev.lkeeeey.edu.main.presentation.profile.teachers.viewmodel.MyTeachersViewModel
 import dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel.TimeTableViewModel
-import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersViewModel
-import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
@@ -61,5 +62,6 @@ val sharedModule = module {
     viewModelOf(::TimeTableViewModel)
     viewModelOf(::SubjectsViewModel)
     viewModelOf(::AllTeachersViewModel)
+    viewModelOf(::MyTeachersViewModel)
 
 }

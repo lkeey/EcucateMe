@@ -53,6 +53,7 @@ class AllTeachersViewModel (
                     value = event.username
                 )
             }
+
             AllTeachersEvent.OnSelectTeacher -> {
                 // toDO
             }

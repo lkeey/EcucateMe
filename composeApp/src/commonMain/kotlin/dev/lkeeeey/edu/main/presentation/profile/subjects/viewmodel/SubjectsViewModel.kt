@@ -23,7 +23,9 @@ class SubjectsViewModel (
         _state.value
     )
 
-    fun onEvent(event: SubjectsEvent) {
+    fun onEvent(
+        event: SubjectsEvent
+    ) {
         when (event) {
             SubjectsEvent.OnCreateSubject -> {
                 viewModelScope.launch {

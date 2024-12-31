@@ -1,4 +1,4 @@
-package dev.lkeeeey.edu.profile.presentation
+package dev.lkeeeey.edu.main.presentation.profile.main
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -26,10 +26,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
-import dev.lkeeeey.edu.profile.presentation.components.Reference
-import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileAction
-import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileEvent
-import dev.lkeeeey.edu.profile.presentation.viewmodel.ProfileState
+import dev.lkeeeey.edu.main.presentation.profile.main.components.Reference
+import dev.lkeeeey.edu.main.presentation.profile.main.viewmodel.ProfileAction
+import dev.lkeeeey.edu.main.presentation.profile.main.viewmodel.ProfileEvent
+import dev.lkeeeey.edu.main.presentation.profile.main.viewmodel.ProfileState
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
 import ecucateme.composeapp.generated.resources.ic_profile_education
@@ -112,9 +112,7 @@ fun ProfileView(
                 content = "Те, от кого зависит мой успех",
                 isVisible = true
             ) {
-//                navController.navigate(
-//                    ProfileDataScreenDestination()
-//                )
+                onOpenScreen(ProfileAction.OnOpenTeachers)
             }
 
             Reference(

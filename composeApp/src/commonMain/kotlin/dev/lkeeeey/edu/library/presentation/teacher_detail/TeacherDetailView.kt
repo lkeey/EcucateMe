@@ -29,10 +29,9 @@ import dev.lkeeeey.edu.core.presentation.Theme
 import dev.lkeeeey.edu.core.presentation.components.btn.FilledBtn
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersEvent
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersState
-import dev.lkeeeey.edu.profile.presentation.components.Reference
+import dev.lkeeeey.edu.main.presentation.profile.main.components.Reference
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
-import ecucateme.composeapp.generated.resources.ic_profile_win
 import ecucateme.composeapp.generated.resources.ic_subject
 import ecucateme.composeapp.generated.resources.ic_tg
 import ecucateme.composeapp.generated.resources.profile

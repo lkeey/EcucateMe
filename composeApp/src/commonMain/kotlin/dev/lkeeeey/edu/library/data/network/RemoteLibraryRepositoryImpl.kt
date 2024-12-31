@@ -5,6 +5,7 @@ import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.library.domain.models.DescriptionTeacherModel
 import dev.lkeeeey.edu.library.domain.models.TeacherModel
+import dev.lkeeeey.edu.main.domain.models.SelectedTeacherModel
 import io.ktor.client.HttpClient
 import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.get
@@ -28,6 +29,16 @@ class RemoteLibraryRepositoryImpl(
                 bearerAuth(access)
                 parameter("query", query)
                 parameter("subject", subject)
+            }
+        }
+    }
+
+    override suspend fun getMyTeachers(access: String): Result<List<SelectedTeacherModel>, DataError.Remote> {
+        return safeCall<List<SelectedTeacherModel>> {
+            httpClient.get(
+                urlString = "$BASE_URL/schedule/teacher"
+            ) {
+                bearerAuth(access)
             }
         }
     }

@@ -10,6 +10,7 @@ import dev.lkeeeey.edu.library.data.network.RemoteLibraryRepository
 import dev.lkeeeey.edu.library.domain.LibraryRepository
 import dev.lkeeeey.edu.library.domain.models.DescriptionTeacherModel
 import dev.lkeeeey.edu.library.domain.models.TeacherModel
+import dev.lkeeeey.edu.main.domain.models.SelectedTeacherModel
 
 class LibraryRepositoryImpl (
     private val remoteLibraryRepository: RemoteLibraryRepository
@@ -32,6 +33,12 @@ class LibraryRepositoryImpl (
         return remoteLibraryRepository.getTeacherDescription(
             access = getAccess(),
             username = username
+        )
+    }
+
+    override suspend fun getSelectedTeachers(): Result<List<SelectedTeacherModel>, DataError.Remote> {
+        return remoteLibraryRepository.getMyTeachers(
+            access = getAccess()
         )
     }
 

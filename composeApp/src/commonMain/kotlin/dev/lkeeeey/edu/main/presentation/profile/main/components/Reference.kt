@@ -1,4 +1,4 @@
-package dev.lkeeeey.edu.profile.presentation.components
+package dev.lkeeeey.edu.main.presentation.profile.main.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

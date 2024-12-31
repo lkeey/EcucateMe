@@ -33,13 +33,13 @@ sealed interface Route {
     data object Profile: Route
 
     @Serializable
+    data object MyTeachers: Route
+
+    @Serializable
     data object ProfileSubjects: Route
 
     @Serializable
     data object ProfileTimeTable: Route
-
-    @Serializable
-    data object MyTeachers: Route
 // end profile routes
 
 

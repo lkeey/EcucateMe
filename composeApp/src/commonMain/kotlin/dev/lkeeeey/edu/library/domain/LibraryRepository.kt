@@ -4,6 +4,7 @@ import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.library.domain.models.DescriptionTeacherModel
 import dev.lkeeeey.edu.library.domain.models.TeacherModel
+import dev.lkeeeey.edu.main.domain.models.SelectedTeacherModel
 
 interface LibraryRepository {
 
@@ -15,5 +16,7 @@ interface LibraryRepository {
     suspend fun getTeacherDescription(
         username: String
     ): Result<DescriptionTeacherModel, DataError.Remote>
+
+    suspend fun getSelectedTeachers(): Result<List<SelectedTeacherModel>, DataError.Remote>
 
 }
