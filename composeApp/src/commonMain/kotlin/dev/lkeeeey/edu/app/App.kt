@@ -9,9 +9,13 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Snackbar
+import androidx.compose.material.SnackbarHost
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.Black
@@ -240,6 +244,8 @@ fun App() {
         val backStackEntry by navController.currentBackStackEntryAsState()
         val currentScreen = backStackEntry?.destination
 
+        val scaffoldState = rememberScaffoldState()
+
         Scaffold(
             bottomBar = {
                 // don't show when auth
@@ -310,7 +316,16 @@ fun App() {
                     }
                 }
             },
-            backgroundColor = Theme.colors.backgroundMain
+            snackbarHost = {
+                SnackbarHost(it) { data ->
+                    Snackbar(
+                        contentColor = Theme.colors.primaryBackground.copy(.7f),
+                        snackbarData = data
+                    )
+                }
+            },
+            backgroundColor = Theme.colors.backgroundMain,
+            scaffoldState = scaffoldState
         ) {
             // nav host here
             NavHost(
@@ -348,7 +363,8 @@ fun App() {
 
                         LoginScreen(
                             viewModel = viewModel,
-                            navController = navController
+                            navController = navController,
+                            scaffoldState = scaffoldState
                         )
                     }
 

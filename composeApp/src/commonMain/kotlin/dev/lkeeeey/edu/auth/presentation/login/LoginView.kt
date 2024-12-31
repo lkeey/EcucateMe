@@ -10,8 +10,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
@@ -32,14 +35,18 @@ import dev.lkeeeey.edu.core.presentation.components.text.FooterAuth
 import dev.lkeeeey.edu.core.presentation.components.text.Header
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.Font
 
 
 @Composable
 fun LoginView(
+    scaffoldState: ScaffoldState,
     state: LoginState,
     onAction: (LoginAction) -> Unit
 ) {
+
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -107,8 +114,11 @@ fun LoginView(
                 modifier = Modifier
                     .clip(RoundedCornerShape(4.dp))
                     .clickable {
-                        // TODO navigate to register
-//                        navigator.navigate(PassEmailScreenDestination)
+                        coroutineScope.launch {
+                            scaffoldState.snackbarHostState.showSnackbar(
+                                message = "Sorry, it is in development...",
+                            )
+                        }
                     },
                 text = "Забыл пароль",
                 style = TextStyle(

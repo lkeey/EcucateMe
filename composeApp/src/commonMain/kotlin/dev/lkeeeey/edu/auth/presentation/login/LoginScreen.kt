@@ -1,5 +1,6 @@
 package dev.lkeeeey.edu.auth.presentation.login
 
+import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -13,7 +14,8 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel(),
-    navController: NavController
+    navController: NavController,
+    scaffoldState: ScaffoldState
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -32,6 +34,7 @@ fun LoginScreen(
     }
 
     LoginView(
+        scaffoldState = scaffoldState,
         state = state,
         onAction = { action ->
             viewModel.onAction(action)
