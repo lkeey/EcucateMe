@@ -19,4 +19,12 @@ interface LibraryRepository {
 
     suspend fun getSelectedTeachers(): Result<List<SelectedTeacherModel>, DataError.Remote>
 
+    suspend fun selectTeacher(
+        teacher: SelectedTeacherModel
+    ): Result<Unit, DataError.Remote>
+
+    suspend fun unselectTeacher(
+        username: String
+    ): Result<Unit, DataError.Remote>
+
 }

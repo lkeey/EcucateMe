@@ -23,5 +23,15 @@ interface RemoteLibraryRepository {
         username: String
     ): Result<DescriptionTeacherModel, DataError.Remote>
 
+    suspend fun selectTeacher(
+        access: String,
+        teacher: SelectedTeacherModel
+    ): Result<Unit, DataError.Remote>
+
+    suspend fun unselectTeacher(
+        access: String,
+        username: String
+    ): Result<Unit, DataError.Remote>
+
 
 }

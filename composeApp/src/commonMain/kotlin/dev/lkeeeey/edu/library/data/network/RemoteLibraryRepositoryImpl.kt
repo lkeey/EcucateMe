@@ -8,8 +8,11 @@ import dev.lkeeeey.edu.library.domain.models.TeacherModel
 import dev.lkeeeey.edu.main.domain.models.SelectedTeacherModel
 import io.ktor.client.HttpClient
 import io.ktor.client.request.bearerAuth
+import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
 
 private const val BASE_URL = "https://me-educate.ru/api"
 
@@ -49,6 +52,33 @@ class RemoteLibraryRepositoryImpl(
     ): Result<DescriptionTeacherModel, DataError.Remote> {
         return safeCall<DescriptionTeacherModel> {
             httpClient.get(
+                urlString = "$BASE_URL/auth/teacher/$username"
+            ) {
+                bearerAuth(access)
+            }
+        }
+    }
+
+    override suspend fun selectTeacher(
+        access: String,
+        teacher: SelectedTeacherModel
+    ): Result<Unit, DataError.Remote> {
+        return safeCall<Unit> {
+            httpClient.post(
+                urlString = "$BASE_URL/auth/teacher"
+            ) {
+                bearerAuth(access)
+                setBody(teacher)
+            }
+        }
+    }
+
+    override suspend fun unselectTeacher(
+        access: String,
+        username: String
+    ): Result<Unit, DataError.Remote> {
+        return safeCall<Unit> {
+            httpClient.delete(
                 urlString = "$BASE_URL/auth/teacher/$username"
             ) {
                 bearerAuth(access)

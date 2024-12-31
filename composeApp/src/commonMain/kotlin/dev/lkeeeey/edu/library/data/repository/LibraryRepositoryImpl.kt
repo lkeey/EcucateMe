@@ -42,6 +42,20 @@ class LibraryRepositoryImpl (
         )
     }
 
+    override suspend fun selectTeacher(teacher: SelectedTeacherModel): Result<Unit, DataError.Remote> {
+        return remoteLibraryRepository.selectTeacher(
+            access = getAccess(),
+            teacher = teacher
+        )
+    }
+
+    override suspend fun unselectTeacher(username: String): Result<Unit, DataError.Remote> {
+        return remoteLibraryRepository.unselectTeacher(
+            access = getAccess(),
+            username = username
+        )
+    }
+
     private fun getAccess() : String {
         return settings.getString(
             key = Keys.ACCESS_TOKEN,

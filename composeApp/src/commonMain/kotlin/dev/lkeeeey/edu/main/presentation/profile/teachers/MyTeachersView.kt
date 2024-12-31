@@ -21,10 +21,12 @@ import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
 import dev.lkeeeey.edu.library.domain.models.TeacherModel
 import dev.lkeeeey.edu.library.presentation.teachers.components.TeacherCard
+import dev.lkeeeey.edu.main.presentation.calendar.components.ImageWithText
 import dev.lkeeeey.edu.main.presentation.profile.teachers.viewmodel.MyTeachersEvent
 import dev.lkeeeey.edu.main.presentation.profile.teachers.viewmodel.MyTeachersState
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
+import ecucateme.composeapp.generated.resources.ic_calendar_no_plans
 import org.jetbrains.compose.resources.Font
 
 @Composable
@@ -58,12 +60,19 @@ fun MyTeachersView (
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
         ) {
-            state.myTeachers.forEach { teacher->
-                TeacherCard(
-                    teacher = TeacherModel(teacher.username, teacher.name, "")
-                ) {
-                    onEvent(MyTeachersEvent.OnOpenTeacherDescription(username = teacher.username))
-                    onOpenTeacherDescription()
+            if (state.myTeachers.isEmpty()) {
+                ImageWithText (
+                    drawable = Res.drawable.ic_calendar_no_plans,
+                    text = "Учителя еще не выбраны"
+                )
+            } else {
+                state.myTeachers.forEach { teacher->
+                    TeacherCard(
+                        teacher = TeacherModel(teacher.username, teacher.name, "")
+                    ) {
+                        onEvent(MyTeachersEvent.OnOpenTeacherDescription(username = teacher.username))
+                        onOpenTeacherDescription()
+                    }
                 }
             }
         }
