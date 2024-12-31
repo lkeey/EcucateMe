@@ -4,6 +4,7 @@ import dev.lkeeeey.edu.core.data.safeCall
 import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.library.domain.models.DescriptionTeacherModel
+import dev.lkeeeey.edu.library.domain.models.SelectTeacherModel
 import dev.lkeeeey.edu.library.domain.models.TeacherModel
 import dev.lkeeeey.edu.main.domain.models.SelectedTeacherModel
 import io.ktor.client.HttpClient
@@ -61,11 +62,11 @@ class RemoteLibraryRepositoryImpl(
 
     override suspend fun selectTeacher(
         access: String,
-        teacher: SelectedTeacherModel
+        teacher: SelectTeacherModel
     ): Result<Unit, DataError.Remote> {
         return safeCall<Unit> {
             httpClient.post(
-                urlString = "$BASE_URL/auth/teacher"
+                urlString = "$BASE_URL/schedule/teacher"
             ) {
                 bearerAuth(access)
                 setBody(teacher)
@@ -79,7 +80,7 @@ class RemoteLibraryRepositoryImpl(
     ): Result<Unit, DataError.Remote> {
         return safeCall<Unit> {
             httpClient.delete(
-                urlString = "$BASE_URL/auth/teacher/$username"
+                urlString = "$BASE_URL/schedule/teacher/$username"
             ) {
                 bearerAuth(access)
             }

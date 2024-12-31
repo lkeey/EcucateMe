@@ -3,6 +3,7 @@ package dev.lkeeeey.edu.library.data.network
 import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.library.domain.models.DescriptionTeacherModel
+import dev.lkeeeey.edu.library.domain.models.SelectTeacherModel
 import dev.lkeeeey.edu.library.domain.models.TeacherModel
 import dev.lkeeeey.edu.main.domain.models.SelectedTeacherModel
 
@@ -25,7 +26,7 @@ interface RemoteLibraryRepository {
 
     suspend fun selectTeacher(
         access: String,
-        teacher: SelectedTeacherModel
+        teacher: SelectTeacherModel
     ): Result<Unit, DataError.Remote>
 
     suspend fun unselectTeacher(

@@ -1,5 +1,3 @@
-@file:Suppress("PackageDirectoryMismatch")
-
 package dev.lkeeeey.edu.library.data.repository
 
 import com.russhwolf.settings.Settings
@@ -9,6 +7,7 @@ import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.library.data.network.RemoteLibraryRepository
 import dev.lkeeeey.edu.library.domain.LibraryRepository
 import dev.lkeeeey.edu.library.domain.models.DescriptionTeacherModel
+import dev.lkeeeey.edu.library.domain.models.SelectTeacherModel
 import dev.lkeeeey.edu.library.domain.models.TeacherModel
 import dev.lkeeeey.edu.main.domain.models.SelectedTeacherModel
 
@@ -42,7 +41,7 @@ class LibraryRepositoryImpl (
         )
     }
 
-    override suspend fun selectTeacher(teacher: SelectedTeacherModel): Result<Unit, DataError.Remote> {
+    override suspend fun selectTeacher(teacher: SelectTeacherModel): Result<Unit, DataError.Remote> {
         return remoteLibraryRepository.selectTeacher(
             access = getAccess(),
             teacher = teacher

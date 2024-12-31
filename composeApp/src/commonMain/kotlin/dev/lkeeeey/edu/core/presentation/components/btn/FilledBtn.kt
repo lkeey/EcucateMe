@@ -8,6 +8,7 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -26,6 +27,7 @@ fun FilledBtn (
     text: String,
     isEnabled: Boolean = true,
     padding: Dp = 36.dp,
+    backgroundColor: Color = Theme.colors.primaryBackground.copy(alpha = 1f),
     onClick: () -> Unit
 ) {
     Button(
@@ -34,7 +36,7 @@ fun FilledBtn (
             .padding(horizontal = padding),
         shape = RoundedCornerShape(size = 16.dp),
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = Theme.colors.primaryBackground.copy(alpha = 1f),
+            backgroundColor = backgroundColor,
             disabledBackgroundColor = Theme.colors.primaryBackground.copy(alpha = 0.3f)
         ),
         onClick = onClick,

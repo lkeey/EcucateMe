@@ -7,7 +7,9 @@ import dev.lkeeeey.edu.auth.data.keys.Keys
 import dev.lkeeeey.edu.auth.domain.AuthRepository
 import dev.lkeeeey.edu.core.domain.onSuccess
 import dev.lkeeeey.edu.library.domain.LibraryRepository
+import dev.lkeeeey.edu.library.domain.models.SelectTeacherModel
 import dev.lkeeeey.edu.main.domain.ProfileRepository
+import dev.lkeeeey.edu.main.domain.models.SelectedTeacherModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -55,7 +57,37 @@ class AllTeachersViewModel (
             }
 
             AllTeachersEvent.OnSelectTeacher -> {
-                // toDO
+                viewModelScope.launch {
+
+                    profileRepository.refreshToken()
+                        .onSuccess {
+                            authRepository.updateAccessToken(it.accessToken)
+
+                            if (state.value.isTeacherSelected) {
+                                libraryRepository
+                                    .unselectTeacher(username = state.value.selectedTeacherModel.username)
+                                    .onSuccess {
+                                        _state.update {
+                                            it.copy(
+                                                isTeacherSelected = !state.value.isTeacherSelected
+                                            )
+                                        }
+                                    }
+                            } else {
+                                libraryRepository
+                                    .selectTeacher(
+                                        teacher = SelectTeacherModel(username = state.value.selectedTeacherModel.username)
+                                    ).onSuccess {
+                                        _state.update {
+                                            it.copy(
+                                                isTeacherSelected = !state.value.isTeacherSelected
+                                            )
+                                        }
+                                    }
+                            }
+                        }
+
+                }
             }
 
             AllTeachersEvent.OnLoadTeacherDescription -> {
@@ -75,11 +107,29 @@ class AllTeachersViewModel (
                                 username = state.value.selectedUsername
                             )
                             .onSuccess { teacher ->
+
                                 _state.update {
                                     it.copy(
                                         selectedTeacherModel = teacher
                                     )
                                 }
+
+                                libraryRepository
+                                    .getSelectedTeachers()
+                                    .onSuccess { teacherModels ->
+                                        val isTeacherSelected = teacherModels.contains(
+                                            SelectedTeacherModel(
+                                                name = state.value.selectedTeacherModel.name,
+                                                username = state.value.selectedTeacherModel.username
+                                            )
+                                        )
+
+                                        _state.update {
+                                            it.copy(
+                                                isTeacherSelected = isTeacherSelected
+                                            )
+                                        }
+                                    }
                             }
                         }
                 }
@@ -87,7 +137,6 @@ class AllTeachersViewModel (
             }
         }
     }
-
 
     private fun searchTeachers () {
         viewModelScope.launch {
@@ -102,6 +151,7 @@ class AllTeachersViewModel (
                             subject = state.value.subject
                         )
                         .onSuccess { t ->
+
                             _state.update {
                                 it.copy(
                                     teachers = t

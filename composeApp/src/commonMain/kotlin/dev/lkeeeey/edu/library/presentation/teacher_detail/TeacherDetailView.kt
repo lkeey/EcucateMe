@@ -134,7 +134,8 @@ fun TeacherDetailView (
             }
 
             FilledBtn(
-                text = "Выбрать специлиста"
+                text = if (state.isTeacherSelected) "Отказаться" else "Выбрать специлиста",
+                backgroundColor = if (state.isTeacherSelected) Theme.colors.errorColor else Theme.colors.primaryBackground.copy(alpha = 1f)
             ) {
                 onEvent(AllTeachersEvent.OnSelectTeacher)
             }
