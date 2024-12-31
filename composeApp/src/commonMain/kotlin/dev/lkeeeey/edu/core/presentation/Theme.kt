@@ -5,7 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 
 @Composable
-fun EduMeTheme(content: @Composable () -> Unit) {
+fun EduMeTheme(
+    content: @Composable () -> Unit
+) {
     CompositionLocalProvider(
         LocalColorProvider provides if (isSystemInDarkTheme()) darkPalette else lightPalette,
         content = content
