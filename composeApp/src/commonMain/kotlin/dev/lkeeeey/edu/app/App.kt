@@ -228,67 +228,69 @@ fun NavHostMain() {
         Scaffold(
             bottomBar = {
                 // don't show when auth
-                BottomNavigation(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .clip(RoundedCornerShape(40.dp, 40.dp, 0.dp, 0.dp)),
-                    elevation = 4.dp,
-                    backgroundColor = White,
-                ) {
+                if (currentScreen?.parent?.route?.contains(Route.Auth.toString()) == false) {
+                    BottomNavigation(
+                        modifier = Modifier
+                            .wrapContentSize()
+                            .clip(RoundedCornerShape(40.dp, 40.dp, 0.dp, 0.dp)),
+                        elevation = 4.dp,
+                        backgroundColor = White,
+                    ) {
 
-                    val screens = listOf(
-                        BottomBarScreens.Main,
-                        BottomBarScreens.Library,
-                        BottomBarScreens.Profile
-                    )
-
-                    screens.forEach {
-                        //println("currentScreen ${currentScreen?.parent?.route} ${it.route.toString()}")
-
-                        val isOpened = currentScreen?.parent?.route?.contains(it.route.toString()) == true
-
-                        BottomNavigationItem(
-                            selected = isOpened,
-                            onClick = {
-                                if (isOpened) {
-                                    // When we click again on a bottom bar item and it was already selected
-                                    // we want to pop the back stack until the initial destination of this bottom bar item
-                                    navController.popBackStack(it.route, false)
-                                    return@BottomNavigationItem
-                                }
-
-                                navController.navigate(it.route) {
-                                    // Avoid multiple copies of the same destination when
-                                    // reselecting the same item
-                                    launchSingleTop = true
-
-                                    // Restore state when reselecting a previously selected item
-                                    restoreState = true
-                                }
-                            },
-                            icon = {
-                                Icon(
-                                    painter = painterResource(it.icon),
-                                    tint = if (isOpened) Theme.colors.primaryBackground.copy(1f) else Black,
-                                    contentDescription = it.title,
-                                )
-                            },
-                            label = {
-                                Text(
-                                    text = it.title,
-                                    style = TextStyle(
-                                        fontSize = 8.sp,
-                                        fontFamily = FontFamily(org.jetbrains.compose.resources.Font(Res.font.Thin)),
-                                        fontWeight = FontWeight(500),
-                                        color = if (isOpened) Theme.colors.primaryBackground.copy(1f) else Black,
-                                        textAlign = TextAlign.Center,
-                                        letterSpacing = 0.2.sp,
-                                    )
-                                )
-                            }
+                        val screens = listOf(
+                            BottomBarScreens.Main,
+                            BottomBarScreens.Library,
+                            BottomBarScreens.Profile
                         )
-                    }
 
+                        screens.forEach {
+                            //println("currentScreen ${currentScreen?.parent?.route} ${it.route.toString()}")
+
+                            val isOpened = currentScreen?.parent?.route?.contains(it.route.toString()) == true
+
+                            BottomNavigationItem(
+                                selected = isOpened,
+                                onClick = {
+                                    if (isOpened) {
+                                        // When we click again on a bottom bar item and it was already selected
+                                        // we want to pop the back stack until the initial destination of this bottom bar item
+                                        navController.popBackStack(it.route, false)
+                                        return@BottomNavigationItem
+                                    }
+
+                                    navController.navigate(it.route) {
+                                        // Avoid multiple copies of the same destination when
+                                        // reselecting the same item
+                                        launchSingleTop = true
+
+                                        // Restore state when reselecting a previously selected item
+                                        restoreState = true
+                                    }
+                                },
+                                icon = {
+                                    Icon(
+                                        painter = painterResource(it.icon),
+                                        tint = if (isOpened) Theme.colors.primaryBackground.copy(1f) else Black,
+                                        contentDescription = it.title,
+                                    )
+                                },
+                                label = {
+                                    Text(
+                                        text = it.title,
+                                        style = TextStyle(
+                                            fontSize = 8.sp,
+                                            fontFamily = FontFamily(org.jetbrains.compose.resources.Font(Res.font.Thin)),
+                                            fontWeight = FontWeight(500),
+                                            color = if (isOpened) Theme.colors.primaryBackground.copy(1f) else Black,
+                                            textAlign = TextAlign.Center,
+                                            letterSpacing = 0.2.sp,
+                                        )
+                                    )
+                                }
+                            )
+                        }
+
+                    }
                 }
             },
             backgroundColor = Theme.colors.backgroundMain
