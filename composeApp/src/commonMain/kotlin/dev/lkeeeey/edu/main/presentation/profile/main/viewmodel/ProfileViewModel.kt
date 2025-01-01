@@ -18,7 +18,6 @@ class ProfileViewModel : ViewModel() {
 
     private val settings = Settings()
 
-
     fun onEvent(event: ProfileEvent) {
         when (event) {
             ProfileEvent.OnLogOut -> {
@@ -29,6 +28,10 @@ class ProfileViewModel : ViewModel() {
                 settings.putString(Keys.PASSWORD, "")
 
                 settings.putBoolean(Keys.IS_LOGIN, false)
+            }
+
+            ProfileEvent.OnOpenProfile -> {
+
             }
         }
     }
