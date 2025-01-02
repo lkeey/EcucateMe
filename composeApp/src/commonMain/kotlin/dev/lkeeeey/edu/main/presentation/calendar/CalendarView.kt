@@ -16,6 +16,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,10 +28,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import dev.lkeeeey.edu.core.presentation.Theme
 import dev.lkeeeey.edu.main.presentation.calendar.components.ImageWithText
 import dev.lkeeeey.edu.main.presentation.calendar.components.MonthText
 import dev.lkeeeey.edu.main.presentation.calendar.components.MonthViewCalendar
 import dev.lkeeeey.edu.main.presentation.calendar.components.ScheduleSubject
+import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarAction
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarEvent
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarState
 import ecucateme.composeapp.generated.resources.Res
@@ -38,13 +45,31 @@ import org.jetbrains.compose.resources.painterResource
 fun CalendarView (
     state: CalendarState,
     onEvent: (CalendarEvent) -> Unit,
-    onOpenProfile: () -> Unit
+    onOpen: (CalendarAction) -> Unit
 ) {
 
     val loadedDates = state.loadedDates
     val selectedDate = state.selectedDate
     val currentMonth = state.currentDate.month
     val scroll = rememberScrollState()
+
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    onOpen(CalendarAction.OnCreateTask)
+                },
+                backgroundColor = Theme.colors.primaryBackground.copy(1f)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.AddCircle,
+                    contentDescription = "add"
+                )
+            }
+        }
+    ) {
+
+    }
 
     Column(
         horizontalAlignment = Alignment.Start,
@@ -83,7 +108,7 @@ fun CalendarView (
                         .height(50.dp)
                         .width(50.dp)
                         .clickable {
-                            onOpenProfile()
+                            onOpen(CalendarAction.OnOpenProfile)
                         },
                     painter = painterResource(Res.drawable.profile),
                     contentDescription = "profile img",
