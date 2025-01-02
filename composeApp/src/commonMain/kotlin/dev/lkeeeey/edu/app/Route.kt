@@ -20,10 +20,13 @@ sealed interface Route {
 
     @Serializable
     data object Main: Route
-
-
+// main routes
     @Serializable
     data object Calendar: Route
+
+    @Serializable
+    data object CreateTask: Route
+// end main routes
 
 
     @Serializable
@@ -55,5 +58,6 @@ sealed interface Route {
     @Serializable
     data object TeacherDescription: Route
 // end library routes
+
 
 }

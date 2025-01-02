@@ -63,6 +63,7 @@ fun CalendarView (
                 backgroundColor = Theme.colors.primaryBackground.copy(1f)
             ) {
                 Icon(
+                    tint = White,
                     imageVector = Icons.Default.AddCircle,
                     contentDescription = "add"
                 )

@@ -26,7 +26,7 @@ fun CalendarScreen (
         onOpen = {
             when (it) {
                 CalendarAction.OnCreateTask -> {
-//                    navController.navigate(Route.Profile)
+                    navController.navigate(Route.CreateTask)
                 }
                 CalendarAction.OnOpenProfile -> {
                     navController.navigate(Route.Profile)

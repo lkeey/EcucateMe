@@ -1,5 +1,7 @@
 package dev.lkeeeey.edu.app
 
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
@@ -8,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -23,7 +24,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.Black
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -49,6 +49,7 @@ import dev.lkeeeey.edu.library.presentation.teachers.AllTeachersScreen
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersViewModel
 import dev.lkeeeey.edu.main.presentation.calendar.CalendarScreen
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarViewModel
+import dev.lkeeeey.edu.main.presentation.createtask.CreateTaskScreen
 import dev.lkeeeey.edu.main.presentation.profile.main.ProfileScreen
 import dev.lkeeeey.edu.main.presentation.profile.main.viewmodel.ProfileViewModel
 import dev.lkeeeey.edu.main.presentation.profile.subjects.SubjectsScreen
@@ -409,6 +410,18 @@ fun App() {
 
                         CalendarScreen(
                             viewModel = viewModel,
+                            navController = navController
+                        )
+
+                    }
+
+                    composable<Route.CreateTask>(
+                        exitTransition = { shrinkVertically() },
+                        popEnterTransition = { expandVertically() }
+                    ) {
+//                    Create Task screen
+
+                        CreateTaskScreen(
                             navController = navController
                         )
 
