@@ -2,6 +2,11 @@ package dev.lkeeeey.edu.app
 
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -251,7 +257,8 @@ fun App() {
                 if (currentScreen?.parent?.route?.contains(Route.Auth.toString()) == false) {
                     BottomNavigation(
                         modifier = Modifier
-                            .wrapContentSize()
+                            .fillMaxWidth()
+                            .background(Theme.colors.backgroundMain)
                             .clip(RoundedCornerShape(40.dp, 40.dp, 0.dp, 0.dp)),
                         elevation = 4.dp,
                         backgroundColor = White,
@@ -325,11 +332,15 @@ fun App() {
             },
             backgroundColor = Theme.colors.backgroundMain,
             scaffoldState = scaffoldState
-        ) {
+        ) { innerPadding->
             // nav host here
             NavHost(
                 navController = navController,
-                startDestination = Route.Auth
+                startDestination = Route.Auth,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .consumeWindowInsets(innerPadding)
             ) {
                 navigation<Route.Auth>(
                     startDestination = Route.Splash

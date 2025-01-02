@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -66,85 +67,87 @@ fun CalendarView (
                     contentDescription = "add"
                 )
             }
-        }
-    ) {
-
-    }
-
-    Column(
-        horizontalAlignment = Alignment.Start,
-        modifier = Modifier
-            .animateContentSize()
-            .padding(horizontal = 16.dp)
-    ) {
-        Spacer(modifier = Modifier.height(12.dp))
-
+        },
+        backgroundColor = Theme.colors.backgroundMain,
+    ) { innerPadding->
         Column(
+            horizontalAlignment = Alignment.Start,
             modifier = Modifier
-                .clip(
-                    RoundedCornerShape(12.dp)
-                )
-                .background(
-                    color = White,
-                    shape = RoundedCornerShape(
-                        size = 8.dp
-                    )
-                )
+                .animateContentSize()
+                .padding(innerPadding)
+                .consumeWindowInsets(innerPadding)
+                .padding(horizontal = 16.dp)
+
         ) {
-            Row(
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .clip(
+                        RoundedCornerShape(12.dp)
+                    )
+                    .background(
+                        color = White,
+                        shape = RoundedCornerShape(
+                            size = 8.dp
+                        )
+                    )
             ) {
-                MonthText(
-                    selectedMonth = currentMonth
-                )
-
-                Image(
+                Row(
                     modifier = Modifier
-                        .clip(CircleShape)
-                        .height(50.dp)
-                        .width(50.dp)
-                        .clickable {
-                            onOpen(CalendarAction.OnOpenProfile)
-                        },
-                    painter = painterResource(Res.drawable.profile),
-                    contentDescription = "profile img",
-                    contentScale = ContentScale.FillWidth
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    MonthText(
+                        selectedMonth = currentMonth
+                    )
+
+                    Image(
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .height(50.dp)
+                            .width(50.dp)
+                            .clickable {
+                                onOpen(CalendarAction.OnOpenProfile)
+                            },
+                        painter = painterResource(Res.drawable.profile),
+                        contentDescription = "profile img",
+                        contentScale = ContentScale.FillWidth
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                MonthViewCalendar(
+                    loadedDates,
+                    selectedDate,
+                    onDayClick = {
+                        onEvent(CalendarEvent.OnDayClick(it))
+                    }
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Column (
+                modifier = Modifier
+                    .verticalScroll(scroll)
+            ) {
+                Spacer(Modifier.height(32.dp))
 
-            MonthViewCalendar(
-                loadedDates,
-                selectedDate,
-                onDayClick = {
-                    onEvent(CalendarEvent.OnDayClick(it))
+                if (state.subjects.isEmpty()) {
+                    ImageWithText (
+                        drawable = Res.drawable.ic_calendar_no_plans,
+                        text = "Здесь пусто. Можно и отдохнуть"
+                    )
+                } else {
+                    state.subjects.forEach {
+                        ScheduleSubject(subject = it)
+                    }
                 }
-            )
-        }
 
-        Column (
-            modifier = Modifier
-                .verticalScroll(scroll)
-        ) {
-            Spacer(Modifier.height(32.dp))
-
-            if (state.subjects.isEmpty()) {
-                ImageWithText (
-                    drawable = Res.drawable.ic_calendar_no_plans,
-                    text = "Здесь пусто. Можно и отдохнуть"
-                )
-            } else {
-                state.subjects.forEach {
-                    ScheduleSubject(subject = it)
-                }
+                Spacer(Modifier.height(32.dp))
             }
-
-            Spacer(Modifier.height(32.dp))
         }
     }
 }
