@@ -9,5 +9,6 @@ data class AllTeachersState(
     val selectedUsername: String = "",
     val query: String = "",
     val subject: String = "",
+    val selectedTabIndex: Int = 0,
     val isTeacherSelected: Boolean = false,
 )

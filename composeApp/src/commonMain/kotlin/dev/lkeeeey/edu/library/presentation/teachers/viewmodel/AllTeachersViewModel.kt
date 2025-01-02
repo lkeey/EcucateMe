@@ -135,6 +135,14 @@ class AllTeachersViewModel (
                 }
 
             }
+
+            is AllTeachersEvent.OnTabSelected -> {
+                _state.update {
+                    it.copy(
+                        selectedTabIndex = event.index
+                    )
+                }
+            }
         }
     }
 

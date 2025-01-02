@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import dev.lkeeeey.edu.app.Route
+import dev.lkeeeey.edu.library.presentation.teachers.components.TabRows
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersEvent
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -25,6 +26,13 @@ fun AllTeachersScreen (
         onOpenTeacherDescription = {
             navController.navigate(Route.TeacherDescription)
         }
+    )
+
+    TabRows(
+        state = state,
+        onEvent = { event->
+            viewModel.onEvent(event)
+        },
     )
 
     LaunchedEffect(true) {
