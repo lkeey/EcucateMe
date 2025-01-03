@@ -365,7 +365,6 @@ fun App(
             },
             backgroundColor = Theme.colors.backgroundMain,
             scaffoldState = scaffoldState,
-            contentWindowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp)
         ) { innerPadding->
             // nav host here
             NavHost(
