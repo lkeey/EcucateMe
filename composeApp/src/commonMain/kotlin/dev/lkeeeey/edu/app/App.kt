@@ -5,12 +5,14 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -19,6 +21,11 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Snackbar
 import androidx.compose.material.SnackbarHost
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -244,7 +251,9 @@ import org.koin.compose.viewmodel.koinViewModel
 //}
 
 @Composable
-fun App() {
+fun App(
+    isShowTopBar: Boolean = true,
+) {
     EduMeTheme {
         val navController = rememberNavController()
 
@@ -254,6 +263,28 @@ fun App() {
         val scaffoldState = rememberScaffoldState()
 
         Scaffold(
+            topBar = {
+                if (isShowTopBar) {
+                    TopAppBar(
+                        title = {
+
+                        },
+                        navigationIcon = {
+                            Icon(
+                                tint = White,
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "add",
+                                modifier = Modifier
+                                    .clip(CircleShape)
+                                    .clickable {
+                                        navController.popBackStack()
+                                    }
+                            )
+                        },
+                        backgroundColor = Theme.colors.primaryBackground.copy(1f)
+                    )
+                }
+            },
             bottomBar = {
                 // don't show when auth
                 if (currentScreen?.parent?.route?.contains(Route.Auth.toString()) == false) {
