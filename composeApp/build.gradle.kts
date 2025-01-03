@@ -70,15 +70,15 @@ kotlin {
             api(libs.koin.core)
 
             implementation(libs.bundles.ktor)
-            implementation(libs.bundles.coil)
+//            implementation(libs.bundles.coil)
 
             implementation(libs.kotlinx.datetime)
 
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.no.arg)
 
-            implementation(libs.coil.compose)
-            implementation(libs.coil.network.okhttp)
+//            implementation(libs.coil.compose)
+//            implementation(libs.coil.network.okhttp)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

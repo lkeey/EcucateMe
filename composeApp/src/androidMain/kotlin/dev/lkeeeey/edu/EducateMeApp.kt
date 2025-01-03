@@ -8,6 +8,7 @@ class EducateMeApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
         initKoin {
             androidContext(this@EducateMeApp)
         }

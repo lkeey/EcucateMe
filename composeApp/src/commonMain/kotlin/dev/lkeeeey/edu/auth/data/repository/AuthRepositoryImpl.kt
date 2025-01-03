@@ -1,9 +1,6 @@
 package dev.lkeeeey.edu.auth.data.repository
 
-import androidx.sqlite.SQLiteException
 import com.russhwolf.settings.Settings
-import dev.lkeeeey.edu.auth.data.database.UserDao
-import dev.lkeeeey.edu.auth.data.database.UserEntity
 import dev.lkeeeey.edu.auth.data.keys.Keys
 import dev.lkeeeey.edu.auth.data.mappers.toAuthResponse
 import dev.lkeeeey.edu.auth.data.network.RemoteAuthDataSource
@@ -14,11 +11,10 @@ import dev.lkeeeey.edu.auth.domain.models.RegisterRequest
 import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.core.domain.map
-import kotlinx.coroutines.flow.Flow
 
 class AuthRepositoryImpl (
     private val remoteAuthDataSource: RemoteAuthDataSource,
-    private val userDao: UserDao,
+//    private val userDao: UserDao,
 ) : AuthRepository {
 
     private val settings = Settings()
@@ -45,39 +41,39 @@ class AuthRepositoryImpl (
             .registerUser(query)
     }
 
-    override suspend fun addUser(user: UserEntity): Result<Unit, DataError.Local> {
-        return try {
-            userDao.upsertUser(user = user)
-            Result.Success(Unit)
-        } catch (e: SQLiteException) {
-            Result.Error(DataError.Local.DISK_FULL)
-        }
-    }
+//    override suspend fun addUser(user: UserEntity): Result<Unit, DataError.Local> {
+//        return try {
+//            userDao.upsertUser(user = user)
+//            Result.Success(Unit)
+//        } catch (e: SQLiteException) {
+//            Result.Error(DataError.Local.DISK_FULL)
+//        }
+//    }
 
-    override suspend fun updateUser(user: UserEntity): Result<Unit, DataError.Local> {
-        return try {
-            userDao.updateUser(user = user)
-            Result.Success(Unit)
-        } catch (e: SQLiteException) {
-            Result.Error(DataError.Local.DISK_FULL)
-        }
-    }
+//    override suspend fun updateUser(user: UserEntity): Result<Unit, DataError.Local> {
+//        return try {
+//            userDao.updateUser(user = user)
+//            Result.Success(Unit)
+//        } catch (e: SQLiteException) {
+//            Result.Error(DataError.Local.DISK_FULL)
+//        }
+//    }
 
-    override fun getUserEntity(): Flow<List<UserEntity>> {
-        return userDao
-            .getUser()
+//    override fun getUserEntity(): Flow<List<UserEntity>> {
+//        return userDao
+//            .getUser()
+//
+//    }
 
-    }
-
-    override suspend fun deleteAllUsers(): Result<Unit, DataError.Local> {
-        return try {
-            userDao
-                .deleteAllUsers()
-            Result.Success(Unit)
-        } catch (e: SQLiteException) {
-            Result.Error(DataError.Local.DISK_FULL)
-        }
-    }
+//    override suspend fun deleteAllUsers(): Result<Unit, DataError.Local> {
+//        return try {
+//            userDao
+//                .deleteAllUsers()
+//            Result.Success(Unit)
+//        } catch (e: SQLiteException) {
+//            Result.Error(DataError.Local.DISK_FULL)
+//        }
+//    }
 
     override fun updateRefreshToken(refresh: String): Result<Unit, DataError.Local> {
         return try {

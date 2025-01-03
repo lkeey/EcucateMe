@@ -1,8 +1,5 @@
 package dev.lkeeeey.edu.di
 
-import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import dev.lkeeeey.edu.auth.data.database.DatabaseFactory
-import dev.lkeeeey.edu.auth.data.database.UserDatabase
 import dev.lkeeeey.edu.auth.data.network.KtorRemoteBookDataSource
 import dev.lkeeeey.edu.auth.data.network.RemoteAuthDataSource
 import dev.lkeeeey.edu.auth.data.repository.AuthRepositoryImpl
@@ -46,13 +43,12 @@ val sharedModule = module {
     singleOf(::RemoteLibraryRepositoryImpl).bind<RemoteLibraryRepository>()
     singleOf(::LibraryRepositoryImpl).bind<LibraryRepository>()
 
-    single {
-        get<DatabaseFactory>().create()
-            .setDriver(BundledSQLiteDriver())
-            .build()
-    }
-    single { get<UserDatabase>().userDao }
-
+//    single {
+//        get<DatabaseFactory>().create()
+//            .setDriver(BundledSQLiteDriver())
+//            .build()
+//    }
+//    single { get<UserDatabase>().userDao }
 
     viewModelOf(::SplashViewModel)
     viewModelOf(::LoginViewModel)
