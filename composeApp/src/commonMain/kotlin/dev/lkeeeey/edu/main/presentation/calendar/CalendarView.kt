@@ -77,7 +77,7 @@ fun CalendarView (
                 .animateContentSize()
                 .padding(innerPadding)
                 .consumeWindowInsets(innerPadding)
-                .padding(horizontal = 16.dp)
+                .padding(16.dp)
 
         ) {
             Spacer(modifier = Modifier.height(12.dp))

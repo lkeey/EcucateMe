@@ -6,7 +6,6 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,8 +23,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -266,9 +263,7 @@ fun App(
             topBar = {
                 if (isShowTopBar) {
                     TopAppBar(
-                        title = {
-
-                        },
+                        title = {  },
                         navigationIcon = {
                             Icon(
                                 tint = White,
@@ -292,6 +287,7 @@ fun App(
                         modifier = Modifier
                             .fillMaxWidth()
                             .background(Theme.colors.backgroundMain)
+//                            .padding(bottom = 10.dp)
                             .clip(RoundedCornerShape(40.dp, 40.dp, 0.dp, 0.dp)),
                         elevation = 4.dp,
                         backgroundColor = White,
@@ -306,9 +302,11 @@ fun App(
                         screens.forEach {
                             //println("currentScreen ${currentScreen?.parent?.route} ${it.route.toString()}")
 
-                            val isOpened = currentScreen?.parent?.route?.contains(it.route.toString()) == true
+                            val isOpened = currentScreen.parent?.route?.contains(it.route.toString()) == true
 
                             BottomNavigationItem(
+                                modifier = Modifier
+                                    .padding(bottom = 10.dp),
                                 selected = isOpened,
                                 onClick = {
                                     if (isOpened) {
@@ -375,6 +373,7 @@ fun App(
                     .padding(innerPadding)
                     .consumeWindowInsets(innerPadding)
             ) {
+
                 navigation<Route.Auth>(
                     startDestination = Route.Splash
                 ) {
