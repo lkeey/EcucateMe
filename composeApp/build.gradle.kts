@@ -10,7 +10,7 @@ plugins {
 
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.room)
+//    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -34,9 +34,9 @@ kotlin {
     
     jvm("desktop")
 
-    room {
-        schemaDirectory("$projectDir/schemas")
-    }
+//    room {
+//        schemaDirectory("$projectDir/schemas")
+//    }
     
     sourceSets {
         val desktopMain by getting
@@ -63,8 +63,8 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.jetbrains.compose.navigation)
             implementation(libs.kotlinx.serialization.json)
-            implementation(libs.androidx.room.runtime)
-            implementation(libs.sqlite.bundled)
+//            implementation(libs.androidx.room.runtime)
+//            implementation(libs.sqlite.bundled)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             api(libs.koin.core)
@@ -92,7 +92,7 @@ kotlin {
         }
 
         dependencies {
-            ksp(libs.androidx.room.compiler)
+//            ksp(libs.androidx.room.compiler)
         }
     }
 }
@@ -125,7 +125,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.places)
+//    implementation(libs.places)
     debugImplementation(compose.uiTooling)
 }
 

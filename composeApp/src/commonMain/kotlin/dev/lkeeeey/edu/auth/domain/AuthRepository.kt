@@ -1,6 +1,5 @@
 package dev.lkeeeey.edu.auth.domain
 
-import dev.lkeeeey.edu.auth.data.database.UserEntity
 import dev.lkeeeey.edu.auth.domain.models.AuthResponse
 import dev.lkeeeey.edu.auth.domain.models.LoginRequest
 import dev.lkeeeey.edu.auth.domain.models.RegisterRequest
