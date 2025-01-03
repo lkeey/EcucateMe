@@ -5,6 +5,7 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -332,7 +333,8 @@ fun App() {
                 }
             },
             backgroundColor = Theme.colors.backgroundMain,
-            scaffoldState = scaffoldState
+            scaffoldState = scaffoldState,
+            contentWindowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp)
         ) { innerPadding->
             // nav host here
             NavHost(
