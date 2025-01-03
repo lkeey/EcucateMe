@@ -155,7 +155,7 @@ class AllTeachersViewModel (
 
                     libraryRepository
                         .getAllTeachers(
-                            query = state.value.query,
+                            query = "",
                             subject = state.value.subject
                         )
                         .onSuccess { t ->

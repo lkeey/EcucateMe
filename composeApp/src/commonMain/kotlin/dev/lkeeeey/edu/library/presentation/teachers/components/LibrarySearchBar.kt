@@ -59,7 +59,7 @@ fun LibrarySearchBar(
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,
-                contentDescription = null,
+                contentDescription = "search",
                 tint = Theme.colors.editPlaceholder
             )
         },

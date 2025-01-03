@@ -7,7 +7,7 @@ data class AllTeachersState(
     val teachers: List<TeacherModel> = emptyList(),
     val selectedTeacherModel: DescriptionTeacherModel = DescriptionTeacherModel("", "", "", ""),
     val selectedUsername: String = "",
-    val query: String = "",
+//    val query: String = "",
     val subject: String = "",
     val selectedTabIndex: Int = 0,
     val isTeacherSelected: Boolean = false,

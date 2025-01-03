@@ -17,6 +17,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.TabRowDefaults
+import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,19 +25,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import dev.lkeeeey.edu.core.presentation.Theme
-import dev.lkeeeey.edu.core.presentation.components.fields.OutlinedText
 import dev.lkeeeey.edu.library.presentation.teachers.AllTeachersView
+import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersAction
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersEvent
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersState
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TabRows (
     state: AllTeachersState,
-    onEvent: (AllTeachersEvent) -> Unit
+    onEvent: (AllTeachersEvent) -> Unit,
+    onOpen: (AllTeachersAction) -> Unit,
 ){
     val pagerState = rememberPagerState { 2 }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -52,18 +52,17 @@ fun TabRows (
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Theme.colors.primaryBackground.copy(.3f))
             .statusBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(12.dp))
 
         LibrarySearchBar(
             modifier = Modifier
                 .widthIn(max = 400.dp)
                 .fillMaxWidth()
-                .padding(16.dp),
-            searchQuery = state.query,
+                .padding(top = 8.dp)
+                .padding(horizontal = 16.dp),
+            searchQuery = state.subject,
             label = "Что хотите найти?",
             onImeSearch = {
                 keyboardController?.hide()
@@ -73,17 +72,13 @@ fun TabRows (
             }
         )
 
-        Spacer(Modifier.height(24.dp))
-
         Surface(
             modifier = Modifier
                 .weight(1f)
-                .fillMaxWidth(),
-            color = Theme.colors.backgroundMain,
-            shape = RoundedCornerShape(
-                topStart = 32.dp,
-                topEnd = 32.dp
-            )
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
+            color = Color.White,
+            shape = RoundedCornerShape(32.dp)
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -96,7 +91,10 @@ fun TabRows (
                         .fillMaxWidth(),
                     backgroundColor = Color.White,
                     indicator = { tabPositions ->
-
+                        TabRowDefaults.Indicator(
+                            color = Theme.colors.primaryBackground.copy(1f),
+                            modifier = Modifier.tabIndicatorOffset(tabPositions[state.selectedTabIndex])
+                        )
                     }
                 ) {
                     Tab(
@@ -105,11 +103,11 @@ fun TabRows (
                             onEvent(AllTeachersEvent.OnTabSelected(0))
                         },
                         modifier = Modifier.weight(1f),
-                        selectedContentColor = Color.Red,
+                        selectedContentColor = Theme.colors.primaryBackground.copy(1f),
                         unselectedContentColor = Color.Black.copy(alpha = 0.5f)
                     ) {
                         Text(
-                            text = "1st",
+                            text = "Материалы",
                             modifier = Modifier
                                 .padding(vertical = 12.dp)
                         )
@@ -121,17 +119,19 @@ fun TabRows (
 
                         },
                         modifier = Modifier.weight(1f),
-                        selectedContentColor = Color.Red,
+                        selectedContentColor = Theme.colors.primaryBackground.copy(1f),
                         unselectedContentColor = Color.Black.copy(alpha = 0.5f)
                     ) {
                         Text(
-                            text = "2nd",
+                            text = "Учителя",
                             modifier = Modifier
                                 .padding(vertical = 12.dp)
                         )
                     }
                 }
+
                 Spacer(modifier = Modifier.height(4.dp))
+
                 HorizontalPager(
                     state = pagerState,
                     modifier = Modifier
@@ -141,17 +141,16 @@ fun TabRows (
                     Box(
                         modifier = Modifier
                             .fillMaxSize(),
-                        contentAlignment = Alignment.Center
                     ) {
                         when(pageIndex) {
                             0 -> {
-                                Text("1st screen")
+                                Text("Скоро здесь будут материалы")
                             }
                             1 -> {
                                 AllTeachersView(
                                     state = state,
                                     onEvent = onEvent,
-                                    onOpenTeacherDescription = {}
+                                    onOpen = onOpen
                                 )
                             }
                         }
