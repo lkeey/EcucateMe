@@ -11,6 +11,7 @@ import dev.lkeeeey.edu.main.data.network.RemoteProfileDataSource
 import dev.lkeeeey.edu.main.domain.ProfileRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -47,6 +48,8 @@ class SplashViewModel (
 
     private fun checkIfUserAuthenticated() {
         viewModelScope.launch(Dispatchers.IO) {
+
+            delay(1000)
 
             val refresh = settings.getStringOrNull(Keys.REFRESH_TOKEN)
             val access = settings.getStringOrNull(Keys.ACCESS_TOKEN)
