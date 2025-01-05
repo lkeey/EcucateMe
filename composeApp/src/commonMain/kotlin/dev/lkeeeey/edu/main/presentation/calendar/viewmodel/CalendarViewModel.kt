@@ -40,9 +40,7 @@ class CalendarViewModel (
         }
     }
 
-    fun loadSubjectsPerDay(
-
-    ) {
+    fun loadSubjectsPerDay() {
         viewModelScope.launch {
             profileRepository.refreshToken()
                 .onSuccess {

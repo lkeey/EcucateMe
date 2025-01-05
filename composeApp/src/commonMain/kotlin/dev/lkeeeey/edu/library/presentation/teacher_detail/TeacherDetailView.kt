@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -42,6 +43,8 @@ fun TeacherDetailView (
     state: AllTeachersState,
     onEvent: (AllTeachersEvent) -> Unit,
 ) {
+
+    val uriHandler = LocalUriHandler.current
 
     Column(
         modifier = Modifier
@@ -130,7 +133,7 @@ fun TeacherDetailView (
                 content = state.selectedTeacherModel.username,
                 isVisible = true
             ) {
-
+                uriHandler.openUri("https://t.me/${state.selectedTeacherModel.username}")
             }
 
             FilledBtn(

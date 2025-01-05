@@ -66,12 +66,25 @@ class SplashViewModel (
                 //REFRESH TOKEN
                 profileRepository
                     .refreshToken()
-                    .onSuccess {
-                        _state.update {
-                            it.copy(
-                                action = SplashAction.OpenMain
+                    .onSuccess { response ->
+                        authRepository
+                            .updateAccessToken(
+                                access = response.accessToken
                             )
-                        }
+                            .onSuccess {
+                                _state.update {
+                                    it.copy(
+                                        action = SplashAction.OpenMain
+                                    )
+                                }
+                            }
+                            .onError {
+                                _state.update {
+                                    it.copy(
+                                        action = SplashAction.OpenLogin
+                                    )
+                                }
+                            }
                     }
                     .onError {
                         _state.update {
