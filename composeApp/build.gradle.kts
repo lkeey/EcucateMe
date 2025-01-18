@@ -77,8 +77,8 @@ kotlin {
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.no.arg)
 
-//            implementation(libs.coil.compose)
-//            implementation(libs.coil.network.okhttp)
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor)
 
             implementation(compose.material3)
         }
