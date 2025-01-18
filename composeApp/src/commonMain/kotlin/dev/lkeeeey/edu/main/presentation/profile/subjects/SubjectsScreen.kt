@@ -19,6 +19,9 @@ fun SubjectsScreen (
         state = state,
         onEvent = { event->
             viewModel.onEvent(event)
+        },
+        onOpen = {
+            navController.popBackStack()
         }
     )
 
