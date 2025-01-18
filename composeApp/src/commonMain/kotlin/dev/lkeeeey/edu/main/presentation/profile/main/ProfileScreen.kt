@@ -1,11 +1,13 @@
 package dev.lkeeeey.edu.main.presentation.profile.main
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import dev.lkeeeey.edu.app.Route
 import dev.lkeeeey.edu.main.presentation.profile.main.viewmodel.ProfileAction
+import dev.lkeeeey.edu.main.presentation.profile.main.viewmodel.ProfileEvent
 import dev.lkeeeey.edu.main.presentation.profile.main.viewmodel.ProfileViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -41,4 +43,8 @@ fun ProfileScreen (
             }
         }
     )
+
+    LaunchedEffect(true) {
+        viewModel.onEvent(ProfileEvent.OnOpenProfile)
+    }
 }

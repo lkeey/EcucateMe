@@ -7,5 +7,5 @@ import kotlinx.serialization.Serializable
 data class ProfileModel(
     @SerialName("name") val name : String,
     @SerialName("username") val username : String,
-    @SerialName("avatar_url") val profileLogoUrl : String,
+//    @SerialName("avatar_url") val profileLogoUrl : String,
 )

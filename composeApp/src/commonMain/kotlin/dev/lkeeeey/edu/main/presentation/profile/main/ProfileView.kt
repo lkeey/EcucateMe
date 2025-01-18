@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,6 +18,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
+import dev.lkeeeey.edu.main.presentation.profile.main.components.ErrorMessage
 import dev.lkeeeey.edu.main.presentation.profile.main.components.Reference
 import dev.lkeeeey.edu.main.presentation.profile.main.viewmodel.ProfileAction
 import dev.lkeeeey.edu.main.presentation.profile.main.viewmodel.ProfileEvent
@@ -50,6 +51,7 @@ fun ProfileView(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .blur(if (state.isLoading) 4.dp else 0.dp),
     ) {
 
         Column(
@@ -76,6 +78,10 @@ fun ProfileView(
                 contentDescription = "custom transition based on painter state",
                 contentScale = ContentScale.Crop
             )
+
+            if (state.errorMessage.isNotEmpty()) {
+                ErrorMessage(state.errorMessage)
+            }
 
             Spacer(modifier = Modifier.height(12.dp))
 
