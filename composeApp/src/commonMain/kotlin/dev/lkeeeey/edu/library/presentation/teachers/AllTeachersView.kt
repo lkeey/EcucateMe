@@ -26,19 +26,7 @@ fun AllTeachersView (
         modifier = Modifier
             .animateContentSize()
             .fillMaxSize()
-//            .padding(16.dp)
     ) {
-
-//        Spacer(modifier = Modifier.height(12.dp))
-//
-//        OutlinedText(
-//            previousData = state.subject,
-//            label = "Введите предмет",
-//        ) {
-//            onEvent(AllTeachersEvent.OnSubjectUpdate(it))
-//        }
-
-//        Spacer(Modifier.height(24.dp))
 
         Column (
             modifier = Modifier
@@ -49,7 +37,6 @@ fun AllTeachersView (
                     teacher = teacher
                 ) {
                     onEvent(AllTeachersEvent.OnOpenTeacherDescription(username = teacher.username))
-//                    onOpenTeacherDescription()
                     onOpen(AllTeachersAction.OnOpenTeacherDescription)
                 }
             }

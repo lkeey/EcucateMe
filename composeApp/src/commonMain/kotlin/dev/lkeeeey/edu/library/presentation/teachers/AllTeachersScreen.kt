@@ -19,16 +19,6 @@ fun AllTeachersScreen (
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-//    AllTeachersView(
-//        state = state,
-//        onEvent = { event->
-//            viewModel.onEvent(event)
-//        },
-//        onOpenTeacherDescription = {
-//            navController.navigate(Route.TeacherDescription)
-//        }
-//    )
-
     TabRows(
         state = state,
         onEvent = { event->

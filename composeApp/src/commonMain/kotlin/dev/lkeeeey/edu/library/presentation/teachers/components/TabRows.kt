@@ -1,6 +1,5 @@
 package dev.lkeeeey.edu.library.presentation.teachers.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,12 +24,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
 import dev.lkeeeey.edu.library.presentation.teachers.AllTeachersView
+import dev.lkeeeey.edu.library.presentation.teachers.LibraryPostsView
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersAction
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersEvent
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersState
+import ecucateme.composeapp.generated.resources.Res
+import ecucateme.composeapp.generated.resources.Thin
+import org.jetbrains.compose.resources.Font
 
 @Composable
 fun TabRows (
@@ -108,6 +115,11 @@ fun TabRows (
                     ) {
                         Text(
                             text = "Материалы",
+                            style = TextStyle(
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight(500),
+                                fontFamily = FontFamily(Font(Res.font.Thin)),
+                            ),
                             modifier = Modifier
                                 .padding(vertical = 12.dp)
                         )
@@ -124,6 +136,11 @@ fun TabRows (
                     ) {
                         Text(
                             text = "Учителя",
+                            style = TextStyle(
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight(500),
+                                fontFamily = FontFamily(Font(Res.font.Thin)),
+                            ),
                             modifier = Modifier
                                 .padding(vertical = 12.dp)
                         )
@@ -144,7 +161,9 @@ fun TabRows (
                     ) {
                         when(pageIndex) {
                             0 -> {
-                                Text("Скоро здесь будут материалы")
+                                LibraryPostsView(
+                                    state = state
+                                )
                             }
                             1 -> {
                                 AllTeachersView(
