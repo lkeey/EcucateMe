@@ -6,6 +6,7 @@ import dev.lkeeeey.edu.core.data.safeCall
 import dev.lkeeeey.edu.core.data.safeCallWithCookies
 import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
+import dev.lkeeeey.edu.main.domain.models.ProfileModel
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
 import dev.lkeeeey.edu.main.domain.models.SubjectSchedule
 import dev.lkeeeey.edu.main.domain.models.TimeTableModel
@@ -135,6 +136,21 @@ class RemoteProfileDataSourceImpl(
                 )
                 setBody(
                     subject
+                )
+            }
+        }
+    }
+
+    override suspend fun getTeacherProfile(
+        access: String,
+        username: String
+    ): Result<ProfileModel, DataError.Remote> {
+        return safeCall<ProfileModel> {
+            httpClient.get(
+                urlString = "$BASE_URL/auth/user/$username"
+            ) {
+                bearerAuth(
+                    access
                 )
             }
         }

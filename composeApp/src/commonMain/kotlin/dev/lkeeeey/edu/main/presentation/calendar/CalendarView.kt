@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -77,7 +78,8 @@ fun CalendarView (
                 .animateContentSize()
                 .padding(innerPadding)
                 .consumeWindowInsets(innerPadding)
-                .padding(16.dp)
+                .systemBarsPadding()
+                .padding(horizontal = 16.dp)
 
         ) {
             Spacer(modifier = Modifier.height(12.dp))

@@ -9,6 +9,7 @@ import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.main.data.network.RemoteProfileDataSource
 import dev.lkeeeey.edu.main.domain.ProfileRepository
+import dev.lkeeeey.edu.main.domain.models.ProfileModel
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
 import dev.lkeeeey.edu.main.domain.models.SubjectSchedule
 import dev.lkeeeey.edu.main.domain.models.TimeTableModel
@@ -80,7 +81,21 @@ class ProfileRepositoryImpl (
         )
     }
 
-    fun getAccess() : String {
+    override suspend fun getTeacherProfile(): Result<ProfileModel, DataError.Remote> {
+        return remoteProfileDataSource.getTeacherProfile(
+            access = getAccess(),
+            username = getUsername()
+        )
+    }
+
+    private fun getUsername() : String {
+        return settings.getString(
+            key = Keys.MY_USERNAME,
+            defaultValue = ""
+        )
+    }
+
+    private fun getAccess() : String {
         return settings.getString(
             key = Keys.ACCESS_TOKEN,
             defaultValue = ""

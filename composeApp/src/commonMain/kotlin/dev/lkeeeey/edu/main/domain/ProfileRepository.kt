@@ -3,6 +3,7 @@ package dev.lkeeeey.edu.main.domain
 import dev.lkeeeey.edu.auth.data.dto.AuthLoginDto
 import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
+import dev.lkeeeey.edu.main.domain.models.ProfileModel
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
 import dev.lkeeeey.edu.main.domain.models.SubjectSchedule
 import dev.lkeeeey.edu.main.domain.models.TimeTableModel
@@ -30,5 +31,7 @@ interface ProfileRepository {
     suspend fun addSubjectToSchedule(
         subject: SubjectSchedule
     ): Result<SubjectSchedule, DataError.Remote>
+
+    suspend fun getTeacherProfile() : Result<ProfileModel, DataError.Remote>
 
 }

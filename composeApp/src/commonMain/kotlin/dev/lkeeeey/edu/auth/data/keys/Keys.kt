@@ -9,5 +9,7 @@ object Keys {
 
     const val IS_LOGIN = "IS_LOGIN"
 
+    const val MY_USERNAME = "MY_USERNAME"
+
     const val SELECTED_TEACHER = "SELECTED_TEACHER"
 }

@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -50,10 +52,6 @@ fun ProfileView(
             .fillMaxSize()
     ) {
 
-        Spacer(
-            Modifier.height(12.dp)
-        )
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -62,7 +60,8 @@ fun ProfileView(
                     color = White, shape = RoundedCornerShape(
                         topStart = 0.dp, topEnd = 0.dp, bottomEnd = 40.dp, bottomStart = 40.dp
                     )
-                ),
+                )
+                .statusBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -81,7 +80,7 @@ fun ProfileView(
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = state.name, style = TextStyle(
+                text = state.profile.username, style = TextStyle(
                     fontSize = 17.sp,
                     fontFamily = FontFamily(org.jetbrains.compose.resources.Font(Res.font.Thin)),
                     fontWeight = FontWeight(600),

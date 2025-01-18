@@ -146,6 +146,11 @@ class RegisterViewModel (
                                             value = state.value.password
                                         )
 
+                                        settings.putString(
+                                            key = Keys.MY_USERNAME,
+                                            value = state.value.username
+                                        )
+
                                         _state.update {
                                             it.copy(
                                                 isLoading = false,
