@@ -1,12 +1,12 @@
 package dev.lkeeeey.edu.main.presentation.profile.teachers
 
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import dev.lkeeeey.edu.app.Route
+import dev.lkeeeey.edu.main.presentation.profile.teachers.viewmodel.MyTeachersAction
 import dev.lkeeeey.edu.main.presentation.profile.teachers.viewmodel.MyTeachersEvent
 import dev.lkeeeey.edu.main.presentation.profile.teachers.viewmodel.MyTeachersViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -24,8 +24,15 @@ fun MyTeachersScreen (
         onEvent = { event->
             viewModel.onEvent(event)
         },
-        onOpenTeacherDescription = {
-            navController.navigate(Route.TeacherDescription)
+        onOpenScreen = {
+            when (it) {
+                MyTeachersAction.OnOpenBack -> {
+                    navController.popBackStack()
+                }
+                MyTeachersAction.OnOpenTeacherDescription -> {
+                    navController.navigate(Route.TeacherDescription)
+                }
+            }
         }
     )
 

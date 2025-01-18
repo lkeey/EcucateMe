@@ -7,11 +7,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -22,6 +24,8 @@ import dev.lkeeeey.edu.core.presentation.Theme
 import dev.lkeeeey.edu.library.domain.models.TeacherModel
 import dev.lkeeeey.edu.library.presentation.teachers.components.TeacherCard
 import dev.lkeeeey.edu.main.presentation.calendar.components.ImageWithText
+import dev.lkeeeey.edu.main.presentation.profile.main.components.BackBtn
+import dev.lkeeeey.edu.main.presentation.profile.teachers.viewmodel.MyTeachersAction
 import dev.lkeeeey.edu.main.presentation.profile.teachers.viewmodel.MyTeachersEvent
 import dev.lkeeeey.edu.main.presentation.profile.teachers.viewmodel.MyTeachersState
 import ecucateme.composeapp.generated.resources.Res
@@ -33,17 +37,17 @@ import org.jetbrains.compose.resources.Font
 fun MyTeachersView (
     state: MyTeachersState,
     onEvent: (MyTeachersEvent) -> Unit,
-    onOpenTeacherDescription: () -> Unit
+    onOpenScreen: (MyTeachersAction) -> Unit
 ) {
     Column (
         modifier = Modifier
             .animateContentSize()
             .fillMaxSize()
-            .padding(16.dp)
+            .systemBarsPadding()
     ) {
 
         Text(
-            text = "Мои учителя",
+            text = "",
             modifier = Modifier.fillMaxWidth(),
             style = TextStyle(
                 fontSize = 16.sp,
@@ -52,6 +56,14 @@ fun MyTeachersView (
                 color = Theme.colors.blackProfile,
                 textAlign = TextAlign.Center
             )
+        )
+
+        BackBtn(
+            text = "Мои учителя",
+            onClick = {
+                onOpenScreen(MyTeachersAction.OnOpenBack)
+            },
+            containerColor = White
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -71,7 +83,7 @@ fun MyTeachersView (
                         teacher = TeacherModel(teacher.username, teacher.name, "")
                     ) {
                         onEvent(MyTeachersEvent.OnOpenTeacherDescription(username = teacher.username))
-                        onOpenTeacherDescription()
+                        onOpenScreen(MyTeachersAction.OnOpenTeacherDescription)
                     }
                 }
             }

@@ -79,6 +79,8 @@ kotlin {
 
 //            implementation(libs.coil.compose)
 //            implementation(libs.coil.network.okhttp)
+
+            implementation(compose.material3)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -125,7 +127,8 @@ android {
 }
 
 dependencies {
-//    implementation(libs.places)
+implementation(libs.androidx.material3.android)
+    //    implementation(libs.places)
     debugImplementation(compose.uiTooling)
 }
 
