@@ -66,6 +66,7 @@ class CalendarViewModel (
             }
             CalendarEvent.OnSave -> {
                 // TODO save
+                println("value - ${state.value}")
             }
         }
     }

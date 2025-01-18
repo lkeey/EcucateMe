@@ -81,6 +81,9 @@ kotlin {
             implementation(libs.coil.network.ktor)
 
             implementation(compose.material3)
+
+            // datepicker
+            implementation(libs.kmp.date.time.picker)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

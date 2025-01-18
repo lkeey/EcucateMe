@@ -12,6 +12,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
+import network.chaintech.kmp_date_time_picker.utils.MIN
 
 data class CalendarState (
     val subjects: List<TimeTableModel> = emptyList(),
@@ -19,7 +20,7 @@ data class CalendarState (
     val loadedSubjectsPres: List<SubjectPresModel> = emptyList(),
 
     val enteredContent: String = "",
-    val enteredDeadline: String = "",
+    val enteredDeadline: LocalDate = LocalDate.MIN(),
     val enteredTime: Int = 0,
     val enteredSubject: SubjectPresModel = SubjectPresModel(-1, "", false),
 

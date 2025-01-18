@@ -19,18 +19,33 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
 import dev.lkeeeey.edu.core.presentation.components.fields.OutlinedText
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarEvent
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarState
 import dev.lkeeeey.edu.main.presentation.profile.timetable.components.ReadOnlyDropDown
+import ecucateme.composeapp.generated.resources.Res
+import ecucateme.composeapp.generated.resources.Thin
+import kotlinx.datetime.DatePeriod
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.plus
+import network.chaintech.kmp_date_time_picker.ui.datepicker.WheelDatePickerComponent.WheelDatePicker
+import network.chaintech.kmp_date_time_picker.utils.WheelPickerDefaults
+import network.chaintech.kmp_date_time_picker.utils.now
+import org.jetbrains.compose.resources.Font
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -96,6 +111,8 @@ fun BottomSheet (
                     onEvent(CalendarEvent.OnEnterContent(it))
                 }
 
+                Spacer(modifier = Modifier.height(8.dp))
+
                 ReadOnlyDropDown(
                     options = state.loadedSubjectsPres,
                     previousData = state.enteredSubject.name,
@@ -108,7 +125,7 @@ fun BottomSheet (
                     )
                 }
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
                 NumTextField(
                     previousData = state.enteredTime.toString(),
@@ -119,7 +136,43 @@ fun BottomSheet (
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // TODO start - end
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    text = "Дедлайн",
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(Res.font.Thin)),
+                        fontWeight = FontWeight(500),
+                        color = Theme.colors.editPlaceholder,
+                        letterSpacing = 0.3.sp
+                    ),
+                    textAlign = TextAlign.Center
+                )
+
+                WheelDatePicker(
+//                    doneLabelStyle: TextStyle = LocalTextStyle.current,
+                    startDate = LocalDate.now().plus(DatePeriod(days = 1)),
+                    minDate = LocalDate.now().plus(DatePeriod(days = 1)),
+//                    showShortMonths: Boolean = false,
+//                    showMonthAsNumber: Boolean = false,
+                    dateTextStyle = TextStyle(
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(Res.font.Thin)),
+                        fontWeight = FontWeight(500),
+                        color = Theme.colors.editPlaceholder,
+                        letterSpacing = 0.3.sp
+                    ),
+                    dateTextColor = Theme.colors.primaryTextColor.copy(1f),
+                    hideHeader = true,
+                    selectorProperties = WheelPickerDefaults.selectorProperties(
+                        borderColor = Theme.colors.primaryBackground.copy(1f)
+                    ),
+//                    onDoneClick: (snappedDate: LocalDate) -> Unit = {},
+                    onDateChangeListener = {
+                        onEvent(CalendarEvent.OnEnterDeadline(it))
+                    }
+                )
             }
         }
     }
