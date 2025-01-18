@@ -36,6 +36,4 @@ fun SplashScreen (
         }
     }
 
-
-
 }

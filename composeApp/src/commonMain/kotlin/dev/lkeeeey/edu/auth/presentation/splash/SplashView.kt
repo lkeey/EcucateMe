@@ -37,14 +37,6 @@ fun SplashView () {
     Column(
         modifier = Modifier
             .fillMaxSize()
-//            .background(
-//                brush = Brush.verticalGradient(
-//                    colors = listOf(
-//                        Theme.colors.primaryBackground.copy(alpha = 0.3f),
-//                        Theme.colors.primaryBackground.copy(alpha = 1f),
-//                    )
-//                )
-//            )
             .isLoading(true)
             .padding(horizontal = 64.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
