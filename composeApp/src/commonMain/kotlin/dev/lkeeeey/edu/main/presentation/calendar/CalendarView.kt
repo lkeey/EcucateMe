@@ -23,7 +23,14 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,6 +38,7 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import dev.lkeeeey.edu.core.presentation.Theme
+import dev.lkeeeey.edu.main.presentation.calendar.components.BottomSheet
 import dev.lkeeeey.edu.main.presentation.calendar.components.ImageWithText
 import dev.lkeeeey.edu.main.presentation.calendar.components.MonthText
 import dev.lkeeeey.edu.main.presentation.calendar.components.MonthViewCalendar
@@ -41,8 +49,10 @@ import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarState
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.ic_calendar_no_plans
 import ecucateme.composeapp.generated.resources.profile
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalendarView (
     state: CalendarState,
@@ -54,6 +64,12 @@ fun CalendarView (
     val selectedDate = state.selectedDate
     val currentMonth = state.currentDate.month
     val scroll = rememberScrollState()
+
+    val scope = rememberCoroutineScope()
+    var isBottomSheetVisible by rememberSaveable { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
 
     Scaffold(
         floatingActionButton = {
@@ -153,4 +169,15 @@ fun CalendarView (
             }
         }
     }
+
+    BottomSheet(
+        state = state,
+        isBottomSheetVisible = isBottomSheetVisible,
+        sheetState = sheetState,
+        onEvent = onEvent,
+        onDismiss = {
+            scope.launch { sheetState.hide() }
+                .invokeOnCompletion { isBottomSheetVisible = false }
+        }
+    )
 }

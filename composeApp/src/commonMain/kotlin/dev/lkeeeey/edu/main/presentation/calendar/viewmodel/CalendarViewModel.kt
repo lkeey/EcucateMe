@@ -34,8 +34,38 @@ class CalendarViewModel (
                         selectedDate = event.date
                     )
                 }
-
                 loadSubjectsPerDay()
+            }
+            is CalendarEvent.OnEnterContent -> {
+                _state.update {
+                    it.copy(
+                        enteredContent = event.content
+                    )
+                }
+            }
+            is CalendarEvent.OnEnterDeadline -> {
+                _state.update {
+                    it.copy(
+                        enteredDeadline = event.deadline
+                    )
+                }
+            }
+            is CalendarEvent.OnEnterExecutionTime -> {
+                _state.update {
+                    it.copy(
+                        enteredTime = event.time
+                    )
+                }
+            }
+            is CalendarEvent.OnEnterSubject -> {
+                _state.update {
+                    it.copy(
+                        enteredSubject = event.subject
+                    )
+                }
+            }
+            CalendarEvent.OnSave -> {
+                // TODO save
             }
         }
     }
