@@ -120,7 +120,8 @@ class AllTeachersViewModel (
                                         val isTeacherSelected = teacherModels.contains(
                                             SelectedTeacherModel(
                                                 name = state.value.selectedTeacherModel.name,
-                                                username = state.value.selectedTeacherModel.username
+                                                username = state.value.selectedTeacherModel.username,
+                                                subject = state.value.selectedTeacherModel.subject
                                             )
                                         )
 

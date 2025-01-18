@@ -46,27 +46,13 @@ fun MyTeachersView (
             .systemBarsPadding()
     ) {
 
-        Text(
-            text = "",
-            modifier = Modifier.fillMaxWidth(),
-            style = TextStyle(
-                fontSize = 16.sp,
-                fontFamily = FontFamily(Font(Res.font.Thin)),
-                fontWeight = FontWeight(600),
-                color = Theme.colors.blackProfile,
-                textAlign = TextAlign.Center
-            )
-        )
-
         BackBtn(
             text = "Мои учителя",
             onClick = {
                 onOpenScreen(MyTeachersAction.OnOpenBack)
             },
-            containerColor = White
+            containerColor = Theme.colors.backgroundMain
         )
-
-        Spacer(modifier = Modifier.height(12.dp))
 
         Column (
             modifier = Modifier
@@ -80,7 +66,7 @@ fun MyTeachersView (
             } else {
                 state.myTeachers.forEach { teacher->
                     TeacherCard(
-                        teacher = TeacherModel(teacher.username, teacher.name, "")
+                        teacher = TeacherModel(teacher.username, teacher.name, teacher.subject)
                     ) {
                         onEvent(MyTeachersEvent.OnOpenTeacherDescription(username = teacher.username))
                         onOpenScreen(MyTeachersAction.OnOpenTeacherDescription)

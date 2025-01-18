@@ -53,7 +53,7 @@ class RemoteLibraryRepositoryImpl(
     ): Result<DescriptionTeacherModel, DataError.Remote> {
         return safeCall<DescriptionTeacherModel> {
             httpClient.get(
-                urlString = "$BASE_URL/auth/teacher/$username"
+                urlString = "$BASE_URL/auth/user/$username"
             ) {
                 bearerAuth(access)
             }

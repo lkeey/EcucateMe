@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersAction
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersEvent
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -20,6 +21,14 @@ fun TeacherDetailScreen (
         state = state,
         onEvent = { event->
             viewModel.onEvent(event)
+        },
+        onOpen = {
+            when (it) {
+                AllTeachersAction.OnOpenBack -> {
+                    navController.popBackStack()
+                }
+                AllTeachersAction.OnOpenTeacherDescription -> { }
+            }
         }
     )
 

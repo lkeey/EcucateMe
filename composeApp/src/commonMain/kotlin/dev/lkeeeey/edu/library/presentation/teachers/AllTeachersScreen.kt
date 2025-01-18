@@ -29,6 +29,8 @@ fun AllTeachersScreen (
                 AllTeachersAction.OnOpenTeacherDescription -> {
                     navController.navigate(Route.TeacherDescription)
                 }
+
+                AllTeachersAction.OnOpenBack -> {}
             }
         }
     )

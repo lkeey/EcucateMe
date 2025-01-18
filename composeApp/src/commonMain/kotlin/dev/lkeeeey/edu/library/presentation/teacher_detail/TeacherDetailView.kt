@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,9 +29,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
 import dev.lkeeeey.edu.core.presentation.components.btn.FilledBtn
+import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersAction
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersEvent
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersState
+import dev.lkeeeey.edu.main.presentation.profile.main.components.BackBtn
 import dev.lkeeeey.edu.main.presentation.profile.main.components.Reference
+import dev.lkeeeey.edu.main.presentation.profile.teachers.viewmodel.MyTeachersAction
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
 import ecucateme.composeapp.generated.resources.ic_subject
@@ -42,6 +46,7 @@ import org.jetbrains.compose.resources.painterResource
 fun TeacherDetailView (
     state: AllTeachersState,
     onEvent: (AllTeachersEvent) -> Unit,
+    onOpen: (AllTeachersAction) -> Unit,
 ) {
 
     val uriHandler = LocalUriHandler.current
@@ -50,10 +55,6 @@ fun TeacherDetailView (
         modifier = Modifier
             .fillMaxSize()
     ) {
-
-        Spacer(
-            Modifier.height(12.dp)
-        )
 
         Column(
             modifier = Modifier
@@ -67,6 +68,14 @@ fun TeacherDetailView (
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            BackBtn(
+                text = "Профиль",
+                onClick = {
+                    onOpen(AllTeachersAction.OnOpenBack)
+                },
+                containerColor = White
+            )
+
             Image(
                 modifier = Modifier
                     .padding(top = 8.dp)
