@@ -110,11 +110,11 @@ fun BottomSheet (
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                OutlinedText(
-                    previousData = state.enteredTime,
+                NumTextField(
+                    previousData = state.enteredTime.toString(),
                     label = "Время выполнения",
                 ) {
-                    onEvent(CalendarEvent.OnEnterContent(it))
+                    onEvent(CalendarEvent.OnEnterExecutionTime(it))
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))

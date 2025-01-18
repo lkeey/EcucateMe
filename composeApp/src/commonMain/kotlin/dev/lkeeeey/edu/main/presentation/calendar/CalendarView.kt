@@ -75,7 +75,10 @@ fun CalendarView (
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    onOpen(CalendarAction.OnCreateTask)
+                    scope.launch {
+                        isBottomSheetVisible = true
+                        sheetState.expand()
+                    }
                 },
                 backgroundColor = Theme.colors.primaryBackground.copy(1f)
             ) {

@@ -22,26 +22,24 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
-import dev.lkeeeey.edu.core.presentation.components.text.ShowError
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
 import org.jetbrains.compose.resources.Font
 
 @Composable
-fun OutlinedText (
+fun NumTextField (
     previousData: String,
     label: String,
     isEnabled: Boolean = true,
     isError: Boolean = false,
-    isSuccess: Boolean = false,
-    isEmail: Boolean = false,
-    errorText: String = "",
-    onTextChanged: (String) -> Unit,
+    onTextChanged: (Int) -> Unit,
 ) {
 
     var textValue by remember {
         mutableStateOf(previousData)
     }
+
+    val pattern = remember { Regex("^\\d+\$") }
 
     OutlinedTextField(
         modifier = Modifier
@@ -78,23 +76,22 @@ fun OutlinedText (
             backgroundColor = White,
             errorBorderColor = Theme.colors.errorColor,
         ),
-        keyboardOptions = KeyboardOptions(
-            imeAction = androidx.compose.ui.text.input.ImeAction.Next,
-            keyboardType = if (isEmail) KeyboardType.Email else KeyboardType.Text
-        ),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         singleLine = true,
         maxLines = 1,
         value = textValue,
         onValueChange = {
-            textValue = it
-            onTextChanged(it)
+            if (it.isEmpty() || it.matches(pattern)) {
+                textValue = it
+                try {
+                    onTextChanged(it.toInt())
+                } catch (e : Exception) {
+                    println(e.message)
+                }
+            }
         },
         shape = RoundedCornerShape(16.dp),
         isError = isError,
         enabled = isEnabled
     )
-
-    if(isError) {
-        ShowError(text = errorText)
-    }
 }
