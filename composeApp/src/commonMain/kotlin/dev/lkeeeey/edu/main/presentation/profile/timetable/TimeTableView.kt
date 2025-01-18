@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -32,6 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
+import dev.lkeeeey.edu.main.presentation.profile.main.components.BackBtn
 import dev.lkeeeey.edu.main.presentation.profile.timetable.components.ReadOnlyDropDown
 import dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel.TimeTableEvent
 import dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel.TimeTableState
@@ -44,11 +46,22 @@ import org.jetbrains.compose.resources.Font
 fun TimeTableView  (
     state: TimeTableState,
     onEvent: (TimeTableEvent) -> Unit,
+    onOpen: () -> Unit
 ) {
     Column (
         modifier = Modifier
             .fillMaxSize()
+            .systemBarsPadding()
     ) {
+
+        BackBtn(
+            text = "Расписание",
+            onClick = {
+                onOpen()
+            },
+            containerColor = Theme.colors.backgroundMain
+        )
+
         Row (
             modifier = Modifier
                 .fillMaxWidth()
