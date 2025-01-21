@@ -1,0 +1,76 @@
+package dev.lkeeeey.edu.main.presentation.calendar.components
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import dev.lkeeeey.edu.core.presentation.Theme
+import dev.lkeeeey.edu.main.domain.models.DistributionModel
+import ecucateme.composeapp.generated.resources.Res
+import ecucateme.composeapp.generated.resources.Thin
+import kotlinx.datetime.LocalTime
+import org.jetbrains.compose.resources.Font
+
+@Composable
+fun ScheduledTask (
+    distribution: DistributionModel
+) {
+
+    Column (
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 16.dp)
+            .clip(
+                RoundedCornerShape(12.dp)
+            )
+            .background(
+                color = White,
+                shape = RoundedCornerShape(
+                    size = 8.dp
+                )
+            )
+            .padding(16.dp)
+    ) {
+//        val time = distribution.start.split("T")
+//        val endTime = LocalTime.fromSecondOfDay(LocalTime.parse(time[1]).toSecondOfDay() + distribution.durationMin * 60)
+
+        Text(
+//            text = "${time[1]} - ${endTime}",
+            text = distribution.start,
+            style = TextStyle(
+                fontSize = 10.sp,
+                fontFamily = FontFamily(Font(Res.font.Thin)),
+                fontWeight = FontWeight(400),
+                color = Theme.colors.blackProfile,
+                letterSpacing = 0.3.sp,
+            )
+        )
+
+        Spacer(Modifier.height(8.dp))
+
+        Text(
+            text = "Задание",
+            style = TextStyle(
+                fontSize = 16.sp,
+                fontFamily = FontFamily(Font(Res.font.Thin)),
+                fontWeight = FontWeight(400),
+                color = Theme.colors.blackProfile,
+                letterSpacing = 0.3.sp,
+            )
+        )
+    }
+
+}

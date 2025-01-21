@@ -10,7 +10,7 @@ plugins {
 
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.room)
+//    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -34,9 +34,9 @@ kotlin {
     
     jvm("desktop")
 
-    room {
-        schemaDirectory("$projectDir/schemas")
-    }
+//    room {
+//        schemaDirectory("$projectDir/schemas")
+//    }
     
     sourceSets {
         val desktopMain by getting
@@ -63,14 +63,27 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.jetbrains.compose.navigation)
             implementation(libs.kotlinx.serialization.json)
-            implementation(libs.androidx.room.runtime)
-            implementation(libs.sqlite.bundled)
+//            implementation(libs.androidx.room.runtime)
+//            implementation(libs.sqlite.bundled)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             api(libs.koin.core)
 
             implementation(libs.bundles.ktor)
-            implementation(libs.bundles.coil)
+//            implementation(libs.bundles.coil)
+
+            implementation(libs.kotlinx.datetime)
+
+            implementation(libs.multiplatform.settings)
+            implementation(libs.multiplatform.settings.no.arg)
+
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor)
+
+            implementation(compose.material3)
+
+            // datepicker
+            implementation(libs.kmp.date.time.picker)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -84,7 +97,7 @@ kotlin {
         }
 
         dependencies {
-            ksp(libs.androidx.room.compiler)
+//            ksp(libs.androidx.room.compiler)
         }
     }
 }
@@ -117,6 +130,8 @@ android {
 }
 
 dependencies {
+implementation(libs.androidx.material3.android)
+    //    implementation(libs.places)
     debugImplementation(compose.uiTooling)
 }
 
