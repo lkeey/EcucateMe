@@ -9,6 +9,7 @@ import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.main.domain.models.ProfileModel
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
 import dev.lkeeeey.edu.main.domain.models.SubjectSchedule
+import dev.lkeeeey.edu.main.domain.models.TaskModel
 import dev.lkeeeey.edu.main.domain.models.TimeTableModel
 import io.ktor.client.HttpClient
 import io.ktor.client.request.bearerAuth
@@ -29,6 +30,16 @@ class RemoteProfileDataSourceImpl(
         return safeCall<List<TimeTableModel>> {
             httpClient.get(
                 urlString = "$BASE_URL/schedule"
+            ) {
+                bearerAuth(access)
+            }
+        }
+    }
+
+    override suspend fun getDistributionTasks(access: String): Result<List<TaskModel>, DataError.Remote> {
+        return safeCall<List<TaskModel>> {
+            httpClient.get(
+                urlString = "$BASE_URL/schedule/homework/distribute"
             ) {
                 bearerAuth(access)
             }

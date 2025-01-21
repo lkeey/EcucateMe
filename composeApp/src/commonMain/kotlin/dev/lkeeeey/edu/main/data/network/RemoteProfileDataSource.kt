@@ -7,12 +7,18 @@ import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.main.domain.models.ProfileModel
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
 import dev.lkeeeey.edu.main.domain.models.SubjectSchedule
+import dev.lkeeeey.edu.main.domain.models.TaskModel
 import dev.lkeeeey.edu.main.domain.models.TimeTableModel
 
 interface RemoteProfileDataSource {
     suspend fun getTimeTable(
         access: String
     ): Result<List<TimeTableModel>, DataError.Remote>
+
+    suspend fun getDistributionTasks(
+        access: String
+    ): Result<List<TaskModel>, DataError.Remote>
+
 
     suspend fun updateTimeTable(
         access: String,

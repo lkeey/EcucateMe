@@ -12,6 +12,7 @@ import dev.lkeeeey.edu.main.domain.ProfileRepository
 import dev.lkeeeey.edu.main.domain.models.ProfileModel
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
 import dev.lkeeeey.edu.main.domain.models.SubjectSchedule
+import dev.lkeeeey.edu.main.domain.models.TaskModel
 import dev.lkeeeey.edu.main.domain.models.TimeTableModel
 
 class ProfileRepositoryImpl (
@@ -20,6 +21,13 @@ class ProfileRepositoryImpl (
 ) : ProfileRepository {
 
     private val settings = Settings()
+
+    override suspend fun getDistributionTasks(): Result<List<TaskModel>, DataError.Remote> {
+        return remoteProfileDataSource
+            .getDistributionTasks(
+                getAccess()
+            )
+    }
 
     override suspend fun getTimeTable(): Result<List<TimeTableModel>, DataError.Remote> {
 
