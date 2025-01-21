@@ -89,10 +89,28 @@ class CalendarViewModel (
 
                             println(task)
 
-//                            profileRepository
-//                                .createDistributedTask(
-//                                    task = task
-//                                )
+                            profileRepository
+                                .createDistributedTask(
+                                    task = task
+                                )
+                                .onSuccess { t->
+                                    println("success $t")
+
+                                    _state.update {
+                                        it.copy(
+                                            isLoading = false,
+                                        )
+                                    }
+                                }
+                                .onError { e->
+                                    println("error $e")
+                                    _state.update {
+                                        it.copy(
+                                            isLoading = false,
+                                            error = e.name,
+                                        )
+                                    }
+                                }
                         }
                         .onError { e ->
                             _state.update {
@@ -123,6 +141,14 @@ class CalendarViewModel (
                                         it.copy(
                                             isLoading = false,
                                             loadedSubjectsPres = s
+                                        )
+                                    }
+                                }
+                                .onError { e ->
+                                    _state.update {
+                                        it.copy(
+                                            isLoading = false,
+                                            error = e.name,
                                         )
                                     }
                                 }

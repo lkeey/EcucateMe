@@ -174,7 +174,7 @@ class RemoteProfileDataSourceImpl(
         task: CreateTaskModel
     ): Result<CreateTaskModel, DataError.Remote> {
         return safeCall<CreateTaskModel> {
-            httpClient.get(
+            httpClient.post(
                 urlString = "$BASE_URL/schedule/homework/$username"
             ) {
                 bearerAuth(

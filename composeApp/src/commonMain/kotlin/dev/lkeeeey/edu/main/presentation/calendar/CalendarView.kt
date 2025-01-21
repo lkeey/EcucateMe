@@ -45,7 +45,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.lkeeeey.edu.core.presentation.Theme
 import dev.lkeeeey.edu.main.presentation.calendar.components.BottomSheet
 import dev.lkeeeey.edu.main.presentation.calendar.components.ImageWithText
@@ -121,6 +120,8 @@ fun CalendarView (
 
             if (state.error.isNotEmpty()) {
                 Text(
+                    modifier = Modifier
+                        .fillMaxWidth(),
                     text = state.error,
                     style = TextStyle(
                         fontSize = 16.sp,
