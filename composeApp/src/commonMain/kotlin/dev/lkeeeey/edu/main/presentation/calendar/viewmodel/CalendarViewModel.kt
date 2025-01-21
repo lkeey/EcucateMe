@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.format.DateTimeFormatBuilder
 import network.chaintech.kmp_date_time_picker.ui.date_range_picker.parseToLocalDate
 
 class CalendarViewModel (
@@ -108,7 +110,7 @@ class CalendarViewModel (
 
                                     for (t in tasks) {
                                         for (d in t.distribution) {
-                                            if (d.start.parseToLocalDate() == state.value.selectedDate) {
+                                            if (d.start.split("T")[0].parseToLocalDate() == state.value.selectedDate) {
                                                 todayTasks.add(d)
                                             }
                                         }
@@ -118,6 +120,9 @@ class CalendarViewModel (
                                         it.copy(
                                             isLoading = false,
                                             distributionTasks = todayTasks
+                                                .sortedBy {
+                                                    d -> d.start
+                                                }
                                         )
                                     }
 

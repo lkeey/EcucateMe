@@ -51,6 +51,7 @@ import dev.lkeeeey.edu.main.presentation.calendar.components.ImageWithText
 import dev.lkeeeey.edu.main.presentation.calendar.components.MonthText
 import dev.lkeeeey.edu.main.presentation.calendar.components.MonthViewCalendar
 import dev.lkeeeey.edu.main.presentation.calendar.components.ScheduleSubject
+import dev.lkeeeey.edu.main.presentation.calendar.components.ScheduledTask
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarAction
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarEvent
 import dev.lkeeeey.edu.main.presentation.calendar.viewmodel.CalendarState
@@ -193,6 +194,10 @@ fun CalendarView (
                     state.subjects.forEach {
                         ScheduleSubject(subject = it)
                     }
+                }
+
+                state.distributionTasks.forEach {
+                    ScheduledTask(distribution = it)
                 }
 
                 Spacer(Modifier.height(32.dp))
