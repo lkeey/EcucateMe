@@ -7,14 +7,13 @@ import dev.lkeeeey.edu.auth.domain.AuthRepository
 import dev.lkeeeey.edu.core.domain.onError
 import dev.lkeeeey.edu.core.domain.onSuccess
 import dev.lkeeeey.edu.main.domain.ProfileRepository
+import dev.lkeeeey.edu.main.domain.models.CreateTaskModel
 import dev.lkeeeey.edu.main.domain.models.DistributionModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.format.DateTimeFormatBuilder
 import network.chaintech.kmp_date_time_picker.ui.date_range_picker.parseToLocalDate
 
 class CalendarViewModel (
@@ -70,9 +69,73 @@ class CalendarViewModel (
                 }
             }
             CalendarEvent.OnSave -> {
-                // TODO save
+                _state.update {
+                    it.copy(
+                        isLoading = true,
+                    )
+                }
 
-                println("value - ${state.value}")
+                viewModelScope.launch {
+                    profileRepository.refreshToken()
+                        .onSuccess { res ->
+                            authRepository.updateAccessToken(res.accessToken)
+
+                            val task = CreateTaskModel(
+                                subjectId = state.value.enteredSubject.id,
+                                deadline = state.value.enteredDeadline.toString(),
+                                content = state.value.enteredContent,
+                                executionTime = state.value.enteredTime
+                            )
+
+                            println(task)
+
+//                            profileRepository
+//                                .createDistributedTask(
+//                                    task = task
+//                                )
+                        }
+                        .onError { e ->
+                            _state.update {
+                                it.copy(
+                                    isLoading = false,
+                                    error = e.name,
+                                )
+                            }
+                        }
+                }
+            }
+
+            CalendarEvent.OnLoadSavedSubjects -> {
+                _state.update {
+                    it.copy(
+                        isLoading = true
+                    )
+                }
+                viewModelScope.launch {
+                    profileRepository.refreshToken()
+                        .onSuccess {
+                            authRepository.updateAccessToken(it.accessToken)
+
+                            profileRepository
+                                .getSubjects()
+                                .onSuccess { s ->
+                                    _state.update {
+                                        it.copy(
+                                            isLoading = false,
+                                            loadedSubjectsPres = s
+                                        )
+                                    }
+                                }
+                        }
+                        .onError { e ->
+                            _state.update {
+                                it.copy(
+                                    isLoading = false,
+                                    error = e.name,
+                                )
+                            }
+                        }
+                }
             }
         }
     }

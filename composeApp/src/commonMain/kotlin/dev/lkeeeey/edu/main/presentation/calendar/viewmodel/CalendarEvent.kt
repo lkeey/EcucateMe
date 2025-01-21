@@ -9,5 +9,6 @@ sealed interface CalendarEvent {
     data class OnEnterExecutionTime(val time: Int) : CalendarEvent
     data class OnEnterDeadline(val deadline: LocalDate) : CalendarEvent
     data class OnEnterContent(val content: String) : CalendarEvent
+    data object OnLoadSavedSubjects: CalendarEvent
     data object OnSave : CalendarEvent
 }
