@@ -4,6 +4,7 @@ import dev.lkeeeey.edu.auth.data.dto.AuthLoginDto
 import dev.lkeeeey.edu.auth.domain.models.LoginRequest
 import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
+import dev.lkeeeey.edu.main.domain.models.CreateTaskModel
 import dev.lkeeeey.edu.main.domain.models.ProfileModel
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
 import dev.lkeeeey.edu.main.domain.models.SubjectSchedule
@@ -58,5 +59,11 @@ interface RemoteProfileDataSource {
         access: String,
         username: String
     ) : Result<ProfileModel, DataError.Remote>
+
+    suspend fun createDistributedTask(
+        access: String,
+        username: String,
+        task: CreateTaskModel
+    ) : Result<CreateTaskModel, DataError.Remote>
 
 }

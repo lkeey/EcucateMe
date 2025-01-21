@@ -9,6 +9,7 @@ import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.main.data.network.RemoteProfileDataSource
 import dev.lkeeeey.edu.main.domain.ProfileRepository
+import dev.lkeeeey.edu.main.domain.models.CreateTaskModel
 import dev.lkeeeey.edu.main.domain.models.ProfileModel
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
 import dev.lkeeeey.edu.main.domain.models.SubjectSchedule
@@ -65,6 +66,14 @@ class ProfileRepositoryImpl (
         return remoteProfileDataSource.createSubject(
             access = getAccess(),
             subject = subject
+        )
+    }
+
+    override suspend fun createDistributedTask(task: CreateTaskModel): Result<CreateTaskModel, DataError.Remote> {
+        return remoteProfileDataSource.createDistributedTask(
+            username = getUsername(),
+            access = getAccess(),
+            task = task
         )
     }
 

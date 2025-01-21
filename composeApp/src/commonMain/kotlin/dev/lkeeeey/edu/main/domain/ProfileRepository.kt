@@ -3,6 +3,7 @@ package dev.lkeeeey.edu.main.domain
 import dev.lkeeeey.edu.auth.data.dto.AuthLoginDto
 import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
+import dev.lkeeeey.edu.main.domain.models.CreateTaskModel
 import dev.lkeeeey.edu.main.domain.models.TaskModel
 import dev.lkeeeey.edu.main.domain.models.ProfileModel
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
@@ -22,6 +23,10 @@ interface ProfileRepository {
     suspend fun createSubject(
         subject: SubjectPresModel
     ): Result<SubjectPresModel, DataError.Remote>
+
+    suspend fun createDistributedTask(
+        task: CreateTaskModel,
+    ): Result<CreateTaskModel, DataError.Remote>
 
     suspend fun updateSubject(
         subject: SubjectPresModel

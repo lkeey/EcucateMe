@@ -6,6 +6,7 @@ import dev.lkeeeey.edu.core.data.safeCall
 import dev.lkeeeey.edu.core.data.safeCallWithCookies
 import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
+import dev.lkeeeey.edu.main.domain.models.CreateTaskModel
 import dev.lkeeeey.edu.main.domain.models.ProfileModel
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
 import dev.lkeeeey.edu.main.domain.models.SubjectSchedule
@@ -162,6 +163,25 @@ class RemoteProfileDataSourceImpl(
             ) {
                 bearerAuth(
                     access
+                )
+            }
+        }
+    }
+
+    override suspend fun createDistributedTask(
+        access: String,
+        username: String,
+        task: CreateTaskModel
+    ): Result<CreateTaskModel, DataError.Remote> {
+        return safeCall<CreateTaskModel> {
+            httpClient.get(
+                urlString = "$BASE_URL/schedule/homework/$username"
+            ) {
+                bearerAuth(
+                    access
+                )
+                setBody(
+                    task
                 )
             }
         }
