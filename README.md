@@ -2,7 +2,7 @@
 
 [![CodeFactor](https://www.codefactor.io/repository/github/lkeey/ecucateme/badge)](https://www.codefactor.io/repository/github/lkeey/ecucateme)
 
-### **::Technologies::**
+### **Technologies**
 
 > Navigation
 
