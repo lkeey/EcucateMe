@@ -1,6 +1,6 @@
 # EducateMe&You
 
-![Image.png](https://res.craft.do/user/full/5a4f89b0-faa6-2035-d6a2-3d9258257256/doc/6060EBEE-3E95-4616-BAC5-A92074E540CE/6786F9C3-8271-4F1E-A399-7AA1A176853D_2/ETPqiTeEvnQxghKJ6H9oOITys9EQu6LaJCUxZiln6yYz/Image.png)
+[![CodeFactor](https://www.codefactor.io/repository/github/lkeey/ecucateme/badge)](https://www.codefactor.io/repository/github/lkeey/ecucateme)
 
 ### **::Technologies::**
 
