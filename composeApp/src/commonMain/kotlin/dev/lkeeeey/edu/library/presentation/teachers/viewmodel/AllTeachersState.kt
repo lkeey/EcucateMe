@@ -25,6 +25,7 @@ data class AllTeachersState(
             paint = Res.drawable.ic_english
         )
     ),
+    val searchedArticles : List<ArticleModel> = emptyList(),
     val selectedTeacherModel: DescriptionTeacherModel = DescriptionTeacherModel("", "", "", ""),
     val selectedUsername: String = "",
 //    val query: String = "",
