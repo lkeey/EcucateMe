@@ -134,7 +134,8 @@ class AllTeachersViewModel (
                                             SelectedTeacherModel(
                                                 name = state.value.selectedTeacherModel.name,
                                                 username = state.value.selectedTeacherModel.username,
-                                                subject = state.value.selectedTeacherModel.subject
+                                                subject = state.value.selectedTeacherModel.subject,
+                                                logo = state.value.selectedTeacherModel.logo,
                                             )
                                         )
 

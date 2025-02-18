@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import dev.lkeeeey.edu.core.presentation.Theme
 import dev.lkeeeey.edu.core.presentation.components.btn.FilledBtn
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersAction
@@ -76,15 +77,25 @@ fun TeacherDetailView (
                 containerColor = White
             )
 
-            Image(
+//            Image(
+//                modifier = Modifier
+//                    .padding(top = 8.dp)
+//                    .size(95.dp)
+//                    .align(Alignment.CenterHorizontally)
+//                    .clip(CircleShape),
+//                painter = painterResource(Res.drawable.profile),
+//                contentDescription = "custom transition based on painter state",
+//                contentScale = ContentScale.Crop
+//            )
+            AsyncImage(
+                model = state.selectedTeacherModel.logo ?: "https://downloader.disk.yandex.ru/preview/46692cb7596a50382d2b6a7c1a95c4830e6118140bc8e5d7a6222b21c351cdf3/678c2ea9/L8I5E3oS6TafT9afc-0-5uxlpZngX6nt_bNlMdf3hH7OxqHSDfd9AIGp8Aaf3h4Zyql1GFSCeIKLWOeDNJjHHA%3D%3D?uid=0&filename=empty.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048",
+                contentDescription = "image",
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .padding(top = 8.dp)
-                    .size(95.dp)
-                    .align(Alignment.CenterHorizontally)
+                    .fillMaxWidth()
+                    .weight(1f)
                     .clip(CircleShape),
-                painter = painterResource(Res.drawable.profile),
-                contentDescription = "custom transition based on painter state",
-                contentScale = ContentScale.Crop
+                alignment = Alignment.Center
             )
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -131,10 +142,29 @@ fun TeacherDetailView (
                 icon = Res.drawable.ic_subject,
                 title = "Предмет",
                 content = state.selectedTeacherModel.subject,
-                isVisible = true
+                isVisible = true,
+                isShowBack = false
             ) {
 
             }
+
+            Reference(
+                icon = Res.drawable.ic_subject,
+                title = "О себе",
+                content = state.selectedTeacherModel.bio,
+                isVisible = true,
+                isShowBack = false
+            ) {
+
+            }
+
+            Reference(
+                icon = Res.drawable.ic_tg,
+                title = "Количество заработанных очков",
+                content = (state.selectedTeacherModel.createdTasks*10).toString(),
+                isVisible = true,
+                isShowBack = false
+            ) { }
 
             Reference(
                 icon = Res.drawable.ic_tg,
@@ -144,6 +174,7 @@ fun TeacherDetailView (
             ) {
                 uriHandler.openUri("https://t.me/${state.selectedTeacherModel.username}")
             }
+
 
             FilledBtn(
                 text = if (state.isTeacherSelected) "Отказаться" else "Выбрать специлиста",

@@ -27,7 +27,7 @@ data class AllTeachersState(
         )
     ),
     val searchedArticles : List<BlockTaskModel> = emptyList(),
-    val selectedTeacherModel: DescriptionTeacherModel = DescriptionTeacherModel("", "", "", ""),
+    val selectedTeacherModel: DescriptionTeacherModel = DescriptionTeacherModel(),
     val selectedUsername: String = "",
 //    val query: String = "",
     val subject: String = "",

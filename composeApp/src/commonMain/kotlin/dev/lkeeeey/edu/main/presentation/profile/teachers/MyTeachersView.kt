@@ -66,7 +66,12 @@ fun MyTeachersView (
             } else {
                 state.myTeachers.forEach { teacher->
                     TeacherCard(
-                        teacher = TeacherModel(teacher.username, teacher.name, teacher.subject)
+                        teacher = TeacherModel(
+                            teacher.username,
+                            teacher.name,
+                            teacher.logo ?: "",
+                            teacher.subject
+                        )
                     ) {
                         onEvent(MyTeachersEvent.OnOpenTeacherDescription(username = teacher.username))
                         onOpenScreen(MyTeachersAction.OnOpenTeacherDescription)
