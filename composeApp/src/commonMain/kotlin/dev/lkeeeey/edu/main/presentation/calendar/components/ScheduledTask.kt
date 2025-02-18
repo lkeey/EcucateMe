@@ -18,15 +18,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
-import dev.lkeeeey.edu.main.domain.models.DistributionModel
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
-import kotlinx.datetime.LocalTime
 import org.jetbrains.compose.resources.Font
 
 @Composable
 fun ScheduledTask (
-    distribution: DistributionModel
+    start: String,
+    subject: String,
+    content: String,
 ) {
 
     Column (
@@ -49,7 +49,7 @@ fun ScheduledTask (
 
         Text(
 //            text = "${time[1]} - ${endTime}",
-            text = distribution.start,
+            text = start,
             style = TextStyle(
                 fontSize = 10.sp,
                 fontFamily = FontFamily(Font(Res.font.Thin)),
@@ -62,7 +62,20 @@ fun ScheduledTask (
         Spacer(Modifier.height(8.dp))
 
         Text(
-            text = "Задание",
+            text = content,
+            style = TextStyle(
+                fontSize = 16.sp,
+                fontFamily = FontFamily(Font(Res.font.Thin)),
+                fontWeight = FontWeight.Bold,
+                color = Theme.colors.blackProfile,
+                letterSpacing = 0.3.sp,
+            )
+        )
+
+        Spacer(Modifier.height(8.dp))
+
+        Text(
+            text = subject,
             style = TextStyle(
                 fontSize = 16.sp,
                 fontFamily = FontFamily(Font(Res.font.Thin)),

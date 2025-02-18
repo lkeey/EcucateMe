@@ -2,6 +2,7 @@ package dev.lkeeeey.edu.main.presentation.calendar.viewmodel
 
 import dev.lkeeeey.edu.core.domain.getWeek
 import dev.lkeeeey.edu.main.domain.models.DistributionModel
+import dev.lkeeeey.edu.main.domain.models.DistributionModelPreview
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
 import dev.lkeeeey.edu.main.domain.models.TimeTableModel
 import kotlinx.datetime.Clock
@@ -12,7 +13,7 @@ import network.chaintech.kmp_date_time_picker.utils.MIN
 
 data class CalendarState (
     val subjects: List<TimeTableModel> = emptyList(),
-    val distributionTasks: List<DistributionModel> = emptyList(),
+    val distributionTasks: List<DistributionModelPreview> = emptyList(),
     val error: String = "",
     val isLoading: Boolean = false,
 

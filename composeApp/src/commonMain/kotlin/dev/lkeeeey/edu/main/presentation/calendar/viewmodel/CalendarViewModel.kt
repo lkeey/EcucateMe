@@ -8,7 +8,7 @@ import dev.lkeeeey.edu.core.domain.onError
 import dev.lkeeeey.edu.core.domain.onSuccess
 import dev.lkeeeey.edu.main.domain.ProfileRepository
 import dev.lkeeeey.edu.main.domain.models.CreateTaskModel
-import dev.lkeeeey.edu.main.domain.models.DistributionModel
+import dev.lkeeeey.edu.main.domain.models.DistributionModelPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -195,12 +195,19 @@ class CalendarViewModel (
                             profileRepository
                                 .getDistributionTasks()
                                 .onSuccess { tasks->
-                                    val todayTasks = mutableListOf<DistributionModel>()
+                                    val todayTasks = mutableListOf<DistributionModelPreview>()
 
                                     for (t in tasks) {
                                         for (d in t.distribution) {
                                             if (d.start.split("T")[0].parseToLocalDate() == state.value.selectedDate) {
-                                                todayTasks.add(d)
+                                                todayTasks.add(
+                                                    DistributionModelPreview(
+                                                        start = d.start,
+                                                        durationMin = d.durationMin,
+                                                        content = t.content,
+                                                        subject = t.subject,
+                                                    )
+                                                )
                                             }
                                         }
                                     }

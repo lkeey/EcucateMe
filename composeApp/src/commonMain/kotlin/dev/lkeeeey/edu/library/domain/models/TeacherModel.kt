@@ -8,5 +8,5 @@ data class TeacherModel(
     @SerialName("username") val username: String,
     @SerialName("name") val name: String,
     @SerialName("subject") val subject: String,
-    @SerialName("logo") val logo: String?,
+    @SerialName("avatar_url") val logo: String,
 )

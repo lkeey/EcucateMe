@@ -201,7 +201,11 @@ fun CalendarView (
                 }
 
                 state.distributionTasks.forEach {
-                    ScheduledTask(distribution = it)
+                    ScheduledTask(
+                        start = it.start,
+                        subject = it.subject,
+                        content = it.content
+                    )
                 }
 
                 Spacer(Modifier.height(32.dp))
