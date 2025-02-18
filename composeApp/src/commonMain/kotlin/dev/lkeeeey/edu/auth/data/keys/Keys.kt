@@ -12,4 +12,5 @@ object Keys {
     const val MY_USERNAME = "MY_USERNAME"
 
     const val SELECTED_TEACHER = "SELECTED_TEACHER"
+    const val SELECTED_BLOCK = "SELECTED_BLOCK"
 }

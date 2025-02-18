@@ -12,6 +12,8 @@ import dev.lkeeeey.edu.library.data.network.RemoteLibraryRepository
 import dev.lkeeeey.edu.library.data.network.RemoteLibraryRepositoryImpl
 import dev.lkeeeey.edu.library.data.repository.LibraryRepositoryImpl
 import dev.lkeeeey.edu.library.domain.LibraryRepository
+import dev.lkeeeey.edu.library.presentation.tasks.FullTaskViewModel
+import dev.lkeeeey.edu.library.presentation.tasks.FullTasksScreen
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersViewModel
 import dev.lkeeeey.edu.main.data.network.RemoteProfileDataSource
 import dev.lkeeeey.edu.main.data.network.RemoteProfileDataSourceImpl
@@ -59,5 +61,6 @@ val sharedModule = module {
     viewModelOf(::SubjectsViewModel)
     viewModelOf(::AllTeachersViewModel)
     viewModelOf(::MyTeachersViewModel)
+    viewModelOf(::FullTaskViewModel)
 
 }

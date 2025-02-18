@@ -31,7 +31,9 @@ fun AllTeachersScreen (
                 }
 
                 AllTeachersAction.OnOpenBack -> {}
-                AllTeachersAction.OnOpenFullBlock -> TODO()
+                AllTeachersAction.OnOpenFullBlock -> {
+                    navController.navigate(Route.FullTasks)
+                }
             }
         }
     )

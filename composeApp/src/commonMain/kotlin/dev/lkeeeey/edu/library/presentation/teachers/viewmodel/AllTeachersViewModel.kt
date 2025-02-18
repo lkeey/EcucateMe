@@ -178,6 +178,13 @@ class AllTeachersViewModel (
             AllTeachersEvent.OnSearchBlocks -> {
                 searchBlocks()
             }
+
+            is AllTeachersEvent.OnOpenBlock -> {
+                settings.putString(
+                    key = Keys.SELECTED_BLOCK,
+                    value = event.id
+                )
+            }
         }
     }
 

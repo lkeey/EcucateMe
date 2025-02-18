@@ -12,5 +12,4 @@ sealed interface AllTeachersEvent {
     data object OnSelectTeacher : AllTeachersEvent
     data object OnLoadTeacherDescription : AllTeachersEvent
 
-    data object OnLoadFullBlock : AllTeachersEvent
 }

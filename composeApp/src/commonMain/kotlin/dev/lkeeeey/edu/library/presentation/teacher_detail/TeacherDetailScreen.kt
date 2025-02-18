@@ -28,6 +28,7 @@ fun TeacherDetailScreen (
                     navController.popBackStack()
                 }
                 AllTeachersAction.OnOpenTeacherDescription -> { }
+                AllTeachersAction.OnOpenFullBlock -> { }
             }
         }
     )
