@@ -51,6 +51,7 @@ import dev.lkeeeey.edu.auth.presentation.splash.SplashScreen
 import dev.lkeeeey.edu.auth.presentation.splash.viewmodel.SplashViewModel
 import dev.lkeeeey.edu.core.presentation.EduMeTheme
 import dev.lkeeeey.edu.core.presentation.Theme
+import dev.lkeeeey.edu.library.presentation.tasks.FullTasksScreen
 import dev.lkeeeey.edu.library.presentation.teacher_detail.TeacherDetailScreen
 import dev.lkeeeey.edu.library.presentation.teachers.AllTeachersScreen
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersViewModel
@@ -524,34 +525,45 @@ fun App(
                             popEnterTransition = { slideInHorizontally() }
                         ) {
 //                    Library Posts screen
-//                        TODO
-                            Text("library posts")
-                        }
 
-                        composable<Route.AllTeachers>(
-                            exitTransition = { slideOutHorizontally() },
-                            popEnterTransition = { slideInHorizontally() }
-                        ) {
-//                    All teachers screen
-                            val viewModel = koinViewModel<AllTeachersViewModel>()
+                            composable<Route.AllTeachers>(
+                                exitTransition = { slideOutHorizontally() },
+                                popEnterTransition = { slideInHorizontally() }
+                            ) {
+                                //                    All teachers screen
+                                val viewModel = koinViewModel<AllTeachersViewModel>()
 
-                            AllTeachersScreen(
-                                viewModel = viewModel,
-                                navController = navController
-                            )
-                        }
+                                AllTeachersScreen(
+                                    viewModel = viewModel,
+                                    navController = navController
+                                )
+                            }
 
-                        composable<Route.TeacherDescription>(
-                            exitTransition = { slideOutHorizontally() },
-                            popEnterTransition = { slideInHorizontally() }
-                        ) {
-//                    Teacher description screen
-                            val viewModel = koinViewModel<AllTeachersViewModel>()
+                            composable<Route.TeacherDescription>(
+                                exitTransition = { slideOutHorizontally() },
+                                popEnterTransition = { slideInHorizontally() }
+                            ) {
+                                //                    Teacher description screen
+                                val viewModel = koinViewModel<AllTeachersViewModel>()
 
-                            TeacherDetailScreen(
-                                viewModel = viewModel,
-                                navController = navController
-                            )
+                                TeacherDetailScreen(
+                                    viewModel = viewModel,
+                                    navController = navController
+                                )
+                            }
+
+                            composable<Route.FullTasks>(
+                                exitTransition = { slideOutHorizontally() },
+                                popEnterTransition = { slideInHorizontally() }
+                            ) {
+                                //                    FullTasks screen
+                                val viewModel = koinViewModel<AllTeachersViewModel>()
+
+                                FullTasksScreen(
+                                    viewModel = viewModel,
+                                    navController = navController
+                                )
+                            }
                         }
                     }
                 }

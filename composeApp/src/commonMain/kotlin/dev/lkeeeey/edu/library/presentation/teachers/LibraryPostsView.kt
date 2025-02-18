@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.lkeeeey.edu.library.presentation.teachers.components.LibraryBox
 import dev.lkeeeey.edu.library.presentation.teachers.components.LibraryItem
+import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersAction
+import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersEvent
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersState
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.ic_biology
@@ -21,6 +23,8 @@ import ecucateme.composeapp.generated.resources.ic_biology
 @Composable
 fun LibraryPostsView (
     state: AllTeachersState,
+    onEvent: (AllTeachersEvent) -> Unit,
+    onOpen: (AllTeachersAction) -> Unit,
 ) {
     Column (
         modifier = Modifier
@@ -43,7 +47,8 @@ fun LibraryPostsView (
                         title = article.title,
                         paint = Res.drawable.ic_biology,
                         onClick = {
-
+                            onEvent(AllTeachersEvent.OnOpenBlock(id = article.id))
+                            onOpen(AllTeachersAction.OnOpenFullBlock)
                         }
                     )
                 }

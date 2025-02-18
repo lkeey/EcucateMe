@@ -4,8 +4,13 @@ sealed interface AllTeachersEvent {
     data class OnSubjectUpdate(val subject: String) : AllTeachersEvent
     data class OnOpenTeacherDescription(val username: String) : AllTeachersEvent
     data class OnTabSelected(val index: Int) : AllTeachersEvent
+    data class OnOpenBlock(val id : String) : AllTeachersEvent
+
     data object OnSearchTeachers : AllTeachersEvent
     data object OnSearchBlocks : AllTeachersEvent
+
     data object OnSelectTeacher : AllTeachersEvent
     data object OnLoadTeacherDescription : AllTeachersEvent
+
+    data object OnLoadFullBlock : AllTeachersEvent
 }

@@ -31,6 +31,7 @@ fun AllTeachersScreen (
                 }
 
                 AllTeachersAction.OnOpenBack -> {}
+                AllTeachersAction.OnOpenFullBlock -> TODO()
             }
         }
     )

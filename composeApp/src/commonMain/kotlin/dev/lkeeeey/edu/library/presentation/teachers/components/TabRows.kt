@@ -182,7 +182,9 @@ fun TabRows (
                                 }
 
                                 LibraryPostsView(
-                                    state = state
+                                    state = state,
+                                    onEvent = onEvent,
+                                    onOpen = onOpen
                                 )
                             }
 

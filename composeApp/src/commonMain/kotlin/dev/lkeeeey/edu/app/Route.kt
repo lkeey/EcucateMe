@@ -57,6 +57,9 @@ sealed interface Route {
 
     @Serializable
     data object TeacherDescription: Route
+
+    @Serializable
+    data object FullTasks: Route
 // end library routes
 
 
