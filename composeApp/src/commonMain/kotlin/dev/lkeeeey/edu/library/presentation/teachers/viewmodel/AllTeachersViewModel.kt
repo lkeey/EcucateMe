@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.russhwolf.settings.Settings
 import dev.lkeeeey.edu.auth.data.keys.Keys
 import dev.lkeeeey.edu.auth.domain.AuthRepository
+import dev.lkeeeey.edu.core.domain.onError
 import dev.lkeeeey.edu.core.domain.onSuccess
 import dev.lkeeeey.edu.library.domain.LibraryRepository
 import dev.lkeeeey.edu.library.domain.models.SelectTeacherModel
@@ -41,8 +42,12 @@ class AllTeachersViewModel (
                         subject = event.subject
                     )
                 }
+                if (state.value.selectedTabIndex == 0) {
+                    searchTeachers()
+                } else {
 
-                searchTeachers()
+                }
+
             }
 
             AllTeachersEvent.OnSearchTeachers -> {
@@ -148,11 +153,16 @@ class AllTeachersViewModel (
     }
 
     private fun searchTeachers () {
-        viewModelScope.launch {
+        _state.update {
+            it.copy(
+                isLoading = true
+            )
+        }
 
+        viewModelScope.launch {
             profileRepository.refreshToken()
-                .onSuccess {
-                    authRepository.updateAccessToken(it.accessToken)
+                .onSuccess { loginDto ->
+                    authRepository.updateAccessToken(loginDto.accessToken)
 
                     libraryRepository
                         .getAllTeachers(
@@ -163,10 +173,27 @@ class AllTeachersViewModel (
 
                             _state.update {
                                 it.copy(
-                                    teachers = t
+                                    teachers = t,
+                                    isLoading = false
                                 )
                             }
                         }
+                        .onError { e ->
+                            _state.update {
+                                it.copy(
+                                    isLoading = false,
+                                    error = e.name
+                                )
+                            }
+                        }
+                }
+                .onError { e ->
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            error = e.name
+                        )
+                    }
                 }
 
         }

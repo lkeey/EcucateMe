@@ -22,11 +22,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
@@ -59,9 +61,23 @@ fun TabRows (
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .statusBarsPadding(),
+            .statusBarsPadding()
+            .blur(if (state.isLoading) 4.dp else 0.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        if (state.error.isNotEmpty()) {
+            Text(
+                text = state.error,
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontFamily = FontFamily(Font(Res.font.Thin)),
+                    fontWeight = FontWeight(400),
+                    color = Theme.colors.errorColor,
+                    textAlign = TextAlign.Center
+                )
+            )
+        }
 
         LibrarySearchBar(
             modifier = Modifier
