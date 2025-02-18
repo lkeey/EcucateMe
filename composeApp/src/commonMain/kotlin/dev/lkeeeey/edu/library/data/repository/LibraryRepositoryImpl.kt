@@ -6,7 +6,11 @@ import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.library.data.network.RemoteLibraryRepository
 import dev.lkeeeey.edu.library.domain.LibraryRepository
+import dev.lkeeeey.edu.library.domain.models.AnswerModel
+import dev.lkeeeey.edu.library.domain.models.BlockTaskModel
+import dev.lkeeeey.edu.library.domain.models.CheckAnswerModel
 import dev.lkeeeey.edu.library.domain.models.DescriptionTeacherModel
+import dev.lkeeeey.edu.library.domain.models.FullBlockModel
 import dev.lkeeeey.edu.library.domain.models.SelectTeacherModel
 import dev.lkeeeey.edu.library.domain.models.TeacherModel
 import dev.lkeeeey.edu.main.domain.models.SelectedTeacherModel
@@ -52,6 +56,35 @@ class LibraryRepositoryImpl (
         return remoteLibraryRepository.unselectTeacher(
             access = getAccess(),
             username = username
+        )
+    }
+
+    override suspend fun searchTaskBlocks(
+        title: String,
+        subject: String
+    ): Result<List<BlockTaskModel>, DataError.Remote> {
+        return remoteLibraryRepository.searchTaskBlocks(
+            access = getAccess(),
+            title = title,
+            subject = subject
+        )
+    }
+
+    override suspend fun getFullTaskBlock(id: String): Result<FullBlockModel, DataError.Remote> {
+        return remoteLibraryRepository.getFullTaskBlock(
+            access = getAccess(),
+            id = id,
+        )
+    }
+
+    override suspend fun checkAnswer(
+        id: String,
+        answer: AnswerModel
+    ): Result<CheckAnswerModel, DataError.Remote> {
+        return remoteLibraryRepository.checkAnswer(
+            access = getAccess(),
+            id = id,
+            answer = answer
         )
     }
 
