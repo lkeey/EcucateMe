@@ -66,6 +66,9 @@ fun TaskModelView (
         OutlinedText(
             previousData = previousData,
             label = "Введите ответ - $type",
+            isEnabled = type != TaskType.SOLVED_RIGHT,
+            isError = type == TaskType.SOLVED_BAD,
+            isSuccess = type == TaskType.SOLVED_RIGHT,
             onTextChanged = {
                 textValue = it
                 onUpdateAnswer(it)
@@ -76,6 +79,7 @@ fun TaskModelView (
 
         FilledBtn(
             text = "Ответить",
+            isEnabled = textValue.isNotEmpty() && type != TaskType.SOLVED_RIGHT,
             backgroundColor = Theme.colors.primaryBackground.copy(alpha = 1f)
         ) {
             onClick()

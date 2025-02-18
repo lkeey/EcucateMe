@@ -47,35 +47,37 @@ fun OutlinedText (
         modifier = Modifier
             .fillMaxWidth(),
         label = {
-            Row {
-                Text(
-                    text = label,
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        fontFamily = FontFamily(Font(Res.font.Thin)),
-                        fontWeight = FontWeight(400),
-                        color = Theme.colors.secondaryBorder,
-                        letterSpacing = 0.3.sp,
+            if (!isSuccess)  {
+                Row {
+                    Text(
+                        text = label,
+                        style = TextStyle(
+                            fontSize = 16.sp,
+                            fontFamily = FontFamily(Font(Res.font.Thin)),
+                            fontWeight = FontWeight(400),
+                            color = Theme.colors.secondaryBorder,
+                            letterSpacing = 0.3.sp,
+                        )
                     )
-                )
 
-                Text(
-                    text = "*",
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        fontFamily = FontFamily(Font(Res.font.Thin)),
-                        fontWeight = FontWeight(500),
-                        color = if(isError) Theme.colors.errorColor else Theme.colors.editPlaceholder,
-                        letterSpacing = 0.3.sp
+                    Text(
+                        text = "*",
+                        style = TextStyle(
+                            fontSize = 16.sp,
+                            fontFamily = FontFamily(Font(Res.font.Thin)),
+                            fontWeight = FontWeight(500),
+                            color = if(isError) Theme.colors.errorColor else Theme.colors.editPlaceholder,
+                            letterSpacing = 0.3.sp
+                        )
                     )
-                )
+                }
             }
         },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = Black,
             focusedLabelColor = Black,
             cursorColor = Black,
-            backgroundColor = White,
+            backgroundColor = if (isSuccess) Theme.colors.primaryBackground.copy(1f) else White,
             errorBorderColor = Theme.colors.errorColor,
         ),
         keyboardOptions = KeyboardOptions(

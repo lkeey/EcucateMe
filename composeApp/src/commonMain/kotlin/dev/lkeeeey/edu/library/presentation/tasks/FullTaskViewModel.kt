@@ -39,7 +39,13 @@ class FullTaskViewModel (
         when (event) {
             is FullTaskEvent.OnAnswer -> {
                 println("send request - ${state.value.solvingTasks.fastFilter { it.id == event.id }}")
+
+                checkAnswer(
+                    id = event.id,
+                    answerModel = state.value.solvingTasks.first { it.id == event.id }.answerModel
+                )
             }
+
             FullTaskEvent.OnLoadFullModel -> {
                 loadFullBlock()
             }
@@ -116,6 +122,59 @@ class FullTaskViewModel (
         }
     }
 
+    private fun checkAnswer(
+        id: String,
+        answerModel: AnswerModel
+    ) {
+        _state.update {
+            it.copy(
+                isLoading = true
+            )
+        }
 
+        viewModelScope.launch {
+            profileRepository.refreshToken()
+                .onSuccess { loginDto ->
+                    authRepository.updateAccessToken(loginDto.accessToken)
 
+                    libraryRepository
+                        .checkAnswer(
+                            id = id,
+                            answer = answerModel
+                        )
+                        .onSuccess { result ->
+
+                            _state.update {
+                                it.copy(
+                                    solvingTasks = state.value.solvingTasks.map { t->
+                                        if (t.id == id) {
+                                            t.copy(type = if (result.isCorrect) TaskType.SOLVED_RIGHT else TaskType.SOLVED_BAD)
+                                        } else {
+                                            t
+                                        }
+                                    },
+                                    isLoading = false
+                                )
+                            }
+                        }
+                        .onError { e ->
+                            _state.update {
+                                it.copy(
+                                    isLoading = false,
+                                    error = e.name
+                                )
+                            }
+                        }
+                }
+                .onError { e ->
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            error = e.name
+                        )
+                    }
+                }
+
+        }
+    }
 }
