@@ -42,10 +42,13 @@ class AllTeachersViewModel (
                         subject = event.subject
                     )
                 }
-                if (state.value.selectedTabIndex == 0) {
+
+                println("index ${state.value.selectedTabIndex}")
+
+                if (state.value.selectedTabIndex == 1) {
                     searchTeachers()
                 } else {
-
+                    searchBlocks()
                 }
 
             }
@@ -55,6 +58,7 @@ class AllTeachersViewModel (
             }
 
             is AllTeachersEvent.OnOpenTeacherDescription -> {
+                println("chosen teacher - ${event.username}")
                 settings.putString(
                     key = Keys.SELECTED_TEACHER,
                     value = event.username
@@ -103,10 +107,14 @@ class AllTeachersViewModel (
                 }
 
                 viewModelScope.launch {
-
+                    _state.update {
+                        it.copy(
+                            isLoading = true
+                        )
+                    }
                     profileRepository.refreshToken()
-                        .onSuccess {
-                            authRepository.updateAccessToken(it.accessToken)
+                        .onSuccess { loginDto ->
+                            authRepository.updateAccessToken(loginDto.accessToken)
 
                             libraryRepository.getTeacherDescription(
                                 username = state.value.selectedUsername
@@ -132,10 +140,27 @@ class AllTeachersViewModel (
 
                                         _state.update {
                                             it.copy(
-                                                isTeacherSelected = isTeacherSelected
+                                                isTeacherSelected = isTeacherSelected,
+                                                isLoading = false,
                                             )
                                         }
                                     }
+                                    .onError { e ->
+                                        _state.update {
+                                            it.copy(
+                                                isLoading = false,
+                                                error = e.name
+                                            )
+                                        }
+                                    }
+                            }
+                        }
+                        .onError { e ->
+                            _state.update {
+                                it.copy(
+                                    isLoading = false,
+                                    error = e.name
+                                )
                             }
                         }
                 }
@@ -148,6 +173,10 @@ class AllTeachersViewModel (
                         selectedTabIndex = event.index
                     )
                 }
+            }
+
+            AllTeachersEvent.OnSearchBlocks -> {
+                searchBlocks()
             }
         }
     }
@@ -177,6 +206,55 @@ class AllTeachersViewModel (
                                     isLoading = false
                                 )
                             }
+                        }
+                        .onError { e ->
+                            _state.update {
+                                it.copy(
+                                    isLoading = false,
+                                    error = e.name
+                                )
+                            }
+                        }
+                }
+                .onError { e ->
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            error = e.name
+                        )
+                    }
+                }
+
+        }
+    }
+
+    private fun searchBlocks() {
+        _state.update {
+            it.copy(
+                isLoading = true
+            )
+        }
+
+        viewModelScope.launch {
+            profileRepository.refreshToken()
+                .onSuccess { loginDto ->
+                    authRepository.updateAccessToken(loginDto.accessToken)
+
+                    libraryRepository
+                        .searchTaskBlocks(
+                            title = "",
+                            subject = state.value.subject
+                        )
+                        .onSuccess { a ->
+
+                            _state.update {
+                                it.copy(
+                                    searchedArticles = a,
+                                    isLoading = false
+                                )
+                            }
+
+                            println("articles - ${state.value.searchedArticles}")
                         }
                         .onError { e ->
                             _state.update {

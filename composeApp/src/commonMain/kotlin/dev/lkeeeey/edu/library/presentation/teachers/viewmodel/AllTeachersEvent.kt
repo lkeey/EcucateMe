@@ -5,6 +5,7 @@ sealed interface AllTeachersEvent {
     data class OnOpenTeacherDescription(val username: String) : AllTeachersEvent
     data class OnTabSelected(val index: Int) : AllTeachersEvent
     data object OnSearchTeachers : AllTeachersEvent
+    data object OnSearchBlocks : AllTeachersEvent
     data object OnSelectTeacher : AllTeachersEvent
     data object OnLoadTeacherDescription : AllTeachersEvent
 }

@@ -1,6 +1,7 @@
 package dev.lkeeeey.edu.library.presentation.teachers.viewmodel
 
 import dev.lkeeeey.edu.library.domain.models.ArticleModel
+import dev.lkeeeey.edu.library.domain.models.BlockTaskModel
 import dev.lkeeeey.edu.library.domain.models.DescriptionTeacherModel
 import dev.lkeeeey.edu.library.domain.models.TeacherModel
 import ecucateme.composeapp.generated.resources.Res
@@ -25,7 +26,7 @@ data class AllTeachersState(
             paint = Res.drawable.ic_english
         )
     ),
-    val searchedArticles : List<ArticleModel> = emptyList(),
+    val searchedArticles : List<BlockTaskModel> = emptyList(),
     val selectedTeacherModel: DescriptionTeacherModel = DescriptionTeacherModel("", "", "", ""),
     val selectedUsername: String = "",
 //    val query: String = "",

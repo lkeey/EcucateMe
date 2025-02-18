@@ -34,8 +34,4 @@ fun AllTeachersScreen (
             }
         }
     )
-
-    LaunchedEffect(true) {
-        viewModel.onEvent(AllTeachersEvent.OnSearchTeachers)
-    }
 }

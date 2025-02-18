@@ -177,11 +177,20 @@ fun TabRows (
                     ) {
                         when(pageIndex) {
                             0 -> {
+                                LaunchedEffect(true) {
+                                    onEvent(AllTeachersEvent.OnSearchBlocks)
+                                }
+
                                 LibraryPostsView(
                                     state = state
                                 )
                             }
+
                             1 -> {
+                                LaunchedEffect(true) {
+                                    onEvent(AllTeachersEvent.OnSearchTeachers)
+                                }
+
                                 AllTeachersView(
                                     state = state,
                                     onEvent = onEvent,
