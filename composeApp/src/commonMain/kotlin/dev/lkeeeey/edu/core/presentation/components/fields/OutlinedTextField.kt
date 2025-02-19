@@ -79,6 +79,7 @@ fun OutlinedText (
             cursorColor = Black,
             backgroundColor = if (isSuccess) Theme.colors.primaryBackground.copy(1f) else White,
             errorBorderColor = Theme.colors.errorColor,
+            disabledTextColor = if (isSuccess) White else Theme.colors.blackProfile
         ),
         keyboardOptions = KeyboardOptions(
             imeAction = androidx.compose.ui.text.input.ImeAction.Next,

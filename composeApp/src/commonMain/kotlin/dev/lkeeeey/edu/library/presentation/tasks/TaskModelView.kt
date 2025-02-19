@@ -65,7 +65,7 @@ fun TaskModelView (
 
         OutlinedText(
             previousData = previousData,
-            label = "Введите ответ - $type",
+            label = "Введите ответ",
             isEnabled = type != TaskType.SOLVED_RIGHT,
             isError = type == TaskType.SOLVED_BAD,
             isSuccess = type == TaskType.SOLVED_RIGHT,

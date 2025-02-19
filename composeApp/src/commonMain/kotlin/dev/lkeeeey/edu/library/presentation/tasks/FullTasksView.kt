@@ -89,7 +89,7 @@ fun FullTasksView (
                 Spacer(Modifier.height(8.dp))
 
                 Text(
-                    text = "Автор", style = TextStyle(
+                    text = state.block.author.name, style = TextStyle(
                         fontSize = 18.sp,
                         fontFamily = FontFamily(org.jetbrains.compose.resources.Font(Res.font.Thin)),
                         fontWeight = FontWeight(600),
