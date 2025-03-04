@@ -66,14 +66,14 @@ fun TeacherCard (
 //        )
 
         AsyncImage(
-            model = teacher.logo ,
+            model = "https://storage.yandexcloud.net/me-educate/avatar/${teacher.logo}.webp",
             contentDescription = "image",
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
                 .clip(CircleShape),
-            alignment = Alignment.Center
+            alignment = Alignment.Centeros
         )
 
         Spacer(Modifier.width(4.dp))

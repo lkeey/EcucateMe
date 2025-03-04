@@ -1,6 +1,5 @@
 package dev.lkeeeey.edu.library.presentation.teacher_detail
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -35,13 +32,10 @@ import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersEvent
 import dev.lkeeeey.edu.library.presentation.teachers.viewmodel.AllTeachersState
 import dev.lkeeeey.edu.main.presentation.profile.main.components.BackBtn
 import dev.lkeeeey.edu.main.presentation.profile.main.components.Reference
-import dev.lkeeeey.edu.main.presentation.profile.teachers.viewmodel.MyTeachersAction
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
 import ecucateme.composeapp.generated.resources.ic_subject
 import ecucateme.composeapp.generated.resources.ic_tg
-import ecucateme.composeapp.generated.resources.profile
-import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun TeacherDetailView (
@@ -88,7 +82,7 @@ fun TeacherDetailView (
 //                contentScale = ContentScale.Crop
 //            )
             AsyncImage(
-                model = state.selectedTeacherModel.logo,
+                model = "https://storage.yandexcloud.net/me-educate/avatar/${state.selectedTeacherModel.logo}.webp",
                 contentDescription = "image",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
