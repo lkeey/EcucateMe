@@ -69,7 +69,8 @@ fun SubjectsView (
             Spacer(Modifier.height(16.dp))
 
             FilledBtn(
-                text = "Добавить"
+                text = "Добавить",
+                isEnabled = !state.subjects.map { it.name }.contains(state.subjectName) && state.subjectName.isNotEmpty()
             ) {
                 onEvent(SubjectsEvent.OnCreateSubject)
             }

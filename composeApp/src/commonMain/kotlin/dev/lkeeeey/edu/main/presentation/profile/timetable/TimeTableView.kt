@@ -212,7 +212,7 @@ fun TimeTableView  (
 //        Button(
 //            modifier = Modifier
 //                .fillMaxWidth()
-//                .padding(horizontal = 32.dp, vertical = 8.dp),
+//                .padding(hcorizontal = 32.dp, vertical = 8.dp),
 //            shape = RoundedCornerShape(size = 16.dp),
 //            colors = ButtonDefaults.buttonColors(
 //                backgroundColor = Theme.colors.primaryBackground.copy(alpha = 1f),

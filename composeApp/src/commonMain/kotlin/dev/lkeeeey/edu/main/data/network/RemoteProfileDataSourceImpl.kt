@@ -16,6 +16,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.delete
 import io.ktor.client.request.get
+import io.ktor.client.request.parameter
 import io.ktor.client.request.patch
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -33,6 +34,18 @@ class RemoteProfileDataSourceImpl(
                 urlString = "$BASE_URL/schedule"
             ) {
                 bearerAuth(access)
+                parameter("query_type", "self")
+            }
+        }
+    }
+
+    suspend fun getTimeTableWithTeacher(access: String): Result<List<TimeTableModel>, DataError.Remote> {
+        return safeCall<List<TimeTableModel>> {
+            httpClient.get(
+                urlString = "$BASE_URL/schedule"
+            ) {
+                bearerAuth(access)
+                parameter("query_type", "related")
             }
         }
     }

@@ -67,10 +67,10 @@ fun MyTeachersView (
                 state.myTeachers.forEach { teacher->
                     TeacherCard(
                         teacher = TeacherModel(
-                            teacher.username,
-                            teacher.name,
-                            teacher.logo ?: "",
-                            teacher.subject
+                            username = teacher.username,
+                            name = teacher.name,
+                            logo = teacher.logo,
+                            subject = teacher.subject
                         )
                     ) {
                         onEvent(MyTeachersEvent.OnOpenTeacherDescription(username = teacher.username))
