@@ -19,6 +19,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
@@ -30,6 +31,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -46,6 +48,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.lkeeeey.edu.core.presentation.Theme
+import dev.lkeeeey.edu.core.presentation.components.btn.FilledBtn
 import dev.lkeeeey.edu.main.presentation.calendar.components.BottomSheet
 import dev.lkeeeey.edu.main.presentation.calendar.components.ImageWithText
 import dev.lkeeeey.edu.main.presentation.calendar.components.MonthText
@@ -82,6 +85,8 @@ fun CalendarView (
         skipPartiallyExpanded = true
     )
 
+    val shouldShowAlertDialog = remember { mutableStateOf(false) }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -117,6 +122,74 @@ fun CalendarView (
                 .padding(horizontal = 16.dp)
 
         ) {
+
+            if (shouldShowAlertDialog.value) {
+                AlertDialog(
+                    onDismissRequest = {
+                        shouldShowAlertDialog.value = false
+                    },
+                    title = {
+                        Text(
+                            text = state.chosenTask.content,
+                            style = TextStyle(
+                                fontSize = 16.sp,
+                                fontFamily = FontFamily(Font(Res.font.Thin)),
+                                fontWeight = FontWeight(600),
+                                color = Theme.colors.blackProfile,
+                                letterSpacing = 0.3.sp,
+                            )
+                        )
+                    },
+                    text = {
+                        Column {
+                            Text(
+                                text = "Предмет: ${state.chosenTask.subject}",
+                                style = TextStyle(
+                                    fontSize = 14.sp,
+                                    fontFamily = FontFamily(Font(Res.font.Thin)),
+                                    fontWeight = FontWeight(600),
+                                    color = Theme.colors.blackProfile,
+                                    letterSpacing = 0.3.sp,
+                                )
+                            )
+
+                            Spacer(Modifier.height(4.dp))
+
+                            Text(
+                                text = "Начало: ${state.chosenTask.start}",
+                                style = TextStyle(
+                                    fontSize = 12.sp,
+                                    fontFamily = FontFamily(Font(Res.font.Thin)),
+                                    fontWeight = FontWeight(500),
+                                    color = Theme.colors.blackProfile,
+                                    letterSpacing = 0.3.sp,
+                                )
+                            )
+
+                            Spacer(Modifier.height(4.dp))
+
+                            Text(
+                                text = "Крайний срок: ${state.chosenTask.deadline.split("T")[0]}",
+                                style = TextStyle(
+                                    fontSize = 12.sp,
+                                    fontFamily = FontFamily(Font(Res.font.Thin)),
+                                    fontWeight = FontWeight(400),
+                                    color = Theme.colors.blackProfile,
+                                    letterSpacing = 0.3.sp,
+                                )
+                            )
+                        }
+                    },
+                    confirmButton = {
+                        FilledBtn(
+                            text = "Выполнено"
+                        ) {
+                            shouldShowAlertDialog.value = false
+                            onEvent(CalendarEvent.OnCompleteTask)
+                        }
+                    }
+                )
+            }
 
             if (state.error.isNotEmpty()) {
                 Text(
@@ -205,7 +278,10 @@ fun CalendarView (
                         start = it.start,
                         subject = it.subject,
                         content = it.content
-                    )
+                    ) {
+                        onEvent(CalendarEvent.OnOpenTaskDetail(it))
+                        shouldShowAlertDialog.value = true
+                    }
                 }
 
                 Spacer(Modifier.height(32.dp))

@@ -1,6 +1,7 @@
 package dev.lkeeeey.edu.main.presentation.calendar.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,6 +28,7 @@ fun ScheduledTask (
     start: String,
     subject: String,
     content: String,
+    onClick: () -> Unit
 ) {
 
     Column (
@@ -43,6 +45,9 @@ fun ScheduledTask (
                 )
             )
             .padding(16.dp)
+            .clickable {
+                onClick()
+            }
     ) {
 //        val time = distribution.start.split("T")
 //        val endTime = LocalTime.fromSecondOfDay(LocalTime.parse(time[1]).toSecondOfDay() + distribution.durationMin * 60)

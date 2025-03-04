@@ -163,6 +163,18 @@ class CalendarViewModel (
                         }
                 }
             }
+
+            CalendarEvent.OnCompleteTask -> {
+                completeTask(id = state.value.chosenTask.id)
+            }
+
+            is CalendarEvent.OnOpenTaskDetail -> {
+                _state.update {
+                    it.copy(
+                        chosenTask = event.model
+                    )
+                }
+            }
         }
     }
 
@@ -202,10 +214,12 @@ class CalendarViewModel (
                                             if (d.start.split("T")[0].parseToLocalDate() == state.value.selectedDate) {
                                                 todayTasks.add(
                                                     DistributionModelPreview(
-                                                        start = d.start,
+                                                        id = t.id,
+                                                        start = d.start.split("T")[1],
                                                         durationMin = d.durationMin,
                                                         content = t.content,
                                                         subject = t.subject,
+                                                        deadline = t.deadline
                                                     )
                                                 )
                                             }
@@ -250,6 +264,12 @@ class CalendarViewModel (
                     }
                 }
         }
+    }
+
+    private fun completeTask(
+        id: Int
+    ) {
+
     }
 
 }

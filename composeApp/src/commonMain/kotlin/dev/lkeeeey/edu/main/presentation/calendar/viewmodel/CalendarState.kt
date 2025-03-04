@@ -29,5 +29,7 @@ data class CalendarState (
 
     val currentDate: LocalDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date,
     val selectedDate: LocalDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date,
+
+    val chosenTask: DistributionModelPreview = DistributionModelPreview(0, "", 0, "", "", "")
 )
 
