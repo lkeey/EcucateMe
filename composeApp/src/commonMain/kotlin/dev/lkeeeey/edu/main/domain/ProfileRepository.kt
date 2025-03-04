@@ -42,4 +42,8 @@ interface ProfileRepository {
 
     suspend fun getTeacherProfile() : Result<ProfileModel, DataError.Remote>
 
+    suspend fun completeTask(
+        id: Int
+    ) : Result<Unit, DataError.Remote>
+
 }

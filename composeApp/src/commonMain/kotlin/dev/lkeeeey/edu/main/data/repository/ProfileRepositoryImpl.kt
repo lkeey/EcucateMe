@@ -105,6 +105,13 @@ class ProfileRepositoryImpl (
         )
     }
 
+    override suspend fun completeTask(id: Int): Result<Unit, DataError.Remote> {
+        return remoteProfileDataSource.completeTask(
+            id = id,
+            access = getAccess()
+        )
+    }
+
     private fun getUsername() : String {
         return settings.getString(
             key = Keys.MY_USERNAME,

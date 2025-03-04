@@ -269,7 +269,31 @@ class CalendarViewModel (
     private fun completeTask(
         id: Int
     ) {
+        _state.update {
+            it.copy(
+                isLoading = true
+            )
+        }
+        viewModelScope.launch {
+            profileRepository.refreshToken()
+                .onSuccess { res ->
+                    authRepository.updateAccessToken(res.accessToken)
 
+                    profileRepository
+                        .completeTask(id = id)
+                        .onSuccess {
+                            loadSubjectsPerDay()
+                        }
+                        .onError { e ->
+                            _state.update {
+                                it.copy(
+                                    isLoading = false,
+                                    error = e.name
+                                )
+                            }
+                        }
+                }
+
+        }
     }
-
 }

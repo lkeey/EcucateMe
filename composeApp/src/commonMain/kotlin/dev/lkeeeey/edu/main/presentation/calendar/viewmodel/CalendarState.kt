@@ -1,7 +1,6 @@
 package dev.lkeeeey.edu.main.presentation.calendar.viewmodel
 
 import dev.lkeeeey.edu.core.domain.getWeek
-import dev.lkeeeey.edu.main.domain.models.DistributionModel
 import dev.lkeeeey.edu.main.domain.models.DistributionModelPreview
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
 import dev.lkeeeey.edu.main.domain.models.TimeTableModel

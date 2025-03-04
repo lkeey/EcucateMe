@@ -8,6 +8,7 @@ import dev.lkeeeey.edu.core.domain.DataError
 import dev.lkeeeey.edu.core.domain.Result
 import dev.lkeeeey.edu.main.domain.models.CreateTaskModel
 import dev.lkeeeey.edu.main.domain.models.ProfileModel
+import dev.lkeeeey.edu.main.domain.models.StateModel
 import dev.lkeeeey.edu.main.domain.models.SubjectPresModel
 import dev.lkeeeey.edu.main.domain.models.SubjectSchedule
 import dev.lkeeeey.edu.main.domain.models.TaskModel
@@ -196,6 +197,19 @@ class RemoteProfileDataSourceImpl(
                 setBody(
                     task
                 )
+            }
+        }
+    }
+
+    override suspend fun completeTask(id: Int, access: String): Result<Unit, DataError.Remote> {
+        return safeCall<Unit> {
+            httpClient.patch(
+                urlString = "$BASE_URL/schedule/homework/$id"
+            ) {
+                bearerAuth(
+                    access
+                )
+                setBody(StateModel(1))
             }
         }
     }

@@ -66,4 +66,9 @@ interface RemoteProfileDataSource {
         task: CreateTaskModel
     ) : Result<CreateTaskModel, DataError.Remote>
 
+    suspend fun completeTask(
+        id: Int,
+        access: String,
+    ) : Result<Unit, DataError.Remote>
+
 }
