@@ -8,7 +8,7 @@ data class DescriptionTeacherModel(
     @SerialName("username") val username: String = "",
     @SerialName("name") val name: String = "",
     @SerialName("bio") val bio: String = "",
-    @SerialName("avatar_url") val logo: String = "",
+    @SerialName("avatar") val logo: String = "",
     @SerialName("subject") val subject: String = "",
     @SerialName("tasks_created") val createdTasks: Int = 0,
 )

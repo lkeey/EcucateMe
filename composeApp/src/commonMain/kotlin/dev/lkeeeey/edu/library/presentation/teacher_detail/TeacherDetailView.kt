@@ -1,20 +1,26 @@
 package dev.lkeeeey.edu.library.presentation.teacher_detail
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
@@ -49,6 +55,8 @@ fun TeacherDetailView (
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .blur(if (state.isLoading) 4.dp else 0.dp),
     ) {
 
         Column(
@@ -71,24 +79,13 @@ fun TeacherDetailView (
                 containerColor = White
             )
 
-//            Image(
-//                modifier = Modifier
-//                    .padding(top = 8.dp)
-//                    .size(95.dp)
-//                    .align(Alignment.CenterHorizontally)
-//                    .clip(CircleShape),
-//                painter = painterResource(Res.drawable.profile),
-//                contentDescription = "custom transition based on painter state",
-//                contentScale = ContentScale.Crop
-//            )
             AsyncImage(
                 model = "https://storage.yandexcloud.net/me-educate/avatar/${state.selectedTeacherModel.logo}.webp",
                 contentDescription = "image",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .height(150.dp)
+                    .width(300.dp)
+                    .height(300.dp)
                     .clip(CircleShape),
                 alignment = Alignment.Center
             )

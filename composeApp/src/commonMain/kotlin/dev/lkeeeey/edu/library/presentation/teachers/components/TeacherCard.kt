@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -56,32 +57,24 @@ fun TeacherCard (
             },
         horizontalArrangement = Arrangement.Start
     ) {
-//        Image(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .weight(1f),
-//            painter = painterResource(Res.drawable.ic_calendar_no_plans),
-//            contentDescription = "image of teacher",
-//            alignment = Alignment.Center
-//        )
 
         AsyncImage(
             model = "https://storage.yandexcloud.net/me-educate/avatar/${teacher.logo}.webp",
             contentDescription = "image",
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
+                .height(200.dp)
+                .width(200.dp)
                 .clip(CircleShape),
-            alignment = Alignment.Centeros
+            alignment = Alignment.Center
         )
 
         Spacer(Modifier.width(4.dp))
 
         Column (
-           modifier = Modifier
-               .fillMaxWidth()
-               .weight(1f)
+//           modifier = Modifier
+//               .fillMaxWidth()
+//               .weight(1f)
         ) {
             Text(
                 text = teacher.name,
