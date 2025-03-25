@@ -265,24 +265,24 @@ fun App(
 
         Scaffold(
             topBar = {
-                if (isShowTopBar) {
-                    TopAppBar(
-                        title = {  },
-                        navigationIcon = {
-                            Icon(
-                                tint = White,
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "add",
-                                modifier = Modifier
-                                    .clip(CircleShape)
-                                    .clickable {
-                                        navController.popBackStack()
-                                    }
-                            )
-                        },
-                        backgroundColor = Theme.colors.primaryBackground.copy(1f)
-                    )
-                }
+//                if (isShowTopBar) {
+//                    TopAppBar(
+//                        title = {  },
+//                        navigationIcon = {
+//                            Icon(
+//                                tint = White,
+//                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+//                                contentDescription = "add",
+//                                modifier = Modifier
+//                                    .clip(CircleShape)
+//                                    .clickable {
+//                                        navController.popBackStack()
+//                                    }
+//                            )
+//                        },
+//                        backgroundColor = Theme.colors.primaryBackground.copy(1f)
+//                    )
+//                }
             },
             bottomBar = {
                 // don't show when auth

@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             App(
-                isShowTopBar = false
+                isShowTopBar = true
             )
         }
     }
