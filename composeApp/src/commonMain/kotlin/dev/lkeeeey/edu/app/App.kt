@@ -28,6 +28,9 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.Black
@@ -70,6 +73,7 @@ import dev.lkeeeey.edu.main.presentation.profile.timetable.viewmodel.TimeTableVi
 import ecucateme.composeapp.generated.resources.Res
 import ecucateme.composeapp.generated.resources.Thin
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 //@Composable
@@ -567,3 +571,10 @@ fun App(
     }
 }
 
+@Preview
+@Composable
+fun TestScreen() {
+    var text by remember { mutableStateOf("Hello") }
+    Text(text = text)
+    text = "World"
+}

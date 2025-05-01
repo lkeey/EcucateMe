@@ -3,7 +3,6 @@ package dev.lkeeeey.edu.core.presentation
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.platform.LocalViewConfiguration
 
 @Composable
 fun EduMeTheme(
